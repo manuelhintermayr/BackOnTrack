@@ -19,7 +19,7 @@
     <Grid Background="#7F2F2F2F">
         <Grid x:Name="TitleArea" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="344">
             <TextBlock x:Name="Title" HorizontalAlignment="Left" Margin="16,8,0,0" TextWrapping="Wrap" Text="Enter Password - BackOnTrack" VerticalAlignment="Top" Foreground="#FFC1B5B5"/>
-            <TextBlock x:Name="Exit_Button" HorizontalAlignment="Right" TextWrapping="Wrap" Text="" Height="32" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Padding="12,9,12,0" PreviewMouseLeftButtonDown="Exit_Button_PreviewMouseLeftButtonDown">
+            <TextBlock x:Name="Exit_Button" HorizontalAlignment="Right" TextWrapping="Wrap" Text="" Height="35" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Padding="12,10,12,0" PreviewMouseLeftButtonDown="Exit_Button_PreviewMouseLeftButtonDown" Margin="0,-3,-3,0" Width="39">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Style.Triggers>
