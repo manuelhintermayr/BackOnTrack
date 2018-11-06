@@ -48,6 +48,8 @@ namespace BackOnTrack
         [DllImport("user32.dll")]
         internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
 
+        private MainView.MainView view;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -89,7 +91,9 @@ namespace BackOnTrack
         private void Login_Button_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             //validate login
-            System.Console.WriteLine("pressed");
+            this.Hide();
+            view = new MainView.MainView(this);
+            view.Show();
         }
     }
 }
