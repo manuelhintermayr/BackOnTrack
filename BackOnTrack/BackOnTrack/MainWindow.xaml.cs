@@ -60,6 +60,7 @@ namespace BackOnTrack
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             EnableBlur();
+            this.MouseLeftButtonDown += delegate { DragMove(); };
         }
 
         private void EnableBlur()
@@ -84,7 +85,7 @@ namespace BackOnTrack
             Marshal.FreeHGlobal(accentPtr);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Exit_Button_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Close();
         }
