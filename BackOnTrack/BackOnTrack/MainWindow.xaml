@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BackOnTrack"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Login - BackOnTrack" 
+        Height="225" 
+        Width="350" 
+        FontFamily="Calibri" 
+        Background="#19FFFFFF" 
+        AllowsTransparency="True" 
+        WindowStyle="None" 
+        BorderThickness="3"
+        BorderBrush="Gray"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
     <Grid>
-        
+        <Grid HorizontalAlignment="Center">
+
+            <TextBox x:Name="Password_Box" HorizontalAlignment="Left" Height="23" Margin="61,81,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64" Foreground="White">
+                Hello Blur!
+            </TextBlock>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="344">
+            <Button Content="" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="41" Margin="303,0,0,0" Height="32" FontFamily="Segoe MDL2 Assets" Click="Button_Click"/>
+        </Grid>
     </Grid>
 </Window>
