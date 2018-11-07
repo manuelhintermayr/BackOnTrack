@@ -331,3 +331,7 @@ ASALocalRun/
 
 # UI TestAutomation
 A2A.TAF/
+
+# Exception
+!WPFToolkit.dll
+!FirstFloor.ModernUI.dll
