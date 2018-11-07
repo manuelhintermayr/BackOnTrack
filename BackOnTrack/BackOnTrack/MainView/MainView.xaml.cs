@@ -28,13 +28,10 @@ namespace BackOnTrack.MainView
             InitializeComponent();
             this.mainWindow = mainWindow;
             Application.Current.Resources["AccentColor"] = Colors.Teal;
-            //Closing += OnWindowClosing();
         }
-
-        private void Window_Closed(object sender, EventArgs e)
+        private void ModernWindow_Closed(object sender, EventArgs e)
         {
             mainWindow.Close();
         }
-
     }
 }
