@@ -76,6 +76,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MainView\Logout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainView\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -94,6 +98,9 @@
     </Compile>
     <Compile Include="MainView\LayoutList.xaml.cs">
       <DependentUpon>LayoutList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainView\Logout.xaml.cs">
+      <DependentUpon>Logout.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainView\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>

@@ -91,9 +91,19 @@ namespace BackOnTrack
         private void Login_Button_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             //validate login
-            this.Hide();
+            HideLoginView();
             view = new MainView.MainView(this);
             view.Show();
+        }
+
+        public void OpenLoginView()
+        {
+            this.Show();
+        }
+
+        public void HideLoginView()
+        {
+            this.Hide();
         }
     }
 }

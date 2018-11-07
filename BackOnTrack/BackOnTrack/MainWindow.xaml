@@ -15,7 +15,8 @@
         BorderThickness="3"
         BorderBrush="Gray"
         WindowStartupLocation="CenterScreen"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        ResizeMode="NoResize">
     <Grid Background="#7F2F2F2F">
         <Grid x:Name="TitleArea" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="344">
             <TextBlock x:Name="Title" HorizontalAlignment="Left" Margin="16,8,0,0" TextWrapping="Wrap" Text="Enter Password - BackOnTrack" VerticalAlignment="Top" Foreground="White" FontFamily="Microsoft Tai Le"/>
