@@ -7,12 +7,23 @@
              mc:Ignorable="d" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Style="{StaticResource ContentRoot}">
-        <mui:ModernTab SelectedSource="/UI/MainView/Pages/Settings/SettingsGeneral.xaml" Layout="List">
-            <mui:ModernTab.Links>
-                <mui:Link DisplayName="General" Source="/UI/MainView/Pages/Settings/SettingsGeneral.xaml" />
-                <mui:Link DisplayName="WebProxy" Source="/UI/MainView/Pages/Settings/SettingsWebProxy.xaml" />
-            </mui:ModernTab.Links>
-        </mui:ModernTab>
+    <Grid>
+        <Grid Style="{StaticResource ContentRoot}" VerticalAlignment="Stretch" Margin="16,28,16,120">
+            <mui:ModernTab SelectedSource="/UI/MainView/Pages/Settings/SettingsGeneral.xaml" Layout="List">
+                <mui:ModernTab.Links>
+                    <mui:Link DisplayName="General" Source="/UI/MainView/Pages/Settings/SettingsGeneral.xaml" />
+                    <mui:Link DisplayName="WebProxy" Source="/UI/MainView/Pages/Settings/SettingsWebProxy.xaml" />
+                </mui:ModernTab.Links>
+            </mui:ModernTab>
+        </Grid>
+        <Grid Height="100" VerticalAlignment="Bottom">
+            <Grid Height="60"  HorizontalAlignment="Left" Margin="16,0,0,0">
+                <Button Content="Reload Configuration" />
+            </Grid>
+            <Grid Height="60" Width="280" HorizontalAlignment="Right" Margin="0,0,20,0">
+                <Button Content="Save Configuration" HorizontalAlignment="Left" />
+                <Button Content="Revert Changes" HorizontalAlignment="Right"/>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

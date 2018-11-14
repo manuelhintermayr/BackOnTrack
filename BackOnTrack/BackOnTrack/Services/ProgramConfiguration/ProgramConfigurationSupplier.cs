@@ -20,7 +20,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
             CopyCurrentConfiguration();
         }
 
-        private void SetCurrentConfiguration()
+        public void SetCurrentConfiguration()
         {
             if (FileModification.FileExists(ConfigurationPath))
             {
@@ -48,7 +48,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
             FileModification.WriteFile(ConfigurationPath, jsonConfiguration);
         }
 
-        public void CopyCurrentConfiguration()
+        private void CopyCurrentConfiguration()
         {
             TempConfiguration = (CurrentProgramConfiguration)Configuration.Clone();
         }
