@@ -49,12 +49,12 @@ namespace BackOnTrack.UI.Login
         [DllImport("user32.dll")]
         internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
 
-        private MainView.MainView view;
+        private MainView.MainView _view;
         private Application _application;
-        private Brush correctLoginColor;
-        private Brush wrongLoginColor;
-        public const string configurationAlreadyCreated = "Please enter the password you set in the configuration.";
-        public const string configurationMustBeCreated = "Please set a password for the configuration.";
+        private Brush _correctLoginColor;
+        private Brush _wrongLoginColor;
+        public const string ConfigurationAlreadyCreated = "Please enter the password you set in the configuration.";
+        public const string ConfigurationMustBeCreated = "Please set a password for the configuration.";
 
         public LoginWindow()
         {
@@ -64,13 +64,13 @@ namespace BackOnTrack.UI.Login
 
         private void Setup()
         {
-            this._application = Application.Instance();
-            correctLoginColor = new SolidColorBrush(Color.FromRgb(51, 51, 51));
-            wrongLoginColor = new SolidColorBrush(Color.FromRgb(255, 117, 117));
+            _application = Application.Instance();
+            _correctLoginColor = new SolidColorBrush(Color.FromRgb(51, 51, 51));
+            _wrongLoginColor = new SolidColorBrush(Color.FromRgb(255, 117, 117));
             SetConfigurationText();
         }
 
-        public void Show()
+        public new void Show()
         {
             SetConfigurationText();
             base.Show();
@@ -78,19 +78,19 @@ namespace BackOnTrack.UI.Login
 
         private void SetConfigurationText()
         {
-            this.ConfigurationText.Text = _application
+            ConfigurationText.Text = _application
                 .Services
                 .UserConfiguration
                 .ConfigurationIsAlreadyCreated()
-                ? configurationAlreadyCreated
-                : configurationMustBeCreated;
+                ? ConfigurationAlreadyCreated
+                : ConfigurationMustBeCreated;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             EnableBlur();
-            this.MouseLeftButtonDown += delegate { DragMove(); };
-            PassworBox.Background = correctLoginColor;
+            MouseLeftButtonDown += delegate { DragMove(); };
+            PassworBox.Background = _correctLoginColor;
         }
 
         private void EnableBlur()
@@ -135,9 +135,9 @@ namespace BackOnTrack.UI.Login
 
         private void PassworBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (PassworBox.Background == wrongLoginColor)
+            if (PassworBox.Background == _wrongLoginColor)
             {
-                PassworBox.Background = correctLoginColor;
+                PassworBox.Background = _correctLoginColor;
             }
         }
 
@@ -145,13 +145,13 @@ namespace BackOnTrack.UI.Login
 
         public void ExitLoginView()
         {
-            this.Hide();
+            Hide();
             _application.Shutdown();
         }
 
         public void ValidateLogin()
         {
-            string password = this.PassworBox.Password;
+            string password = PassworBox.Password;
             bool configurationExists = _application
                 .Services
                 .UserConfiguration
@@ -167,12 +167,12 @@ namespace BackOnTrack.UI.Login
                 if (passwordCorrect)
                 {
                     PassworBox.Password = "";
-                    PassworBox.Background = correctLoginColor;
+                    PassworBox.Background = _correctLoginColor;
                     _application.UI.OpenMainView(password);
                 }
                 else
                 {
-                    PassworBox.Background = wrongLoginColor;
+                    PassworBox.Background = _wrongLoginColor;
                 }
                 
             }
@@ -184,7 +184,7 @@ namespace BackOnTrack.UI.Login
                     .CreateNewConfiguration(password);
                 Messages.CreateMessageBox("Created new profile!", "Profile was successfully created.", false);
                 PassworBox.Password = "";
-                PassworBox.Background = correctLoginColor;
+                PassworBox.Background = _correctLoginColor;
                 _application.UI.OpenMainView(password);
             }
         }

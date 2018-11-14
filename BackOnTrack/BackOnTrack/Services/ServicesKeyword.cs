@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BackOnTrack.Services.ProgramConfiguration;
-using BackOnTrack.Services.Proxy;
 using BackOnTrack.Services.UserConfiguration;
 
 namespace BackOnTrack.Services
@@ -13,12 +9,12 @@ namespace BackOnTrack.Services
     {
         public UserConfigurationSupplier UserConfiguration;
         public ProgramConfigurationSupplier ProgramConfiguration;
-        public WebProxy WebProxy;
+        public WebProxy.WebProxy WebProxy;
         public ServicesKeyword()
         {
             ProgramConfiguration = new ProgramConfigurationSupplier();
             UserConfiguration = new UserConfigurationSupplier();
-            WebProxy = new WebProxy();
+            WebProxy = new WebProxy.WebProxy();
         }
     }
 }

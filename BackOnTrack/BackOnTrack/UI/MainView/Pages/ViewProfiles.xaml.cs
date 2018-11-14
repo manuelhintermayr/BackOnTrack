@@ -7,12 +7,10 @@ namespace BackOnTrack.UI.MainView.Pages
     /// </summary>
     public partial class ViewProfiles : UserControl
     {
-        private UI.MainView.MainView view;
+        private MainView _view;
         public ViewProfiles()
         {
             InitializeComponent();
         }
-
-
     }
 }

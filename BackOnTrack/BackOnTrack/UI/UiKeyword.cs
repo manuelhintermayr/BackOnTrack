@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using BackOnTrack.Infrastructure.Helpers;
+﻿using BackOnTrack.Infrastructure.Helpers;
 using BackOnTrack.UI.Login;
 
 namespace BackOnTrack.UI
@@ -32,7 +26,7 @@ namespace BackOnTrack.UI
             else
             {
                 Login.Hide();
-                MainView = new MainView.MainView(userConfiguration);
+                MainView = new MainView.MainView(userConfiguration, password);
                 MainView.Show();
             }
         }

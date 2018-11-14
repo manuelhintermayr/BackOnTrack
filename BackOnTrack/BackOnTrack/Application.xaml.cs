@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Forms;
-using System.Windows.Interop;
 using BackOnTrack.Infrastructure.Helpers;
 using BackOnTrack.Services;
 using BackOnTrack.UI;
-using BackOnTrack.UI.Login;
-using BackOnTrack.UI.MainView;
 
 namespace BackOnTrack
 {
@@ -31,7 +25,7 @@ namespace BackOnTrack
 
         private void Setup()
         {
-            this.Hide();
+            Hide();
             try
             {
                 Services = new ServicesKeyword();

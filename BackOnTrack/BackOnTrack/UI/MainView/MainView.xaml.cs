@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Threading;
-using System.Windows;
 using System.Windows.Media;
-using BackOnTrack.UI.Login;
+using BackOnTrack.Services.UserConfiguration;
 using FirstFloor.ModernUI.Windows.Controls;
 
 namespace BackOnTrack.UI.MainView
@@ -12,22 +11,22 @@ namespace BackOnTrack.UI.MainView
     /// </summary>
     public partial class MainView : ModernWindow
     {
-        private static MainView instance;
-        public MainView(Services.UserConfiguration.CurrentUserConfiguration userConfiguration)
-        {
-            InitializeComponent();
-            System.Windows.Application.Current.Resources["AccentColor"] = Colors.Teal;
-            instance = this;
-        }
+        private Application _application;
+        public CurrentUserConfiguration UserConfiguration;
+        private string _password;
 
-        public static MainView Instace()
+        public MainView(CurrentUserConfiguration userConfiguration, string password)
         {
-            return instance;
+            _application = Application.Instance();
+            InitializeComponent();
+            UserConfiguration = userConfiguration;
+            _password = password;
+            System.Windows.Application.Current.Resources["AccentColor"] = Colors.Teal;
         }
 
         public void Logout()
         {
-            this.Hide();
+            Hide();
             Thread.Sleep(200);
 
             Application.Instance().UI.Login.Show();

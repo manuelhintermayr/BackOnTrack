@@ -1,35 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BackOnTrack.Services.UserConfiguration
 {
     public class CurrentUserConfiguration
     {
-        public List<Profile> profileList; 
+        public List<Profile> ProfileList; 
     }
 
     public class Profile
     {
-        public string profileName;
-        public List<Entry> entryList;
+        public string ProfileName;
+        public List<Entry> EntryList;
 
         public static Profile CreateProfile(string profileName)
         {
-            return new Profile() { profileName = profileName, entryList = new List<Entry>() };
+            return new Profile() { ProfileName = profileName, EntryList = new List<Entry>() };
         }
     }
 
     public class Entry
     {
-        public string content;
-        public bool isEnabled;
+        public string Content;
+        public bool IsEnabled;
 
         public static Entry CreateEntry(string content, bool isEnabled = true)
         {
-            return new Entry() { content = content, isEnabled = isEnabled };
+            return new Entry() { Content = content, IsEnabled = isEnabled };
         }
     }
 }

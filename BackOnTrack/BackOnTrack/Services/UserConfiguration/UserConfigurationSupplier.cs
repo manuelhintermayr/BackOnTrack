@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BackOnTrack.Infrastructure.Helpers;
-using BackOnTrack.Properties;
-using BackOnTrack.Services.ProgramConfiguration;
 using Newtonsoft.Json;
 
 namespace BackOnTrack.Services.UserConfiguration
@@ -34,7 +29,7 @@ namespace BackOnTrack.Services.UserConfiguration
 
         public void CreateNewConfiguration(string password)
         {
-            CurrentUserConfiguration configuration = new CurrentUserConfiguration(){profileList = new List<Profile>()};
+            CurrentUserConfiguration configuration = new CurrentUserConfiguration(){ProfileList = new List<Profile>()};
 
             var jsonConfiguration = JsonConvert.SerializeObject(configuration);
             FileModification.WriteFile(ConfigurationPath, jsonConfiguration);
@@ -42,15 +37,13 @@ namespace BackOnTrack.Services.UserConfiguration
 
         public CurrentUserConfiguration OpenConfiguration(string password)
         {
-            string configuration = FileModification.ReadFile(ConfigurationPath);
-            if (configuration == "")
+            string configurationContent = FileModification.ReadFile(ConfigurationPath);
+            if (configurationContent != "")
             {
-                return null;
+                return JsonConvert.DeserializeObject<CurrentUserConfiguration>(configurationContent);
             }
-            else
-            {
-                return JsonConvert.DeserializeObject<CurrentUserConfiguration>(configuration);
-            }
+
+            return null;
         }
     }
 }

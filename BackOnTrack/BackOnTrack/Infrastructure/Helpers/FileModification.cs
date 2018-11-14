@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace BackOnTrack.Infrastructure.Helpers
 {
@@ -13,11 +8,11 @@ namespace BackOnTrack.Infrastructure.Helpers
         {
             string content = "";
 
-            if (File.Exists(filename))
+            if (FileExists(filename))
             {
-                StreamReader file = new StreamReader(filename, System.Text.Encoding.Default);
-                content = file.ReadToEnd();
-                file.Close();
+                StreamReader fileReader = new StreamReader(filename, System.Text.Encoding.Default);
+                content = fileReader.ReadToEnd();
+                fileReader.Close();
             }
             return content;
         }

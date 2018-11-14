@@ -7,7 +7,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
     public class ProgramConfigurationSupplier
     {
         public string ConfigurationPath;
-        public CurrentProgramConfiguration Settings;
+        public CurrentProgramConfiguration Configuration;
 
         public ProgramConfigurationSupplier()
         {
@@ -22,14 +22,14 @@ namespace BackOnTrack.Services.ProgramConfiguration
         {
             if (FileModification.FileExists(ConfigurationPath))
             {
-                string configuration = FileModification.ReadFile(ConfigurationPath);
-                if (configuration == "")
+                string configurationContent = FileModification.ReadFile(ConfigurationPath);
+                if (configurationContent == "")
                 {
                     CreateNewConfiguration();
                 }
                 else
                 {
-                    Settings = JsonConvert.DeserializeObject<CurrentProgramConfiguration>(configuration);
+                    Configuration = JsonConvert.DeserializeObject<CurrentProgramConfiguration>(configurationContent);
                 }
             }
             else
@@ -41,9 +41,9 @@ namespace BackOnTrack.Services.ProgramConfiguration
 
         private void CreateNewConfiguration()
         {
-            Settings = new CurrentProgramConfiguration() { ProxyEnabled = false };
-            var jsonSettings = JsonConvert.SerializeObject(Settings);
-            FileModification.WriteFile(ConfigurationPath, jsonSettings);
+            Configuration = new CurrentProgramConfiguration() { ProxyEnabled = false };
+            var jsonConfiguration = JsonConvert.SerializeObject(Configuration);
+            FileModification.WriteFile(ConfigurationPath, jsonConfiguration);
         }
     }
 }

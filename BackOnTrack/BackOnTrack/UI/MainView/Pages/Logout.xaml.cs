@@ -8,21 +8,19 @@ namespace BackOnTrack.UI.MainView.Pages
     /// </summary>
     public partial class Logout : UserControl
     {
+        private Application _application;
         public Logout()
         {
+            _application = Application.Instance();
             InitializeComponent();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var mainView = UI.MainView.MainView.Instace();
-            mainView.Logout();
-        }
-
-        private void UserControl_GotFocus(object sender, RoutedEventArgs e)
-        {
-            var mainView = UI.MainView.MainView.Instace();
-            mainView.Logout();
+            _application
+                .UI
+                .MainView
+                .Logout();
         }
     }
 }
