@@ -1,32 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Dynamic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using BackOnTrack.UI.Login;
 using FirstFloor.ModernUI.Windows.Controls;
 
-namespace BackOnTrack.MainView
+namespace BackOnTrack.UI.MainView
 {
     /// <summary>
     /// Interaction logic for MainView.xaml
     /// </summary>
     public partial class MainView : ModernWindow
     {
-        private MainWindow mainWindow;
+        private LoginWindow mainWindow;
         private static MainView instance;
-        public MainView(MainWindow mainWindow)
+        public MainView(LoginWindow mainWindow)
         {
             InitializeComponent();
             this.mainWindow = mainWindow;

@@ -72,19 +72,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainView\LayoutList.xaml">
+    <Page Include="UI\Login\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainView\Logout.xaml">
+    <Page Include="UI\MainView\Pages\LayoutList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainView\MainView.xaml">
+    <Page Include="UI\MainView\Pages\Logout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainView\ViewProfiles.xaml">
+    <Page Include="UI\MainView\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\ViewProfiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -96,16 +100,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainView\LayoutList.xaml.cs">
+    <Compile Include="UI\Login\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainView\Pages\LayoutList.xaml.cs">
       <DependentUpon>LayoutList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainView\Logout.xaml.cs">
+    <Compile Include="UI\MainView\Pages\Logout.xaml.cs">
       <DependentUpon>Logout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainView\MainView.xaml.cs">
+    <Compile Include="UI\MainView\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainView\ViewProfiles.xaml.cs">
+    <Compile Include="UI\MainView\Pages\ViewProfiles.xaml.cs">
       <DependentUpon>ViewProfiles.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
