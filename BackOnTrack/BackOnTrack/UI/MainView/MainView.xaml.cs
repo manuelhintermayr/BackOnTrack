@@ -18,7 +18,7 @@ namespace BackOnTrack.UI.MainView
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
-            Application.Current.Resources["AccentColor"] = Colors.Teal;
+            System.Windows.Application.Current.Resources["AccentColor"] = Colors.Teal;
             instance = this;
         }
 
@@ -32,7 +32,7 @@ namespace BackOnTrack.UI.MainView
             this.Hide();
             Thread.Sleep(200);
 
-            mainWindow.OpenLoginView();
+            Application.Instance().Login.Show();
         }
 
         private void ModernWindow_Closed(object sender, EventArgs e)
