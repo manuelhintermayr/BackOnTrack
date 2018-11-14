@@ -16,6 +16,7 @@ namespace BackOnTrack
     /// </summary>
     public partial class Application : Window
     {
+        //todo: watch out, that program cannot be opened twice
         public UiKeyword UI;
         public ServicesKeyword Services;
         private static Application _instance;

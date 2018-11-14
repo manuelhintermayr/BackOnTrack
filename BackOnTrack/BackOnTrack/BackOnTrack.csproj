@@ -71,6 +71,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Infrastructure\Helpers\FileModification.cs" />
+    <Compile Include="Services\ProgramConfiguration\CurrentProgramConfiguration.cs" />
     <Compile Include="Services\ProgramConfiguration\ProgramConfigurationSupplier.cs" />
     <Compile Include="Services\WebProxy\WebProxy.cs" />
     <Compile Include="Services\UserConfiguration\UserConfigurationSupplier.cs" />
