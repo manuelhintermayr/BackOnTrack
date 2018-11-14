@@ -39,10 +39,16 @@ namespace BackOnTrack
             }
             catch (UnauthorizedAccessException e)
             {
-                Messages.CreateMessageBox("Please make sure you have admin rights and start the BackOnTrack-application again.", "No admin rights", true);
+                Messages.CreateMessageBox(
+                    "Please make sure you have admin rights and start the application again.",
+                    "BackOnTrack - No admin rights", true);
                 Shutdown();
             }
-
+            catch (System.IO.IOException e)
+            {
+                Messages.CreateMessageBox($"The following error occured with a file:{Environment.NewLine}{Environment.NewLine}{e.Message}", "BackOnTrack - Error with file", true);
+                Shutdown();
+            }
         }
 
         public static Application Instance()

@@ -35,5 +35,10 @@ namespace BackOnTrack.Infrastructure.Helpers
                 dir.Create();
             }
         }
+
+        public static void WriteFile(string filename, string content)
+        {
+            File.WriteAllText(filename, content);
+        }
     }
 }
