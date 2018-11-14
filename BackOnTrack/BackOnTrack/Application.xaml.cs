@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Interop;
+using BackOnTrack.Infrastructure.Helpers;
 using BackOnTrack.Services;
 using BackOnTrack.UI;
 using BackOnTrack.UI.Login;
@@ -31,8 +32,17 @@ namespace BackOnTrack
         private void Setup()
         {
             this.Hide();
-            Services = new ServicesKeyword();
-            UI = new UiKeyword();
+            try
+            {
+                Services = new ServicesKeyword();
+                UI = new UiKeyword();
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                Messages.CreateMessageBox("Please make sure you have admin rights and start the BackOnTrack-application again.", "No admin rights", true);
+                Shutdown();
+            }
+
         }
 
         public static Application Instance()

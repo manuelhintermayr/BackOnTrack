@@ -28,8 +28,11 @@ namespace BackOnTrack.Services.ProgramConfiguration
                 FileModification.CreateFolderIfNotExists(ConfigurationPath.Replace("\\config.settings",""));
                 Settings = new CurrentProgramConfiguration() {ProxyEnabled = false};
 
+                var x = Newtonsoft.Json.JsonConvert.SerializeObject(Settings);
+
                 var result = File.Create(ConfigurationPath);
             }
+
         }
     }
 }
