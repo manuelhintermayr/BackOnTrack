@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BackOnTrack.Infrastructure.Helpers;
 using Newtonsoft.Json;
 
@@ -18,7 +13,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
         {
             ConfigurationPath =
                 $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\config.settings";
-            //todo: ^ add more configurable for testing 
+            //todo: ^ make more configurable for testing 
 
            SetCurrentConfiguration();
         }

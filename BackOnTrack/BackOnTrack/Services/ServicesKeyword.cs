@@ -16,8 +16,8 @@ namespace BackOnTrack.Services
         public WebProxy WebProxy;
         public ServicesKeyword()
         {
-            UserConfiguration = new UserConfigurationSupplier();
             ProgramConfiguration = new ProgramConfigurationSupplier();
+            UserConfiguration = new UserConfigurationSupplier();
             WebProxy = new WebProxy();
         }
     }

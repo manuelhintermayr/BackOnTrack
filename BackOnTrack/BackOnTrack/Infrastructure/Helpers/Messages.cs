@@ -11,7 +11,7 @@ namespace BackOnTrack.Infrastructure.Helpers
     {
         public static void CreateMessageBox(string message, string title, bool isError)
         {
-                MessageBox.Show(message,
+                MessageBox.Show($"BackOnTrack - {message}",
                     title,
                     MessageBoxButtons.OK,isError?
                     MessageBoxIcon.Error:MessageBoxIcon.Information,

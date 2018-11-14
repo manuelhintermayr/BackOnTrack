@@ -13,7 +13,7 @@ namespace BackOnTrack.UI.MainView
     public partial class MainView : ModernWindow
     {
         private static MainView instance;
-        public MainView()
+        public MainView(Services.UserConfiguration.CurrentUserConfiguration userConfiguration)
         {
             InitializeComponent();
             System.Windows.Application.Current.Resources["AccentColor"] = Colors.Teal;

@@ -41,12 +41,12 @@ namespace BackOnTrack
             {
                 Messages.CreateMessageBox(
                     "Please make sure you have admin rights and start the application again.",
-                    "BackOnTrack - No admin rights", true);
+                    "No admin rights", true);
                 Shutdown();
             }
             catch (System.IO.IOException e)
             {
-                Messages.CreateMessageBox($"The following error occured with a file:{Environment.NewLine}{Environment.NewLine}{e.Message}", "BackOnTrack - Error with file", true);
+                Messages.CreateMessageBox($"The following error occured with a file:{Environment.NewLine}{Environment.NewLine}{e.Message}", "Error with file", true);
                 Shutdown();
             }
         }

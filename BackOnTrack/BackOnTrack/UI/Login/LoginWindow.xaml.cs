@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using BackOnTrack.Infrastructure.Helpers;
 
 namespace BackOnTrack.UI.Login
 {
@@ -142,7 +143,6 @@ namespace BackOnTrack.UI.Login
 
 
 
-
         public void ExitLoginView()
         {
             this.Hide();
@@ -152,23 +152,41 @@ namespace BackOnTrack.UI.Login
         public void ValidateLogin()
         {
             string password = this.PassworBox.Password;
-            bool passwordCorrect = _application
+            bool configurationExists = _application
                 .Services
                 .UserConfiguration
-                .CheckPassword(password);
+                .ConfigurationIsAlreadyCreated();
 
-            if (passwordCorrect)
+            if (configurationExists)
             {
-                PassworBox.Password = "";
-                PassworBox.Background = correctLoginColor;
-                this.Hide();
-                _application.UI.OpenMainView(password);
+                bool passwordCorrect = _application
+                    .Services
+                    .UserConfiguration
+                    .CheckPassword(password);
+
+                if (passwordCorrect)
+                {
+                    PassworBox.Password = "";
+                    PassworBox.Background = correctLoginColor;
+                    _application.UI.OpenMainView(password);
+                }
+                else
+                {
+                    PassworBox.Background = wrongLoginColor;
+                }
+                
             }
             else
             {
-                PassworBox.Background = wrongLoginColor;
+                _application
+                    .Services
+                    .UserConfiguration
+                    .CreateNewConfiguration(password);
+                Messages.CreateMessageBox("Created new profile!", "Profile was successfully created.", false);
+                PassworBox.Password = "";
+                PassworBox.Background = correctLoginColor;
+                _application.UI.OpenMainView(password);
             }
-            //todo: If UserConfiguration is missing, creating here the new password.
         }
     }
 }
