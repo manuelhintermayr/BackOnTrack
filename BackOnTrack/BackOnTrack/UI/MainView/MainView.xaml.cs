@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using System.Windows.Media;
 using BackOnTrack.Services.UserConfiguration;
 using FirstFloor.ModernUI.Windows.Controls;
 
@@ -21,7 +20,6 @@ namespace BackOnTrack.UI.MainView
             InitializeComponent();
             UserConfiguration = userConfiguration;
             _password = password;
-            System.Windows.Application.Current.Resources["AccentColor"] = Colors.Teal;
         }
 
         public void Logout()

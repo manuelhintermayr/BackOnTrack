@@ -79,6 +79,18 @@
     <Compile Include="Services\WebProxy\WebProxy.cs" />
     <Compile Include="Services\UserConfiguration\UserConfigurationSupplier.cs" />
     <Compile Include="Services\ServicesKeyword.cs" />
+    <Compile Include="UI\MainView\Pages\SampleHolder.xaml.cs">
+      <DependentUpon>SampleHolder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainView\Pages\Settings\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainView\Pages\Settings\SettingsGeneral.xaml.cs">
+      <DependentUpon>SettingsGeneral.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainView\Pages\Settings\SettingsWebProxy.xaml.cs">
+      <DependentUpon>SettingsWebProxy.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UiKeyword.cs" />
     <Page Include="Assets\Theme.xaml">
       <SubType>Designer</SubType>
@@ -97,6 +109,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MainView\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\SampleHolder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Settings\Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Settings\SettingsGeneral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Settings\SettingsWebProxy.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -167,5 +195,6 @@
     <Resource Include="Assets\logo.png" />
     <Content Include="Assets\WPFToolkit.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

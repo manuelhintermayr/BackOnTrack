@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Media;
 using BackOnTrack.Infrastructure.Helpers;
 using BackOnTrack.Services;
 using BackOnTrack.UI;
@@ -12,6 +13,7 @@ namespace BackOnTrack
     public partial class Application : Window
     {
         //todo: watch out, that program cannot be opened twice
+        //todo: if programm was tried to open twice, open from the running instance the login window
         public UiKeyword UI;
         public ServicesKeyword Services;
         private static Application _instance;
@@ -26,6 +28,7 @@ namespace BackOnTrack
         private void Setup()
         {
             Hide();
+            System.Windows.Application.Current.Resources["AccentColor"] = Colors.Teal;
             try
             {
                 Services = new ServicesKeyword();

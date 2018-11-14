@@ -10,10 +10,10 @@
         <PasswordBox HorizontalAlignment="Left" Margin="45,10,0,0" VerticalAlignment="Top"/>
         <Button Content="Button" HorizontalAlignment="Left" Margin="137,99,-21,0" VerticalAlignment="Top" Width="75"/>
         <Grid Style="{StaticResource ContentRoot}">
-            <mui:ModernTab SelectedSource="/Content/LoremIpsum.xaml#1" Layout="List">
+            <mui:ModernTab SelectedSource="/UI/MainView/Pages/SampleHolder.xaml#1" Layout="List">
                 <mui:ModernTab.Links>
-                    <mui:Link DisplayName="Lorem Ipsum 1" Source="/Content/LoremIpsum.xaml#1" />
-                    <mui:Link DisplayName="Lorem Ipsum 2" Source="/Content/LoremIpsum.xaml#2" />
+                    <mui:Link DisplayName="Lorem Ipsum 1" Source="/UI/MainView/Pages/SampleHolder.xaml#1" />
+                    <mui:Link DisplayName="Lorem Ipsum 2" Source="/UI/MainView/Pages/SampleHolder.xaml#2" />
                 </mui:ModernTab.Links>
             </mui:ModernTab>
         </Grid>
