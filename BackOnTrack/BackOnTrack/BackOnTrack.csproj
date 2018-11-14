@@ -68,6 +68,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Services\UserConfiguration\UserConfigurationSupplier.cs" />
+    <Compile Include="Services\ServicesKeyword.cs" />
     <Compile Include="UI\UiKeyword.cs" />
     <Page Include="Assets\Theme.xaml">
       <SubType>Designer</SubType>

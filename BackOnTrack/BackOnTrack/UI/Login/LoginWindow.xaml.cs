@@ -77,7 +77,10 @@ namespace BackOnTrack.UI.Login
 
         private void SetConfigurationText()
         {
-            this.ConfigurationText.Text = _application.ConfigurationIsAlreadyCreated()
+            this.ConfigurationText.Text = _application
+                .Services
+                .UserConfiguration
+                .ConfigurationIsAlreadyCreated()
                 ? configurationAlreadyCreated
                 : configurationMustBeCreated;
         }
@@ -149,7 +152,11 @@ namespace BackOnTrack.UI.Login
         public void ValidateLogin()
         {
             string password = this.PassworBox.Password;
-            bool passwordCorrect = _application.CheckPassword(password);
+            bool passwordCorrect = _application
+                .Services
+                .UserConfiguration
+                .CheckPassword(password);
+
             if (passwordCorrect)
             {
                 PassworBox.Password = "";
@@ -161,7 +168,7 @@ namespace BackOnTrack.UI.Login
             {
                 PassworBox.Background = wrongLoginColor;
             }
-            //todo: If Configuration is missing, creating here the new password.
+            //todo: If UserConfiguration is missing, creating here the new password.
         }
     }
 }
