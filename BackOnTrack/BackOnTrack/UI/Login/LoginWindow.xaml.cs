@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 
@@ -51,13 +52,34 @@ namespace BackOnTrack.UI.Login
         private Application _application;
         private Brush correctLoginColor;
         private Brush wrongLoginColor;
+        public const string configurationAlreadyCreated = "Please enter the password you set in the configuration.";
+        public const string configurationMustBeCreated = "Please set a password for the configuration.";
 
         public LoginWindow()
         {
             InitializeComponent();
+            Setup();
+        }
+
+        private void Setup()
+        {
             this._application = Application.Instance();
-            correctLoginColor = new SolidColorBrush(Color.FromRgb(51,51,51));
+            correctLoginColor = new SolidColorBrush(Color.FromRgb(51, 51, 51));
             wrongLoginColor = new SolidColorBrush(Color.FromRgb(255, 117, 117));
+            SetConfigurationText();
+        }
+
+        public void Show()
+        {
+            SetConfigurationText();
+            base.Show();
+        }
+
+        private void SetConfigurationText()
+        {
+            this.ConfigurationText.Text = _application.ConfigurationIsAlreadyCreated()
+                ? configurationAlreadyCreated
+                : configurationMustBeCreated;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -99,6 +121,24 @@ namespace BackOnTrack.UI.Login
             ValidateLogin();
         }
 
+        private void PassworBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return || e.Key == Key.Enter)
+            {
+                ValidateLogin();
+            }
+        }
+
+        private void PassworBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (PassworBox.Background == wrongLoginColor)
+            {
+                PassworBox.Background = correctLoginColor;
+            }
+        }
+
+
+
 
         public void ExitLoginView()
         {
@@ -112,24 +152,16 @@ namespace BackOnTrack.UI.Login
             bool passwordCorrect = _application.CheckPassword(password);
             if (passwordCorrect)
             {
+                PassworBox.Password = "";
                 PassworBox.Background = correctLoginColor;
                 this.Hide();
-                view = new MainView.MainView(this);
-                view.Show();
+                _application.UI.OpenMainView(password);
             }
             else
             {
                 PassworBox.Background = wrongLoginColor;
             }
-
-        }
-
-        private void PassworBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (PassworBox.Background == wrongLoginColor)
-            {
-                PassworBox.Background = correctLoginColor;
-            }
+            //todo: If Configuration is missing, creating here the new password.
         }
     }
 }

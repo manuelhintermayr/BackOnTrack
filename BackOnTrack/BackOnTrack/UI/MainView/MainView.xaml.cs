@@ -12,12 +12,10 @@ namespace BackOnTrack.UI.MainView
     /// </summary>
     public partial class MainView : ModernWindow
     {
-        private LoginWindow mainWindow;
         private static MainView instance;
-        public MainView(LoginWindow mainWindow)
+        public MainView()
         {
             InitializeComponent();
-            this.mainWindow = mainWindow;
             System.Windows.Application.Current.Resources["AccentColor"] = Colors.Teal;
             instance = this;
         }
@@ -32,12 +30,12 @@ namespace BackOnTrack.UI.MainView
             this.Hide();
             Thread.Sleep(200);
 
-            Application.Instance().Login.Show();
+            Application.Instance().UI.Login.Show();
         }
 
         private void ModernWindow_Closed(object sender, EventArgs e)
         {
-            mainWindow.Close();
+            Application.Instance().Shutdown();
         }
 
     }

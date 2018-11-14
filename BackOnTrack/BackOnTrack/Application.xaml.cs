@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Interop;
+using BackOnTrack.UI;
 using BackOnTrack.UI.Login;
 using BackOnTrack.UI.MainView;
 
@@ -14,8 +15,7 @@ namespace BackOnTrack
     /// </summary>
     public partial class Application : Window
     {
-        public LoginWindow Login;
-        public MainView UI;
+        public UiKeyword UI;
         private static Application _instance;
 
         public Application()
@@ -28,8 +28,7 @@ namespace BackOnTrack
         private void Setup()
         {
             this.Hide();
-            Login = new LoginWindow();
-            Login.Show();
+            UI = new UiKeyword();
         }
 
         public static Application Instance()
@@ -39,7 +38,12 @@ namespace BackOnTrack
 
         public bool CheckPassword(string password)
         {
-            return password == "admin" ? true : false;
+            return password == "admin";
+        }
+
+        public bool ConfigurationIsAlreadyCreated()
+        {
+            return true;
         }
 
 
