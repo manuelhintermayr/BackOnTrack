@@ -68,6 +68,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Services\ProgramConfiguration\ProgramConfigurationSupplier.cs" />
+    <Compile Include="Services\WebProxy\WebProxy.cs" />
     <Compile Include="Services\UserConfiguration\UserConfigurationSupplier.cs" />
     <Compile Include="Services\ServicesKeyword.cs" />
     <Compile Include="UI\UiKeyword.cs" />
