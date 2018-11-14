@@ -8,6 +8,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
     {
         public string ConfigurationPath;
         public CurrentProgramConfiguration Configuration;
+        public CurrentProgramConfiguration TempConfiguration;
 
         public ProgramConfigurationSupplier()
         {
@@ -15,7 +16,8 @@ namespace BackOnTrack.Services.ProgramConfiguration
                 $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\config.settings";
             //todo: ^ make more configurable for testing 
 
-           SetCurrentConfiguration();
+            SetCurrentConfiguration();
+            CopyCurrentConfiguration();
         }
 
         private void SetCurrentConfiguration()
@@ -44,6 +46,11 @@ namespace BackOnTrack.Services.ProgramConfiguration
             Configuration = new CurrentProgramConfiguration() { ProxyEnabled = false };
             var jsonConfiguration = JsonConvert.SerializeObject(Configuration);
             FileModification.WriteFile(ConfigurationPath, jsonConfiguration);
+        }
+
+        public void CopyCurrentConfiguration()
+        {
+            TempConfiguration = (CurrentProgramConfiguration)Configuration.Clone();
         }
     }
 }

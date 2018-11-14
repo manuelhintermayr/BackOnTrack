@@ -73,6 +73,7 @@
     </ApplicationDefinition>
     <Compile Include="Infrastructure\Helpers\FileModification.cs" />
     <Compile Include="Infrastructure\Helpers\Messages.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\ProgramConfiguration\CurrentProgramConfiguration.cs" />
     <Compile Include="Services\ProgramConfiguration\ProgramConfigurationSupplier.cs" />
     <Compile Include="Services\UserConfiguration\CurrentUserConfiguration.cs" />
