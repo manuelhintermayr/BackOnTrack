@@ -5,14 +5,25 @@ using BackOnTrack.Annotations;
 
 namespace BackOnTrack.Services.ProgramConfiguration
 {
-    public class CurrentProgramConfiguration : ICloneable
+    public class CurrentProgramConfiguration : INotifyPropertyChanged
     {
-        public bool ProxyEnabled { get; set; }
-
-        public object Clone()
+        private bool _proxyEnabled;
+        public bool ProxyEnabled
         {
-            return this.MemberwiseClone();
+            get { return _proxyEnabled;}
+            set
+            {
+                _proxyEnabled = value;
+                OnPropertyChanged("ProxyEnabled");
+            }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string property)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
+        }
     }
 }

@@ -16,11 +16,10 @@ namespace BackOnTrack.Services.ProgramConfiguration
                 $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\config.settings";
             //todo: ^ make more configurable for testing 
 
-            SetCurrentConfiguration();
-            CopyCurrentConfiguration();
+            SetCurrentConfigurationFromConfig();
         }
 
-        public void SetCurrentConfiguration()
+        public void SetCurrentConfigurationFromConfig()
         {
             if (FileModification.FileExists(ConfigurationPath))
             {
@@ -39,6 +38,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
                 FileModification.CreateFolderIfNotExists(ConfigurationPath.Replace("\\config.settings", ""));
                 CreateNewConfiguration();
             }
+            CopyCurrentConfiguration();
         }
 
         private void CreateNewConfiguration()
@@ -50,7 +50,12 @@ namespace BackOnTrack.Services.ProgramConfiguration
 
         private void CopyCurrentConfiguration()
         {
-            TempConfiguration = (CurrentProgramConfiguration)Configuration.Clone();
+            if (TempConfiguration == null)
+            {
+                TempConfiguration = new CurrentProgramConfiguration();
+            }
+
+            TempConfiguration.ProxyEnabled = Configuration.ProxyEnabled;
         }
     }
 }

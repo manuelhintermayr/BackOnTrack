@@ -23,13 +23,11 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
     public partial class SettingsProxy : UserControl
     {
         private Application _application;
-        public CurrentProgramConfiguration TempConfiguration;
         public SettingsProxy()
         {
             _application = Application.Instance();
-            TempConfiguration = _application.Services.ProgramConfiguration.TempConfiguration;
             InitializeComponent();
-            DataContext = TempConfiguration;
+            DataContext = _application.Services.ProgramConfiguration.TempConfiguration;
         }
     }
 }

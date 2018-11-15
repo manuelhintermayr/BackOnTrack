@@ -18,6 +18,7 @@ namespace BackOnTrack.UI.MainView
         {
             _application = Application.Instance();
             InitializeComponent();
+            App.Current.MainWindow = _application.UI.MainView; //fix for the dialogWindow
             UserConfiguration = userConfiguration;
             _password = password;
         }
