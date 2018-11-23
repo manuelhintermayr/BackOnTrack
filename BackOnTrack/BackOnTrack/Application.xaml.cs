@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Media;
 using BackOnTrack.Infrastructure.Helpers;
 using BackOnTrack.Services;
@@ -12,14 +16,17 @@ namespace BackOnTrack
     /// </summary>
     public partial class Application : Window
     {
-        //todo: watch out, that program cannot be opened twice
-        //todo: if programm was tried to open twice, open from the running instance the login window
+        [DllImport("user32.dll")]
+        private static extern Boolean ShowWindow(IntPtr hWnd, Int32 nCmdShow);
+
         public UiKeyword UI;
         public ServicesKeyword Services;
         private static Application _instance;
 
         public Application()
         {
+            CheckAndCloseIfApplicationIsAlreadyRunning();
+
             InitializeComponent();
             _instance = this;
             Setup();
@@ -29,10 +36,13 @@ namespace BackOnTrack
         {
             Hide();
             System.Windows.Application.Current.Resources["AccentColor"] = Colors.Teal;
+
+            string[] settings = Environment.GetCommandLineArgs();
+
             try
             {
                 Services = new ServicesKeyword();
-                UI = new UiKeyword();
+                UI = new UiKeyword(!settings.Contains("-startWithoutUi"));
             }
             catch (UnauthorizedAccessException e)
             {
@@ -48,6 +58,23 @@ namespace BackOnTrack
             }
         }
 
+        private void CheckAndCloseIfApplicationIsAlreadyRunning()
+        {
+            Process currentProcess = Process.GetCurrentProcess();
+            var runningProcess = (from process in Process.GetProcesses()
+                where
+                    process.Id != currentProcess.Id &&
+                    process.ProcessName.Equals(
+                        currentProcess.ProcessName,
+                        StringComparison.Ordinal)
+                select process).FirstOrDefault();
+            if (runningProcess != null)
+            {
+                ShowWindow(runningProcess.MainWindowHandle, 1);
+                Shutdown();
+            }
+        }
+
         public static Application Instance()
         {
             return _instance;
@@ -55,6 +82,7 @@ namespace BackOnTrack
 
         public void Shutdown()
         {
+            //here also check if objects are initialized before trying to shut them down
             Environment.Exit(0);
         }
     }

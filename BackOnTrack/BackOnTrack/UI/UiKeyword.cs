@@ -1,4 +1,6 @@
-﻿using BackOnTrack.Infrastructure.Helpers;
+﻿using System;
+using System.Diagnostics;
+using BackOnTrack.Infrastructure.Helpers;
 using BackOnTrack.UI.Login;
 
 namespace BackOnTrack.UI
@@ -9,11 +11,14 @@ namespace BackOnTrack.UI
         public MainView.MainView MainView;
         public Application _application;
 
-        public UiKeyword()
+        public UiKeyword(bool openLoginView = true)
         {
             _application = Application.Instance();
             Login = new LoginWindow();
-            Login.Show();
+            if (openLoginView)
+            {
+                Login.Show();
+            }
         }
 
         public void OpenMainView(string password)
