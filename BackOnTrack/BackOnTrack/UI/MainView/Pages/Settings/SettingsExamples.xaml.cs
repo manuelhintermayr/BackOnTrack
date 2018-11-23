@@ -16,16 +16,13 @@ using System.Windows.Shapes;
 namespace BackOnTrack.UI.MainView.Pages.Settings
 {
     /// <summary>
-    /// Interaction logic for SettingsGeneral.xaml
+    /// Interaction logic for SettingsExamples.xaml
     /// </summary>
-    public partial class SettingsGeneral : UserControl
+    public partial class SettingsExamples : UserControl
     {
-        private Application _application;
-        public SettingsGeneral()
+        public SettingsExamples()
         {
-            _application = Application.Instance();
             InitializeComponent();
-            DataContext = _application.Services.ProgramConfiguration.TempConfiguration;
         }
     }
 }

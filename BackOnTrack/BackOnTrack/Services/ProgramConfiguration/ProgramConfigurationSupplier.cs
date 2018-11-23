@@ -43,7 +43,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
 
         private void CreateNewConfiguration()
         {
-            Configuration = new CurrentProgramConfiguration() { ProxyEnabled = false };
+            Configuration = new CurrentProgramConfiguration() { ProxyEnabled = false, AutoRunEnabled = true};
             var jsonConfiguration = JsonConvert.SerializeObject(Configuration);
             FileModification.WriteFile(ConfigurationPath, jsonConfiguration);
         }
@@ -56,6 +56,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
             }
 
             TempConfiguration.ProxyEnabled = Configuration.ProxyEnabled;
+            TempConfiguration.AutoRunEnabled = Configuration.AutoRunEnabled;
         }
     }
 }
