@@ -102,6 +102,7 @@ namespace BackOnTrack
 
         public void Shutdown()
         {
+            Services.WebProxy.Dispose();
             //here also check if objects are initialized before trying to shut them down
             Environment.Exit(0);
         }
