@@ -145,8 +145,7 @@ namespace BackOnTrack.UI.Login
 
         public void ExitLoginView()
         {
-            Hide();
-            _application.Shutdown();
+            _application.MinimizeToTray();
         }
 
         public void ValidateLogin()

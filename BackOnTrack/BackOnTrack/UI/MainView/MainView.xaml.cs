@@ -33,7 +33,7 @@ namespace BackOnTrack.UI.MainView
 
         private void ModernWindow_Closed(object sender, EventArgs e)
         {
-            Application.Instance().Shutdown();
+            _application.MinimizeToTray();
         }
 
     }

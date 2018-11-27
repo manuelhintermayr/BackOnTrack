@@ -22,6 +22,8 @@ namespace BackOnTrack
         public UiKeyword UI;
         public ServicesKeyword Services;
         private static Application _instance;
+        bool minimizedToTray;
+        NotifyIcon trayIcon;
 
         public Application()
         {
@@ -86,38 +88,44 @@ namespace BackOnTrack
             Environment.Exit(0);
         }
 
-        //public void MinimizeToTray()
-        //{
-        //    trayIcon = new NotifyIcon();
-        //    trayIcon.DoubleClick += new EventHandler(trayIconClick);
-        //    Stream iconStream = Application
-        //        .GetResourceStream(new Uri(
-        //            "pack://application:,,,/BackOnTrack;component/icon.ico"))
-        //        ?.Stream;
-        //    trayIcon.Icon = new System.Drawing.Icon(iconStream);
-        //    trayIcon.Text = "Back on Track";
-        //    trayIcon.Visible = true;
+        public void MinimizeToTray()
+        {
+            trayIcon = new NotifyIcon();
+            trayIcon.DoubleClick += new EventHandler(trayIconClick);
+            trayIcon.Icon = new System.Drawing.Icon("logo.ico");
+            trayIcon.Text = "Back on Track";
+            trayIcon.Visible = true;
 
-        //    if (UI.MainView != null)
-        //    {
-        //        UI.MainView.WindowState = WindowState.Minimized;
-        //        UI.MainView.Hide();
-        //    }
-        //    UI.Login.WindowState = WindowState.Minimized;
-        //    UI.Login.Hide();
+            if (UI.MainView != null)
+            {
+                UI.MainView.WindowState = WindowState.Minimized;
+                UI.MainView.Hide();
+            }
+            UI.Login.WindowState = WindowState.Minimized;
+            UI.Login.Hide();
 
-        //    minimizedToTray = true;
-        //}
+            minimizedToTray = true;
+        }
 
-        //private void trayIconClick(Object sender, System.EventArgs e)
-        //{
-        //    ShowWindow();
-        //}
+        private void trayIconClick(Object sender, System.EventArgs e)
+        {
+            ShowWindow();
+        }
 
-        //public void ShowWindow()
-        //{
-        //    //muss ueberarbeitet werden
-        //    UI.Login.Show();
-        //}
+        public void ShowWindow()
+        {
+            if (minimizedToTray)
+            {
+                trayIcon.Visible = false;
+                UI.Login.Show();
+                UI.Login.WindowState = WindowState.Normal;
+                minimizedToTray = false;
+            }
+            else
+            {
+                //WinApi.ShowToFront(new WindowInteropHelper(this).Handle);
+                //muss ueberarbeitet werden
+            }
+        }
     }
 }
