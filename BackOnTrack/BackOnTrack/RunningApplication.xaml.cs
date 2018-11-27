@@ -137,15 +137,16 @@ namespace BackOnTrack
             }
             else
             {
-                //Window showWindowToFront;
-                //if (UI.MainView != null)
-                //{
-                //    if(UI.MainView.i)
-                //}
-                //var window
+                Window showWindowToFront = UI.Login;
+                if (UI.MainView != null)
+                {
+                    if (UI.MainView.WindowIsShown)
+                    {
+                        showWindowToFront = UI.MainView;
+                    }
+                }
 
-                WinApi.ShowToFront(new WindowInteropHelper(UI.Login).Handle);
-                //muss ueberarbeitet werden
+                WinApi.ShowToFront(new WindowInteropHelper(showWindowToFront).Handle);
             }
         }
 

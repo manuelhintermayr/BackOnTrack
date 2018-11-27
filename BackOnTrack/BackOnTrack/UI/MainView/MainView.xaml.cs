@@ -12,6 +12,7 @@ namespace BackOnTrack.UI.MainView
     {
         private RunningApplication _runningApplication;
         public CurrentUserConfiguration UserConfiguration;
+        public bool WindowIsShown;
         private string _password;
 
         public MainView(CurrentUserConfiguration userConfiguration, string password)
@@ -21,11 +22,13 @@ namespace BackOnTrack.UI.MainView
             App.Current.MainWindow = _runningApplication.UI.MainView; //fix for the dialogWindow
             UserConfiguration = userConfiguration;
             _password = password;
+            WindowIsShown = true;
         }
 
         public void Logout()
         {
             Hide();
+            WindowIsShown = false;
             Thread.Sleep(200);
 
             RunningApplication.Instance().UI.Login.Show();
@@ -33,6 +36,7 @@ namespace BackOnTrack.UI.MainView
 
         private void ModernWindow_Closed(object sender, EventArgs e)
         {
+            WindowIsShown = false;
             _runningApplication.MinimizeToTray();
         }
 
