@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>logo.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FirstFloor.ModernUI, Version=1.0.5.0, Culture=neutral, PublicKeyToken=2d21ec3cd074c59a, processorArchitecture=MSIL">
@@ -73,6 +73,9 @@
     </ApplicationDefinition>
     <Compile Include="Infrastructure\Helpers\FileModification.cs" />
     <Compile Include="Infrastructure\Helpers\Messages.cs" />
+    <Compile Include="Infrastructure\Helpers\ProgramInfo.cs" />
+    <Compile Include="Infrastructure\Helpers\SingleInstance.cs" />
+    <Compile Include="Infrastructure\Helpers\WinApi.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\ProgramConfiguration\CurrentProgramConfiguration.cs" />
     <Compile Include="Services\ProgramConfiguration\ProgramConfigurationSupplier.cs" />
@@ -94,6 +97,9 @@
     </Compile>
     <Compile Include="UI\MainView\Pages\Settings\SettingsWebProxy.xaml.cs">
       <DependentUpon>SettingsWebProxy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainView\Pages\Shutdown.xaml.cs">
+      <DependentUpon>Shutdown.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UiKeyword.cs" />
     <Page Include="Assets\Theme.xaml">
@@ -136,11 +142,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\MainView\Pages\Shutdown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\MainView\Pages\ViewProfiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Application.xaml">
+    <Page Include="RunningApplication.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -163,8 +173,8 @@
     <Compile Include="UI\MainView\Pages\ViewProfiles.xaml.cs">
       <DependentUpon>ViewProfiles.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Application.xaml.cs">
-      <DependentUpon>Application.xaml</DependentUpon>
+    <Compile Include="RunningApplication.xaml.cs">
+      <DependentUpon>RunningApplication.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -199,6 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\FirstFloor.ModernUI.dll" />
+    <None Include="Resources\Icon.ico" />
     <Resource Include="logo.ico" />
     <Resource Include="Assets\logo.png" />
     <Content Include="Assets\WPFToolkit.dll" />

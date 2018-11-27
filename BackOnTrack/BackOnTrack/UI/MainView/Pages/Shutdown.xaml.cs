@@ -13,19 +13,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BackOnTrack.UI.MainView.Pages.Settings
+namespace BackOnTrack.UI.MainView.Pages
 {
     /// <summary>
-    /// Interaction logic for SettingsGeneral.xaml
+    /// Interaction logic for Shutdown.xaml
     /// </summary>
-    public partial class SettingsGeneral : UserControl
+    public partial class Shutdown : UserControl
     {
         private RunningApplication _runningApplication;
-        public SettingsGeneral()
+
+        public Shutdown()
         {
             _runningApplication = RunningApplication.Instance();
             InitializeComponent();
-            DataContext = _runningApplication.Services.ProgramConfiguration.TempConfiguration;
+        }
+
+        private void ShutdownButton_Click(object sender, RoutedEventArgs e)
+        {
+            _runningApplication.Shutdown();
         }
     }
 }
