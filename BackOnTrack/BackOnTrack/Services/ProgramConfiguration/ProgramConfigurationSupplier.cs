@@ -79,12 +79,37 @@ namespace BackOnTrack.Services.ProgramConfiguration
 
             TempConfiguration.ProxyEnabled = Configuration.ProxyEnabled;
             TempConfiguration.AutoRunEnabled = Configuration.AutoRunEnabled;
+
+            LoadingConfiguration();
         }
 
         private void CopyTempConfigurationToCurrentConfig()
         {
             Configuration.ProxyEnabled = TempConfiguration.ProxyEnabled;
             Configuration.AutoRunEnabled = TempConfiguration.AutoRunEnabled;
+        }
+
+
+        private void LoadingConfiguration()
+        {
+            if (Configuration.AutoRunEnabled)
+            {
+                //turn on
+            }
+            else
+            {
+                //turn off
+            }
+
+            if (Configuration.ProxyEnabled)
+            {
+                //turn on
+            }
+            else
+            {
+                //turn off
+            }
+
         }
     }
 }
