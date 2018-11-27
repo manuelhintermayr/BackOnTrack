@@ -18,21 +18,37 @@ namespace BackOnTrack.WebProxy
     public class LocalWebProxy : IDisposable
     {
         private readonly ProxyServer _proxyServer;
-        private ExplicitProxyEndPoint explicitEndPoint;
+
+        #region Configuration
+        private bool _isSystemProxy;
         private List<string> ListOfBlockedSites;
+        #endregion
+
+        private ExplicitProxyEndPoint explicitEndPoint;
+        
+
+        
         public static bool ProxyRunning { get; set; }
         private readonly ExplicitProxyEndPoint endPoint = new ExplicitProxyEndPoint(IPAddress.Loopback, 8000, true);
 
-        public LocalWebProxy()
+        public LocalWebProxy(bool isSystemProxy = true)
         {
+            _isSystemProxy = isSystemProxy;
             _proxyServer = new ProxyServer();
             ListOfBlockedSites = new List<string>();
-
-            ListOfBlockedSites.Add("google.com");
         }
 
-        public void StartProxy()
+        public void SetList(List<string> blockedList)
         {
+            //should only be called if proxy is not running
+
+            ListOfBlockedSites = blockedList;
+        }
+
+        public void StartProxy(int port = 8000)
+        {
+            //todo custom port configuration
+
             SetRequestConfiguration(); //set Configuration
 
             if (!PortInUse(endPoint))
@@ -44,10 +60,11 @@ namespace BackOnTrack.WebProxy
                 throw new WebProxyPortProblemException($"Cannot create a WebProxy. Port {endPoint.Port} is beeing used.");
             }
 
-            //todo rework
-            _proxyServer.SetAsSystemHttpProxy(explicitEndPoint); //set as system proxy
-            _proxyServer.SetAsSystemHttpsProxy(explicitEndPoint);
-            //todo end
+            if (_isSystemProxy)
+            {
+                _proxyServer.SetAsSystemHttpProxy(explicitEndPoint);
+                _proxyServer.SetAsSystemHttpsProxy(explicitEndPoint);
+            }
 
             foreach (var endPoint in _proxyServer.ProxyEndPoints)
                 Console.WriteLine("Listening on '{0}' endpoint at Ip {1} and port: {2} ",
@@ -55,6 +72,54 @@ namespace BackOnTrack.WebProxy
 
             ProxyRunning = _proxyServer.ProxyRunning;
         }
+        public void QuitProxy()
+        {
+            //Unsubscribe & Quit
+            _proxyServer.BeforeRequest -= OnRequest;
+            _proxyServer.BeforeResponse -= OnResponse;
+            _proxyServer.Stop();
+            explicitEndPoint = null;
+            ProxyRunning = false;
+        }
+
+        #region ProxyOperations
+
+        private async Task OnRequest(object sender, SessionEventArgs e)
+        {
+            Console.WriteLine(e.WebSession.Request.Url);
+
+            foreach (string blockedSite in ListOfBlockedSites)
+            {
+                if ((e.WebSession.Request.RequestUri.AbsoluteUri.Contains(blockedSite)))
+                {
+                    e.Ok("<!DOCTYPE html>" +
+                         "<html><body><h1>" +
+                         "Website Blocked" +
+                         "</h1>" +
+                         "<p>Blocked by BackOnTrack.</p>" +
+                         "</body>" +
+                         "</html>", null);
+
+                    //e.Respond(new Response());
+                }
+
+                if (e.WebSession.Request.RequestUri.AbsoluteUri.Contains("wikipedia.org"))
+                {
+                    e.Redirect("https://www.apple.com");
+                }
+
+            }
+        }
+
+        //Modify response
+        private async Task OnResponse(object sender, SessionEventArgs e)
+        {
+            // On Response
+        }
+
+        #endregion
+
+        #region ProxyStartOperations
 
         private void StartProxyWithEndPoint()
         {
@@ -109,53 +174,7 @@ namespace BackOnTrack.WebProxy
             _proxyServer.BeforeResponse += OnResponse;
         }
 
-        private async Task OnRequest(object sender, SessionEventArgs e)
-        {
-            Console.WriteLine(e.WebSession.Request.Url);
-
-            foreach (string blockedSite in ListOfBlockedSites)
-            {
-                if ((e.WebSession.Request.RequestUri.AbsoluteUri.Contains(blockedSite)))
-                {
-                    e.Ok("<!DOCTYPE html>" +
-                               "<html><body><h1>" +
-                               "Website Blocked" +
-                               "</h1>" +
-                               "<p>Blocked by BackOnTrack.</p>" +
-                               "</body>" +
-                               "</html>", null);
-
-                    //e.Respond(new Response());
-                }
-
-                if (e.WebSession.Request.RequestUri.AbsoluteUri.Contains("wikipedia.org"))
-                {
-                    e.Redirect("https://www.apple.com");
-                }
-
-            }
-        }
-
-        //Modify response
-        private async Task OnResponse(object sender, SessionEventArgs e)
-        {
-            // On Response
-        }
-
-
-
-
-
-        public void QuitProxy()
-        {
-            //Unsubscribe & Quit
-            _proxyServer.BeforeRequest -= OnRequest;
-            _proxyServer.BeforeResponse -= OnResponse;
-            _proxyServer.Stop();
-            explicitEndPoint = null;
-            ProxyRunning = false;
-            ListOfBlockedSites = new List<string>();
-        }
+        #endregion
 
         protected virtual void Dispose(bool disposing)
         {
@@ -163,7 +182,6 @@ namespace BackOnTrack.WebProxy
             {
                 _proxyServer?.Dispose();
                 ProxyRunning = false;
-                ListOfBlockedSites = new List<string>();
             }
         }
 
