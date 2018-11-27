@@ -106,6 +106,7 @@ namespace BackOnTrack.WebProxy
         private void SetRequestConfiguration()
         {
             _proxyServer.BeforeRequest += OnRequest;
+            _proxyServer.BeforeResponse += OnResponse;
         }
 
         private async Task OnRequest(object sender, SessionEventArgs e)
@@ -135,14 +136,21 @@ namespace BackOnTrack.WebProxy
             }
         }
 
-        
+        //Modify response
+        private async Task OnResponse(object sender, SessionEventArgs e)
+        {
+            // On Response
+        }
 
-       
+
+
+
 
         public void QuitProxy()
         {
             //Unsubscribe & Quit
             _proxyServer.BeforeRequest -= OnRequest;
+            _proxyServer.BeforeResponse -= OnResponse;
             _proxyServer.Stop();
             explicitEndPoint = null;
             ProxyRunning = false;
