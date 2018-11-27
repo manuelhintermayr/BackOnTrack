@@ -95,6 +95,9 @@
     <Compile Include="UI\MainView\Pages\Settings\SettingsWebProxy.xaml.cs">
       <DependentUpon>SettingsWebProxy.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\MainView\Pages\Shutdown.xaml.cs">
+      <DependentUpon>Shutdown.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UiKeyword.cs" />
     <Page Include="Assets\Theme.xaml">
       <SubType>Designer</SubType>
@@ -133,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MainView\Pages\Settings\SettingsWebProxy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Shutdown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

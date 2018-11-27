@@ -85,5 +85,39 @@ namespace BackOnTrack
             //here also check if objects are initialized before trying to shut them down
             Environment.Exit(0);
         }
+
+        //public void MinimizeToTray()
+        //{
+        //    trayIcon = new NotifyIcon();
+        //    trayIcon.DoubleClick += new EventHandler(trayIconClick);
+        //    Stream iconStream = Application
+        //        .GetResourceStream(new Uri(
+        //            "pack://application:,,,/BackOnTrack;component/icon.ico"))
+        //        ?.Stream;
+        //    trayIcon.Icon = new System.Drawing.Icon(iconStream);
+        //    trayIcon.Text = "Back on Track";
+        //    trayIcon.Visible = true;
+
+        //    if (UI.MainView != null)
+        //    {
+        //        UI.MainView.WindowState = WindowState.Minimized;
+        //        UI.MainView.Hide();
+        //    }
+        //    UI.Login.WindowState = WindowState.Minimized;
+        //    UI.Login.Hide();
+
+        //    minimizedToTray = true;
+        //}
+
+        //private void trayIconClick(Object sender, System.EventArgs e)
+        //{
+        //    ShowWindow();
+        //}
+
+        //public void ShowWindow()
+        //{
+        //    //muss ueberarbeitet werden
+        //    UI.Login.Show();
+        //}
     }
 }

@@ -12,6 +12,7 @@ Width="700" Height="700" Closed="ModernWindow_Closed">
     <mui:ModernWindow.TitleLinks>
     <mui:Link DisplayName="Settings" Source="/UI/MainView/Pages/Settings/Settings.xaml" />
     <mui:Link DisplayName="Logout" Source="UI/MainView/Pages/Logout.xaml" />
+    <mui:Link DisplayName="Shutdown" Source="UI/MainView/Pages/Shutdown.xaml" />
     </mui:ModernWindow.TitleLinks>
 
     <mui:ModernWindow.MenuLinkGroups>

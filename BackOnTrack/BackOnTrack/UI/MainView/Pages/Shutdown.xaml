@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="BackOnTrack.UI.MainView.Pages.Shutdown"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BackOnTrack.UI.MainView.Pages"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <ScrollViewer>
+            <StackPanel x:Name="Panel" MinWidth="150">
+                <TextBlock Text="Shutdown" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
+                <mui:BBCodeBlock BBCode="Clicking on this button will shutdown the whole application, including the webproxy (changes on the system-level will remain even if the application is not running). Are you sure you want to do this?" Margin="0,0,0,16"/>
+
+                <Grid HorizontalAlignment="Left">
+                    <Button x:Name="ShutdownButton" Click="ShutdownButton_Click">Shutdown</Button>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
