@@ -13,8 +13,6 @@ namespace BackOnTrack.Infrastructure.Helpers
         public static readonly int WM_SHOWFIRSTINSTANCE =
             WinApi.RegisterWindowMessage("WM_SHOWFIRSTINSTANCE|{0}", ProgramInfo.ProgramName);
 
-
-
         static Mutex mutex;
         static public bool Start()
         {
