@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Interop;
 using System.Windows.Media;
 using BackOnTrack.Infrastructure.Helpers;
 using BackOnTrack.Services;
@@ -123,9 +124,18 @@ namespace BackOnTrack
             }
             else
             {
-                //WinApi.ShowToFront(new WindowInteropHelper(this).Handle);
+                //Window showWindowToFront;
+                //if (UI.MainView != null)
+                //{
+                //    if(UI.MainView.i)
+                //}
+                //var window
+
+                WinApi.ShowToFront(new WindowInteropHelper(UI.Login).Handle);
                 //muss ueberarbeitet werden
             }
         }
+
+        
     }
 }
