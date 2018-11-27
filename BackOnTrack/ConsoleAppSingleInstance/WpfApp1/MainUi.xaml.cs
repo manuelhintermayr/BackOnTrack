@@ -37,6 +37,17 @@ namespace WpfApp1
             //source.AddHook(new HwndSourceHook(WndProc));
         }
 
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            var hwndSource = PresentationSource.FromVisual(this) as HwndSource;
+            if (hwndSource != null)
+            {
+                hwndSource.AddHook(WndProc);
+            }
+        }
+
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
@@ -128,10 +139,18 @@ namespace WpfApp1
         {
             get
             {
+                var a = Assembly.GetEntryAssembly();
+                var b = typeof(GuidAttribute);
                 object[] attributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(System.Runtime.InteropServices.GuidAttribute), false);
+                var assembly = typeof(MainWindow).Assembly;
+                //var attribute = (GuidAttribute)assembly.GetCustomAttributes(typeof(GuidAttribute), true)[0];
+                //var id = attribute.Value;
+
+
                 if (attributes.Length == 0)
                 {
-                    return String.Empty;
+                    //return String.Empty;
+                    return "ABC";
                 }
                 return ((System.Runtime.InteropServices.GuidAttribute)attributes[0]).Value;
             }
@@ -158,6 +177,9 @@ namespace WpfApp1
     {
         public static readonly int WM_SHOWFIRSTINSTANCE =
             WinApi.RegisterWindowMessage("WM_SHOWFIRSTINSTANCE|{0}", ProgramInfo.AssemblyGuid);
+
+
+
         static Mutex mutex;
         static public bool Start()
         {
@@ -173,6 +195,7 @@ namespace WpfApp1
         }
         static public void ShowFirstInstance()
         {
+            Console.WriteLine("asdf");
             WinApi.PostMessage(
                 (IntPtr)WinApi.HWND_BROADCAST,
                 WM_SHOWFIRSTINSTANCE,

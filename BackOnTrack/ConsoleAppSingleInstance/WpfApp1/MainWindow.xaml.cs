@@ -31,10 +31,19 @@ namespace WpfApp1
 
         public MainWindow()
         {
+            if (!SingleInstance.Start())
+            {
+                SingleInstance.ShowFirstInstance();
+                Environment.Exit(0);
+                return;
+            }
+
             InitializeComponent();
             this.Hide();
             mainUi = new MainUi(this);
             mainUi.Show();
+
+            SingleInstance.Stop();
         }
 
         public void Shutdown()
@@ -45,5 +54,4 @@ namespace WpfApp1
 
     }
 
-    
 }
