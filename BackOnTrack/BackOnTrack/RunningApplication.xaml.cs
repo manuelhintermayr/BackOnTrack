@@ -30,12 +30,33 @@ namespace BackOnTrack
             InitializeComponent();
             _instance = this;
             Setup();
-
             SingleInstance.Stop();
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            var hwndSource = PresentationSource.FromVisual(this) as HwndSource;
+            if (hwndSource != null)
+            {
+                hwndSource.AddHook(WndProc);
+            }
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg == SingleInstance.WM_SHOWFIRSTINSTANCE)
+            {
+                ShowWindow();
+            }
+
+            return IntPtr.Zero;
         }
 
         private void Setup()
         {
+            Show();//used for onSourceInitialized
             Hide();
             System.Windows.Application.Current.Resources["AccentColor"] = Colors.Teal;
 

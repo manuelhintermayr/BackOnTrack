@@ -9,11 +9,11 @@ namespace BackOnTrack.UI
     {
         public LoginWindow Login;
         public MainView.MainView MainView;
-        public RunningApplication RunningApplication;
+        public RunningApplication _runningApplication;
 
         public UiKeyword(bool openLoginView = true)
         {
-            RunningApplication = RunningApplication.Instance();
+            _runningApplication = RunningApplication.Instance();
             Login = new LoginWindow();
             if (openLoginView)
             {
@@ -21,13 +21,13 @@ namespace BackOnTrack.UI
             }
             else
             {
-                RunningApplication.MinimizeToTray();           
+                _runningApplication.MinimizeToTray();           
             }
         }
 
         public void OpenMainView(string password)
         {
-            var userConfiguration = RunningApplication.Services.UserConfiguration.OpenConfiguration(password);
+            var userConfiguration = _runningApplication.Services.UserConfiguration.OpenConfiguration(password);
             if (userConfiguration == null)
             {
                 Messages.CreateMessageBox("User configuration could not be opened.", "Error with user configuration.", true);
