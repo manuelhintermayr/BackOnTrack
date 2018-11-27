@@ -66,6 +66,11 @@ namespace BackOnTrack
             {
                 Services = new ServicesKeyword();
                 UI = new UiKeyword(!settings.Contains("-startWithoutUi"));
+
+                if(settings.Contains("-startWithoutUi"))
+                {
+                    MinimizeToTray();
+                }
             }
             catch (UnauthorizedAccessException e)
             {

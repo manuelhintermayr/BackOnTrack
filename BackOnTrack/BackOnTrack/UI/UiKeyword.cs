@@ -19,10 +19,6 @@ namespace BackOnTrack.UI
             {
                 Login.Show();
             }
-            else
-            {
-                _runningApplication.MinimizeToTray();           
-            }
         }
 
         public void OpenMainView(string password)
