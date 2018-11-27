@@ -25,10 +25,16 @@ namespace BackOnTrack.UI.MainView
             WindowIsShown = true;
         }
 
+        private void CloseWindowOperations()
+        {
+            _password = "";
+            WindowIsShown = false;
+        }
+
         public void Logout()
         {
             Hide();
-            WindowIsShown = false;
+            CloseWindowOperations();
             Thread.Sleep(200);
 
             RunningApplication.Instance().UI.Login.Show();
@@ -36,8 +42,8 @@ namespace BackOnTrack.UI.MainView
 
         private void ModernWindow_Closed(object sender, EventArgs e)
         {
-            WindowIsShown = false;
             _runningApplication.MinimizeToTray();
+            CloseWindowOperations();
         }
 
     }
