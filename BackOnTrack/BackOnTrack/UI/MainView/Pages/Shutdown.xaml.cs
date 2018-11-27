@@ -20,17 +20,17 @@ namespace BackOnTrack.UI.MainView.Pages
     /// </summary>
     public partial class Shutdown : UserControl
     {
-        private Application _application;
+        private RunningApplication _runningApplication;
 
         public Shutdown()
         {
-            _application = Application.Instance();
+            _runningApplication = RunningApplication.Instance();
             InitializeComponent();
         }
 
         private void ShutdownButton_Click(object sender, RoutedEventArgs e)
         {
-            _application.Shutdown();
+            _runningApplication.Shutdown();
         }
     }
 }

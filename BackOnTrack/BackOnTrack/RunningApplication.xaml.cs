@@ -13,17 +13,17 @@ using BackOnTrack.UI;
 namespace BackOnTrack
 {
     /// <summary>
-    /// Interaction logic for Application.xaml
+    /// Interaction logic for RunningApplication.xaml
     /// </summary>
-    public partial class Application : Window
+    public partial class RunningApplication : Window
     {
         public UiKeyword UI;
         public ServicesKeyword Services;
-        private static Application _instance;
+        private static RunningApplication _instance;
         bool minimizedToTray;
         NotifyIcon trayIcon;
 
-        public Application()
+        public RunningApplication()
         {
             CheckAndCloseIfApplicationIsAlreadyRunning();
 
@@ -70,7 +70,7 @@ namespace BackOnTrack
             }
         }
 
-        public static Application Instance()
+        public static RunningApplication Instance()
         {
             return _instance;
         }

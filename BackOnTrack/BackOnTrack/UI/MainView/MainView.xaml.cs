@@ -10,15 +10,15 @@ namespace BackOnTrack.UI.MainView
     /// </summary>
     public partial class MainView : ModernWindow
     {
-        private Application _application;
+        private RunningApplication _runningApplication;
         public CurrentUserConfiguration UserConfiguration;
         private string _password;
 
         public MainView(CurrentUserConfiguration userConfiguration, string password)
         {
-            _application = Application.Instance();
+            _runningApplication = RunningApplication.Instance();
             InitializeComponent();
-            App.Current.MainWindow = _application.UI.MainView; //fix for the dialogWindow
+            App.Current.MainWindow = _runningApplication.UI.MainView; //fix for the dialogWindow
             UserConfiguration = userConfiguration;
             _password = password;
         }
@@ -28,12 +28,12 @@ namespace BackOnTrack.UI.MainView
             Hide();
             Thread.Sleep(200);
 
-            Application.Instance().UI.Login.Show();
+            RunningApplication.Instance().UI.Login.Show();
         }
 
         private void ModernWindow_Closed(object sender, EventArgs e)
         {
-            _application.MinimizeToTray();
+            _runningApplication.MinimizeToTray();
         }
 
     }

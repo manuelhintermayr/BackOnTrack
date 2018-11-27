@@ -21,11 +21,11 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
     /// </summary>
     public partial class Settings : UserControl
     {
-        private Application _application;
+        private RunningApplication _runningApplication;
 
         public Settings()
         {
-            _application = Application.Instance();
+            _runningApplication = RunningApplication.Instance();
             InitializeComponent();
         }
 
@@ -35,7 +35,7 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
             {
                 Title = "Reload Configuration",
                 Content = $"This will reset your current program configuration to the current saved configuration. {Environment.NewLine}Are you sure you want to do this?",
-                Owner = _application.UI.MainView
+                Owner = _runningApplication.UI.MainView
                 
             };
             dlg.OkButton.Click += new RoutedEventHandler(ResetConfigurationOkClick);
@@ -45,7 +45,7 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
 
         private void ResetConfigurationOkClick(object sender, RoutedEventArgs e)
         {
-            _application.Services.ProgramConfiguration.SetCurrentConfigurationFromConfig();
+            _runningApplication.Services.ProgramConfiguration.SetCurrentConfigurationFromConfig();
         }
 
         private void SaveConfigurationButton_Click(object sender, RoutedEventArgs e)
