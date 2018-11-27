@@ -92,7 +92,7 @@ namespace BackOnTrack
         {
             trayIcon = new NotifyIcon();
             trayIcon.DoubleClick += new EventHandler(trayIconClick);
-            trayIcon.Icon = new System.Drawing.Icon("logo.ico");
+            trayIcon.Icon = System.Drawing.Icon.FromHandle(BackOnTrack.Properties.Resources.Icon.Handle);
             trayIcon.Text = "Back on Track";
             trayIcon.Visible = true;
 
