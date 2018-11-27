@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,12 +42,23 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
         }
         private void ResetConfigurationOkClick(object sender, RoutedEventArgs e)
         {
-            _runningApplication.Services.ProgramConfiguration.SetCurrentConfigurationFromConfig();
+            try
+            {
+                _runningApplication.Services.ProgramConfiguration.SetCurrentConfigurationFromConfig();
 
-            string alertTitle = "Configuration reloaded";
-            string alertContent = "The configuration was successfully reloaded!";
+                string alertTitle = "Configuration reloaded";
+                string alertContent = "The configuration was successfully reloaded!";
 
-            CreateAlertWindow(alertTitle, alertContent);
+                CreateAlertWindow(alertTitle, alertContent);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                AlertNoAdminRights();
+            }
+            catch (System.IO.IOException ex)
+            {
+                AlertErrorWithFile(ex);
+            }
         }
 
         //Save Configuration
@@ -61,12 +73,23 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
         }
         private void SaveConfigurationOkClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _runningApplication.Services.ProgramConfiguration.SaveCurrentConfiguration();
 
-            string alertTitle = "Configuration saved";
-            string alertContent = "The configuration was successfully saved!";
+                string alertTitle = "Configuration saved";
+                string alertContent = "The configuration was successfully saved!";
 
-            CreateAlertWindow(alertTitle, alertContent);
+                CreateAlertWindow(alertTitle, alertContent);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                AlertNoAdminRights();
+            }
+            catch (System.IO.IOException ex)
+            {
+                AlertErrorWithFile(ex);
+            }
         }
 
         //Revert Configuration
@@ -74,7 +97,7 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
         {
             string alertTitle = "Revert changes";
             string alertContent =
-                $"This will revert all changes you made during this session and will reset and load the configuration to {Environment.NewLine}the one you had at the beginning of this session. {Environment.NewLine}{Environment.NewLine}Are you sure you want to do this?";
+                $"This will revert all changes you made since the last save and will reset and load the configuration to {Environment.NewLine}the current loaded. {Environment.NewLine}{Environment.NewLine}Are you sure you want to do this?";
             var alertOkEvent = new RoutedEventHandler(RevertConfigurationOkClick);
 
             CreateAlertWindow(alertTitle, alertContent, true, alertOkEvent);
@@ -82,7 +105,7 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
 
         private void RevertConfigurationOkClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            _runningApplication.Services.ProgramConfiguration.RevertChangesFromCurrentConfig();
 
             string alertTitle = "Configuration changes reverted";
             string alertContent = "The configuration changes where successfully reverted!";
@@ -90,7 +113,7 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
             CreateAlertWindow(alertTitle, alertContent);
         }
 
-
+        //Alerts
         private void CreateAlertWindow(string title, string content, bool withOkButton = false, RoutedEventHandler eventHandler = null)
         {
             var dlg = new ModernDialog
@@ -105,6 +128,16 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
                 dlg.Buttons = new Button[] { dlg.OkButton, dlg.CancelButton };
             }
             dlg.ShowDialog();
+        }
+
+        private void AlertNoAdminRights()
+        {
+            CreateAlertWindow("No admin rights", "Please make sure you have admin rights and start the application again.");
+        }
+
+        private void AlertErrorWithFile(IOException ioException)
+        {
+            CreateAlertWindow("Error with file", $"The following error occured with a file:{Environment.NewLine}{Environment.NewLine}{ioException.Message}");
         }
     }
 }

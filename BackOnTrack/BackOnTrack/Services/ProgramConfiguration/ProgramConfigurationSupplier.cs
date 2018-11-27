@@ -38,17 +38,39 @@ namespace BackOnTrack.Services.ProgramConfiguration
                 FileModification.CreateFolderIfNotExists(ConfigurationPath.Replace("\\config.settings", ""));
                 CreateNewConfiguration();
             }
-            CopyCurrentConfiguration();
+            CopyCurrentConfigurationToTempConfig();
+        }
+
+        public void SaveCurrentConfiguration()
+        {
+            CopyTempConfigurationToCurrentConfig();
+
+            if (!FileModification.FileExists(ConfigurationPath))
+            {
+                FileModification.CreateFolderIfNotExists(ConfigurationPath.Replace("\\config.settings", ""));
+            }
+
+            SaveConfiguration(Configuration);
+        }
+
+        public void RevertChangesFromCurrentConfig()
+        {
+            CopyCurrentConfigurationToTempConfig();
         }
 
         private void CreateNewConfiguration()
         {
             Configuration = new CurrentProgramConfiguration() { ProxyEnabled = false, AutoRunEnabled = true};
-            var jsonConfiguration = JsonConvert.SerializeObject(Configuration);
+            SaveConfiguration(Configuration);
+        }
+
+        private void SaveConfiguration(CurrentProgramConfiguration config)
+        {
+            var jsonConfiguration = JsonConvert.SerializeObject(config);
             FileModification.WriteFile(ConfigurationPath, jsonConfiguration);
         }
 
-        private void CopyCurrentConfiguration()
+        private void CopyCurrentConfigurationToTempConfig()
         {
             if (TempConfiguration == null)
             {
@@ -57,6 +79,12 @@ namespace BackOnTrack.Services.ProgramConfiguration
 
             TempConfiguration.ProxyEnabled = Configuration.ProxyEnabled;
             TempConfiguration.AutoRunEnabled = Configuration.AutoRunEnabled;
+        }
+
+        private void CopyTempConfigurationToCurrentConfig()
+        {
+            Configuration.ProxyEnabled = TempConfiguration.ProxyEnabled;
+            Configuration.AutoRunEnabled = TempConfiguration.AutoRunEnabled;
         }
     }
 }
