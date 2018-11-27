@@ -17,9 +17,6 @@ namespace BackOnTrack
     /// </summary>
     public partial class Application : Window
     {
-        [DllImport("user32.dll")]
-        private static extern Boolean ShowWindow(IntPtr hWnd, Int32 nCmdShow);
-
         public UiKeyword UI;
         public ServicesKeyword Services;
         private static Application _instance;
@@ -33,6 +30,8 @@ namespace BackOnTrack
             InitializeComponent();
             _instance = this;
             Setup();
+
+            SingleInstance.Stop();
         }
 
         private void Setup()
@@ -63,18 +62,11 @@ namespace BackOnTrack
 
         private void CheckAndCloseIfApplicationIsAlreadyRunning()
         {
-            Process currentProcess = Process.GetCurrentProcess();
-            var runningProcess = (from process in Process.GetProcesses()
-                where
-                    process.Id != currentProcess.Id &&
-                    process.ProcessName.Equals(
-                        currentProcess.ProcessName,
-                        StringComparison.Ordinal)
-                select process).FirstOrDefault();
-            if (runningProcess != null)
+            if (!SingleInstance.Start())
             {
-                ShowWindow(runningProcess.MainWindowHandle, 1);
-                Shutdown();
+                SingleInstance.ShowFirstInstance();
+                Environment.Exit(0);
+                return;
             }
         }
 

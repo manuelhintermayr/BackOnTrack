@@ -62,6 +62,28 @@ namespace BackOnTrack.UI.Login
             Setup();
         }
 
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            var hwndSource = PresentationSource.FromVisual(this) as HwndSource;
+            if (hwndSource != null)
+            {
+                hwndSource.AddHook(WndProc);
+            }
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg == SingleInstance.WM_SHOWFIRSTINSTANCE)
+            {
+                _application.ShowWindow();
+            }
+            //  do stuff
+            //todo: move to application
+            return IntPtr.Zero;
+        }
+
         private void Setup()
         {
             _application = Application.Instance();

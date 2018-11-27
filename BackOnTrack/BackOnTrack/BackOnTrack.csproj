@@ -73,6 +73,8 @@
     </ApplicationDefinition>
     <Compile Include="Infrastructure\Helpers\FileModification.cs" />
     <Compile Include="Infrastructure\Helpers\Messages.cs" />
+    <Compile Include="Infrastructure\Helpers\ProgramInfo.cs" />
+    <Compile Include="Infrastructure\Helpers\SingleInstance.cs" />
     <Compile Include="Infrastructure\Helpers\WinApi.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\ProgramConfiguration\CurrentProgramConfiguration.cs" />
