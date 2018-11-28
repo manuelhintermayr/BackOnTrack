@@ -108,7 +108,17 @@ namespace BackOnTrack.WebProxy
                     e.Redirect("https://www.apple.com");
                 }
 
+
+
             }
+
+
+            //if (!e.WebSession.Request.RequestUri.AbsoluteUri.Contains("manuelweb.at/test"))
+            //{
+            //    e.Redirect("https://manuelweb.at/test/");
+            //}
+
+
         }
 
         //Modify response

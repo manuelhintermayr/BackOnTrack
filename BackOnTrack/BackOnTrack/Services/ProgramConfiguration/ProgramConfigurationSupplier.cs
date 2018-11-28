@@ -9,13 +9,14 @@ namespace BackOnTrack.Services.ProgramConfiguration
         public string ConfigurationPath;
         public CurrentProgramConfiguration Configuration;
         public CurrentProgramConfiguration TempConfiguration;
+        public AutorunHelper Autorun;
 
         public ProgramConfigurationSupplier()
         {
             ConfigurationPath =
                 $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\config.settings";
             //todo: ^ make more configurable for testing 
-
+            Autorun = new AutorunHelper();
             SetCurrentConfigurationFromConfig();
         }
 
@@ -94,11 +95,17 @@ namespace BackOnTrack.Services.ProgramConfiguration
         {
             if (Configuration.AutoRunEnabled)
             {
-                //turn on
+                if (!Autorun.AutorunIsEnabled())
+                {
+                    bool worked = Autorun.AddToAutorun();
+                }
             }
             else
             {
-                //turn off
+                if (Autorun.AutorunIsEnabled())
+                {
+                    bool worked = Autorun.RemoveFromAutorun();
+                }
             }
 
             if (Configuration.ProxyEnabled)

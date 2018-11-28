@@ -71,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Infrastructure\Helpers\AutorunHelper.cs" />
     <Compile Include="Infrastructure\Helpers\FileModification.cs" />
     <Compile Include="Infrastructure\Helpers\Messages.cs" />
     <Compile Include="Infrastructure\Helpers\ProgramInfo.cs" />

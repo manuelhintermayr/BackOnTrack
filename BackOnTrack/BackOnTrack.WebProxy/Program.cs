@@ -17,6 +17,5 @@ namespace BackOnTrack.WebProxy
             proxy.QuitProxy();
         }
 
-
     }
 }
