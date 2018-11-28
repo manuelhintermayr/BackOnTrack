@@ -17,7 +17,31 @@ namespace BackOnTrack.Services.ProgramConfiguration
                 $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\config.settings";
             //todo: ^ make more configurable for testing 
             Autorun = new AutorunHelper();
-            SetCurrentConfigurationToDefault();
+
+            SetCurrentConfigurationFromConfig();
+        }
+
+        public void SetCurrentConfigurationFromConfig()
+        {
+            if (FileModification.FileExists(ConfigurationPath))
+            {
+                string configurationContent = FileModification.ReadFile(ConfigurationPath);
+                if (configurationContent == "")
+                {
+                    CreateNewConfiguration();
+                }
+                else
+                {
+                    Configuration = JsonConvert.DeserializeObject<CurrentProgramConfiguration>(configurationContent);
+                }
+            }
+            else
+            {
+                FileModification.CreateFolderIfNotExists(ConfigurationPath.Replace("\\config.settings", ""));
+                CreateNewConfiguration();
+            }
+
+            CopyCurrentConfigurationToTempConfig();
         }
 
         public void SetCurrentConfigurationToDefault()
