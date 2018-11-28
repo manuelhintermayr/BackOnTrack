@@ -16,10 +16,12 @@ Width="700" Height="700" Closed="ModernWindow_Closed">
     </mui:ModernWindow.TitleLinks>
 
     <mui:ModernWindow.MenuLinkGroups>
-        <mui:LinkGroup DisplayName="Welcome">
+        <mui:LinkGroup DisplayName="configuration panel">
             <mui:LinkGroup.Links>
                 <mui:Link DisplayName="General" Source="UI/MainView/Pages/ViewProfiles.xaml" />
-                <mui:Link DisplayName="List" Source="UI/MainView/Pages/LayoutList.xaml"  />
+                <mui:Link DisplayName="Profiles" Source="UI/MainView/Pages/LayoutList.xaml"  />
+                <mui:Link DisplayName="System-Level Editor" Source="UI/MainView/Pages/LayoutList.xaml"  />
+                <mui:Link DisplayName="About" Source="UI/MainView/Pages/LayoutList.xaml"  />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
     </mui:ModernWindow.MenuLinkGroups>

@@ -17,28 +17,17 @@ namespace BackOnTrack.Services.ProgramConfiguration
                 $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\config.settings";
             //todo: ^ make more configurable for testing 
             Autorun = new AutorunHelper();
-            SetCurrentConfigurationFromConfig();
+            SetCurrentConfigurationToDefault();
         }
 
-        public void SetCurrentConfigurationFromConfig()
+        public void SetCurrentConfigurationToDefault()
         {
-            if (FileModification.FileExists(ConfigurationPath))
-            {
-                string configurationContent = FileModification.ReadFile(ConfigurationPath);
-                if (configurationContent == "")
-                {
-                    CreateNewConfiguration();
-                }
-                else
-                {
-                    Configuration = JsonConvert.DeserializeObject<CurrentProgramConfiguration>(configurationContent);
-                }
-            }
-            else
+            if (!FileModification.FileExists(ConfigurationPath))
             {
                 FileModification.CreateFolderIfNotExists(ConfigurationPath.Replace("\\config.settings", ""));
-                CreateNewConfiguration();
             }
+            CreateNewConfiguration();
+
             CopyCurrentConfigurationToTempConfig();
         }
 
@@ -50,8 +39,9 @@ namespace BackOnTrack.Services.ProgramConfiguration
             {
                 FileModification.CreateFolderIfNotExists(ConfigurationPath.Replace("\\config.settings", ""));
             }
-
             SaveConfiguration(Configuration);
+
+            CopyCurrentConfigurationToTempConfig();
         }
 
         public void RevertChangesFromCurrentConfig()
@@ -97,14 +87,14 @@ namespace BackOnTrack.Services.ProgramConfiguration
             {
                 if (!Autorun.AutorunIsEnabled())
                 {
-                    bool worked = Autorun.AddToAutorun();
+                    Autorun.AddToAutorun();
                 }
             }
             else
             {
                 if (Autorun.AutorunIsEnabled())
                 {
-                    bool worked = Autorun.RemoveFromAutorun();
+                    Autorun.RemoveFromAutorun();
                 }
             }
 
