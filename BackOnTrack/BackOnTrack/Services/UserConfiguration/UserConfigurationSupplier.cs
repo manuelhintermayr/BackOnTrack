@@ -18,8 +18,15 @@ namespace BackOnTrack.Services.UserConfiguration
 
         public bool CheckPassword(string password)
         {
-            return password == "admin";
-            //todo: ^update
+            try
+            {
+                OpenConfiguration(password);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         public bool ConfigurationIsAlreadyCreated()
@@ -32,14 +39,17 @@ namespace BackOnTrack.Services.UserConfiguration
             CurrentUserConfiguration configuration = new CurrentUserConfiguration(){ProfileList = new List<Profile>()};
 
             var jsonConfiguration = JsonConvert.SerializeObject(configuration);
-            FileModification.WriteFile(ConfigurationPath, jsonConfiguration);
+            string encryptedConfiguration = EncryptingHelper.Encrypt(jsonConfiguration, password);
+
+            FileModification.WriteFile(ConfigurationPath, encryptedConfiguration);
         }
 
         public CurrentUserConfiguration OpenConfiguration(string password)
         {
-            string configurationContent = FileModification.ReadFile(ConfigurationPath);
-            if (configurationContent != "")
+            string encryptedConfigurationContent = FileModification.ReadFile(ConfigurationPath);
+            if (encryptedConfigurationContent != "")
             {
+                string configurationContent = EncryptingHelper.Decrypt(encryptedConfigurationContent, password);
                 return JsonConvert.DeserializeObject<CurrentUserConfiguration>(configurationContent);
             }
 
