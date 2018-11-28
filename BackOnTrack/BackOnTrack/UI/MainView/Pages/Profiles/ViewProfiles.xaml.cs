@@ -3,11 +3,11 @@
 namespace BackOnTrack.UI.MainView.Pages.Profiles
 {
     /// <summary>
-    /// Interaction logic for LayoutList.xaml
+    /// Interaction logic for ViewProfiles.xaml
     /// </summary>
-    public partial class LayoutList : UserControl
+    public partial class ViewProfiles : UserControl
     {
-        public LayoutList()
+        public ViewProfiles()
         {
             InitializeComponent();
         }

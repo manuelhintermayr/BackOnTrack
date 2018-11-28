@@ -24,7 +24,8 @@ Width="700" Height="700" Closed="ModernWindow_Closed">
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="profiles">
             <mui:LinkGroup.Links>
-                <mui:Link DisplayName="Profiles" Source="UI/MainView/Pages/Profiles/LayoutList.xaml"  />
+                <mui:Link DisplayName="Add new Profile" Source="UI/MainView/Pages/Profiles/AddProfile.xaml"  />
+                <mui:Link DisplayName="View Profiles" Source="UI/MainView/Pages/Profiles/ViewProfiles.xaml"  />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="tools">

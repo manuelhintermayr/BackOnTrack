@@ -88,6 +88,9 @@
     <Compile Include="UI\MainView\Pages\About\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\MainView\Pages\Profiles\AddProfile.xaml.cs">
+      <DependentUpon>AddProfile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainView\Pages\Settings\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
@@ -119,7 +122,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\MainView\Pages\Profiles\LayoutList.xaml">
+    <Page Include="UI\MainView\Pages\Profiles\AddProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Profiles\ViewProfiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,8 +173,8 @@
     <Compile Include="UI\Login\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\MainView\Pages\Profiles\LayoutList.xaml.cs">
-      <DependentUpon>LayoutList.xaml</DependentUpon>
+    <Compile Include="UI\MainView\Pages\Profiles\ViewProfiles.xaml.cs">
+      <DependentUpon>ViewProfiles.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\MainView\Pages\Logout.xaml.cs">
       <DependentUpon>Logout.xaml</DependentUpon>
