@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BackOnTrack.UI.MainView.Pages
+namespace BackOnTrack.UI.MainView.Pages.Tools
 {
     /// <summary>
-    /// Interaction logic for SampleHolder.xaml
+    /// Interaction logic for SystemLevelEditor.xaml
     /// </summary>
-    public partial class SampleHolder : UserControl
+    public partial class SystemLevelEditor : UserControl
     {
-        public SampleHolder()
+        public SystemLevelEditor()
         {
             InitializeComponent();
         }

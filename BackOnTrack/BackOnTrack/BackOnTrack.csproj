@@ -85,8 +85,8 @@
     <Compile Include="Services\WebProxy\RunningWebProxy.cs" />
     <Compile Include="Services\UserConfiguration\UserConfigurationSupplier.cs" />
     <Compile Include="Services\ServicesKeyword.cs" />
-    <Compile Include="UI\MainView\Pages\SampleHolder.xaml.cs">
-      <DependentUpon>SampleHolder.xaml</DependentUpon>
+    <Compile Include="UI\MainView\Pages\About\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\MainView\Pages\Settings\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -103,6 +103,9 @@
     <Compile Include="UI\MainView\Pages\Shutdown.xaml.cs">
       <DependentUpon>Shutdown.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\MainView\Pages\Tools\SystemLevelEditor.xaml.cs">
+      <DependentUpon>SystemLevelEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UiKeyword.cs" />
     <Page Include="Assets\Theme.xaml">
       <SubType>Designer</SubType>
@@ -112,7 +115,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\MainView\Pages\LayoutList.xaml">
+    <Page Include="UI\MainView\Pages\About\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Profiles\LayoutList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,10 +128,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MainView\MainView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\MainView\Pages\SampleHolder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,7 +151,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\MainView\Pages\ViewProfiles.xaml">
+    <Page Include="UI\MainView\Pages\About\Introduction.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -163,7 +166,7 @@
     <Compile Include="UI\Login\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\MainView\Pages\LayoutList.xaml.cs">
+    <Compile Include="UI\MainView\Pages\Profiles\LayoutList.xaml.cs">
       <DependentUpon>LayoutList.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\MainView\Pages\Logout.xaml.cs">
@@ -172,13 +175,17 @@
     <Compile Include="UI\MainView\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\MainView\Pages\ViewProfiles.xaml.cs">
-      <DependentUpon>ViewProfiles.xaml</DependentUpon>
+    <Compile Include="UI\MainView\Pages\About\Introduction.xaml.cs">
+      <DependentUpon>Introduction.xaml</DependentUpon>
     </Compile>
     <Compile Include="RunningApplication.xaml.cs">
       <DependentUpon>RunningApplication.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\MainView\Pages\Tools\SystemLevelEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -222,5 +229,6 @@
       <Name>BackOnTrack.WebProxy</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

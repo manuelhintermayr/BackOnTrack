@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace BackOnTrack.UI.MainView.Pages
+namespace BackOnTrack.UI.MainView.Pages.Profiles
 {
     /// <summary>
     /// Interaction logic for LayoutList.xaml
