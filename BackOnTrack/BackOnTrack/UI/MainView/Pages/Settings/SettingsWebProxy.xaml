@@ -10,7 +10,7 @@
     <Grid>
         <ScrollViewer>
             <StackPanel x:Name="Panel" MinWidth="150">
-                <TextBlock Text="Web Proxy" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
+                <TextBlock Text="WEB PROXY" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
                 <mui:BBCodeBlock BBCode="This is the overall general configuration for the program. Changes here will be made only for the current user." Margin="0,0,0,16"/>
 
                 <Grid HorizontalAlignment="Left">

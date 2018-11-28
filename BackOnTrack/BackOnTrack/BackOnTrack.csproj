@@ -71,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Infrastructure\Helpers\AutorunHelper.cs" />
     <Compile Include="Infrastructure\Helpers\FileModification.cs" />
     <Compile Include="Infrastructure\Helpers\Messages.cs" />
     <Compile Include="Infrastructure\Helpers\ProgramInfo.cs" />
@@ -80,7 +81,7 @@
     <Compile Include="Services\ProgramConfiguration\CurrentProgramConfiguration.cs" />
     <Compile Include="Services\ProgramConfiguration\ProgramConfigurationSupplier.cs" />
     <Compile Include="Services\UserConfiguration\CurrentUserConfiguration.cs" />
-    <Compile Include="Services\WebProxy\WebProxy.cs" />
+    <Compile Include="Services\WebProxy\RunningWebProxy.cs" />
     <Compile Include="Services\UserConfiguration\UserConfigurationSupplier.cs" />
     <Compile Include="Services\ServicesKeyword.cs" />
     <Compile Include="UI\MainView\Pages\SampleHolder.xaml.cs">
@@ -214,6 +215,11 @@
     <Resource Include="Assets\logo.png" />
     <Content Include="Assets\WPFToolkit.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\BackOnTrack.WebProxy\BackOnTrack.WebProxy.csproj">
+      <Project>{F1827F00-CE83-4D74-AC52-2287B59305D2}</Project>
+      <Name>BackOnTrack.WebProxy</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

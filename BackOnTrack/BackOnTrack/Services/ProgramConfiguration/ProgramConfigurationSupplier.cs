@@ -9,35 +9,25 @@ namespace BackOnTrack.Services.ProgramConfiguration
         public string ConfigurationPath;
         public CurrentProgramConfiguration Configuration;
         public CurrentProgramConfiguration TempConfiguration;
+        public AutorunHelper Autorun;
 
         public ProgramConfigurationSupplier()
         {
             ConfigurationPath =
                 $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\config.settings";
             //todo: ^ make more configurable for testing 
-
-            SetCurrentConfigurationFromConfig();
+            Autorun = new AutorunHelper();
+            SetCurrentConfigurationToDefault();
         }
 
-        public void SetCurrentConfigurationFromConfig()
+        public void SetCurrentConfigurationToDefault()
         {
-            if (FileModification.FileExists(ConfigurationPath))
-            {
-                string configurationContent = FileModification.ReadFile(ConfigurationPath);
-                if (configurationContent == "")
-                {
-                    CreateNewConfiguration();
-                }
-                else
-                {
-                    Configuration = JsonConvert.DeserializeObject<CurrentProgramConfiguration>(configurationContent);
-                }
-            }
-            else
+            if (!FileModification.FileExists(ConfigurationPath))
             {
                 FileModification.CreateFolderIfNotExists(ConfigurationPath.Replace("\\config.settings", ""));
-                CreateNewConfiguration();
             }
+            CreateNewConfiguration();
+
             CopyCurrentConfigurationToTempConfig();
         }
 
@@ -49,8 +39,9 @@ namespace BackOnTrack.Services.ProgramConfiguration
             {
                 FileModification.CreateFolderIfNotExists(ConfigurationPath.Replace("\\config.settings", ""));
             }
-
             SaveConfiguration(Configuration);
+
+            CopyCurrentConfigurationToTempConfig();
         }
 
         public void RevertChangesFromCurrentConfig()
@@ -94,11 +85,17 @@ namespace BackOnTrack.Services.ProgramConfiguration
         {
             if (Configuration.AutoRunEnabled)
             {
-                //turn on
+                if (!Autorun.AutorunIsEnabled())
+                {
+                    Autorun.AddToAutorun();
+                }
             }
             else
             {
-                //turn off
+                if (Autorun.AutorunIsEnabled())
+                {
+                    Autorun.RemoveFromAutorun();
+                }
             }
 
             if (Configuration.ProxyEnabled)

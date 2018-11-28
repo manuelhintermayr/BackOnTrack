@@ -30,12 +30,12 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
             InitializeComponent();
         }
 
-        //Reload Configuration
-        private void ReloadConfigurationButton_Click(object sender, RoutedEventArgs e)
+        //Reset Configuration
+        private void ResetConfigurationButton_Click(object sender, RoutedEventArgs e)
         {
-            string alertTitle = "Reload Configuration";
+            string alertTitle = "Reset Configuration";
             string alertContent =
-                $"This will reset and load your current program configuration to the current saved configuration. {Environment.NewLine}Are you sure you want to do this?";
+                $"This will reset, save and load your current program configuration to a default one. {Environment.NewLine}{Environment.NewLine}Are you sure you want to do this?";
             var alertOkEvent = new RoutedEventHandler(ResetConfigurationOkClick);
 
             CreateAlertWindow(alertTitle, alertContent, true, alertOkEvent);
@@ -44,10 +44,10 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
         {
             try
             {
-                _runningApplication.Services.ProgramConfiguration.SetCurrentConfigurationFromConfig();
+                _runningApplication.Services.ProgramConfiguration.SetCurrentConfigurationToDefault();
 
-                string alertTitle = "Configuration reloaded";
-                string alertContent = "The configuration was successfully reloaded!";
+                string alertTitle = "Configuration reset";
+                string alertContent = "The configuration was successfully reset!";
 
                 CreateAlertWindow(alertTitle, alertContent);
             }
@@ -66,7 +66,7 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
         {
             string alertTitle = "Save Configuration";
             string alertContent =
-                $"This will save and load your current program configuration. {Environment.NewLine}Are you sure you want to do this?";
+                $"This will save and load your current program configuration. {Environment.NewLine}{Environment.NewLine}Are you sure you want to do this?";
             var alertOkEvent = new RoutedEventHandler(SaveConfigurationOkClick);
 
             CreateAlertWindow(alertTitle, alertContent, true, alertOkEvent);
@@ -97,7 +97,7 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
         {
             string alertTitle = "Revert changes";
             string alertContent =
-                $"This will revert all changes you made since the last save and will reset and load the configuration to {Environment.NewLine}the current loaded. {Environment.NewLine}{Environment.NewLine}Are you sure you want to do this?";
+                $"This will revert all changes you made since the last save and will reset the configuration to {Environment.NewLine}the current loaded. {Environment.NewLine}{Environment.NewLine}Are you sure you want to do this?";
             var alertOkEvent = new RoutedEventHandler(RevertConfigurationOkClick);
 
             CreateAlertWindow(alertTitle, alertContent, true, alertOkEvent);

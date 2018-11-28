@@ -19,7 +19,7 @@
         </Grid>
         <Grid Height="100" VerticalAlignment="Bottom">
             <Grid Height="60"  HorizontalAlignment="Left" Margin="16,0,0,0">
-                <Button x:Name="ReloadConfigurationButton" Content="Reload Configuration" Click="ReloadConfigurationButton_Click" />
+                <Button x:Name="ResetConfigurationButton" Content="Reset Configuration" Click="ResetConfigurationButton_Click" />
             </Grid>
             <Grid Height="60" Width="280" HorizontalAlignment="Right" Margin="0,0,20,0">
                 <Button x:Name="SaveConfigurationButton" Content="Save Configuration" HorizontalAlignment="Left" Click="SaveConfigurationButton_Click" />

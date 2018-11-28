@@ -9,12 +9,12 @@ namespace BackOnTrack.Services
     {
         public UserConfigurationSupplier UserConfiguration;
         public ProgramConfigurationSupplier ProgramConfiguration;
-        public WebProxy.WebProxy WebProxy;
+        public WebProxy.RunningWebProxy WebProxy;
         public ServicesKeyword()
         {
             ProgramConfiguration = new ProgramConfigurationSupplier();
             UserConfiguration = new UserConfigurationSupplier();
-            WebProxy = new WebProxy.WebProxy();
+            WebProxy = new WebProxy.RunningWebProxy();
         }
     }
 }
