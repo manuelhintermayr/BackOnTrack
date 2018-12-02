@@ -38,7 +38,7 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
                 $"This will reset, save and load your current program configuration to a default one. {Environment.NewLine}{Environment.NewLine}Are you sure you want to do this?";
             var alertOkEvent = new RoutedEventHandler(ResetConfigurationOkClick);
 
-            CreateAlertWindow(alertTitle, alertContent, true, alertOkEvent);
+            _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent, true, alertOkEvent);
         }
         private void ResetConfigurationOkClick(object sender, RoutedEventArgs e)
         {
@@ -49,15 +49,15 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
                 string alertTitle = "Configuration reset";
                 string alertContent = "The configuration was successfully reset!";
 
-                CreateAlertWindow(alertTitle, alertContent);
+                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
             }
             catch (UnauthorizedAccessException)
             {
-                AlertNoAdminRights();
+                _runningApplication.UI.MainView.AlertNoAdminRights();
             }
             catch (System.IO.IOException ex)
             {
-                AlertErrorWithFile(ex);
+                _runningApplication.UI.MainView.AlertErrorWithFile(ex);
             }
         }
 
@@ -69,7 +69,7 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
                 $"This will save and load your current program configuration. {Environment.NewLine}{Environment.NewLine}Are you sure you want to do this?";
             var alertOkEvent = new RoutedEventHandler(SaveConfigurationOkClick);
 
-            CreateAlertWindow(alertTitle, alertContent, true, alertOkEvent);
+            _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent, true, alertOkEvent);
         }
         private void SaveConfigurationOkClick(object sender, RoutedEventArgs e)
         {
@@ -80,15 +80,15 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
                 string alertTitle = "Configuration saved";
                 string alertContent = "The configuration was successfully saved!";
 
-                CreateAlertWindow(alertTitle, alertContent);
+                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
             }
             catch (UnauthorizedAccessException)
             {
-                AlertNoAdminRights();
+                _runningApplication.UI.MainView.AlertNoAdminRights();
             }
             catch (System.IO.IOException ex)
             {
-                AlertErrorWithFile(ex);
+                _runningApplication.UI.MainView.AlertErrorWithFile(ex);
             }
         }
 
@@ -100,7 +100,7 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
                 $"This will revert all changes you made since the last save and will reset the configuration to {Environment.NewLine}the current loaded. {Environment.NewLine}{Environment.NewLine}Are you sure you want to do this?";
             var alertOkEvent = new RoutedEventHandler(RevertConfigurationOkClick);
 
-            CreateAlertWindow(alertTitle, alertContent, true, alertOkEvent);
+            _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent, true, alertOkEvent);
         }
 
         private void RevertConfigurationOkClick(object sender, RoutedEventArgs e)
@@ -110,34 +110,8 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
             string alertTitle = "Configuration changes reverted";
             string alertContent = "The configuration changes where successfully reverted!";
 
-            CreateAlertWindow(alertTitle, alertContent);
+            _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
         }
 
-        //Alerts
-        private void CreateAlertWindow(string title, string content, bool withOkButton = false, RoutedEventHandler eventHandler = null)
-        {
-            var dlg = new ModernDialog
-            {
-                Title = title,
-                Content = content,
-                Owner = _runningApplication.UI.MainView
-            };
-            if (withOkButton)
-            {
-                dlg.OkButton.Click += new RoutedEventHandler(eventHandler);
-                dlg.Buttons = new Button[] { dlg.OkButton, dlg.CancelButton };
-            }
-            dlg.ShowDialog();
-        }
-
-        private void AlertNoAdminRights()
-        {
-            CreateAlertWindow("No admin rights", "Please make sure you have admin rights and start the application again.");
-        }
-
-        private void AlertErrorWithFile(IOException ioException)
-        {
-            CreateAlertWindow("Error with file", $"The following error occured with a file:{Environment.NewLine}{Environment.NewLine}{ioException.Message}");
-        }
     }
 }
