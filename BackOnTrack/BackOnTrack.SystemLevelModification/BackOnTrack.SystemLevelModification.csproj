@@ -35,7 +35,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>..\BackOnTrack.Resources\Resources\Logo.ico</ApplicationIcon>
+    <ApplicationIcon>..\BackOnTrack.Resources\Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -67,10 +67,11 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <None Include="..\BackOnTrack.Resources\Resources\Logo.ico">
-      <Link>Resources\Logo.ico</Link>
-    </None>
+    <Content Include="..\BackOnTrack.Resources\Resources\Icon.ico">
+      <Link>Resources\Icon.ico</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
