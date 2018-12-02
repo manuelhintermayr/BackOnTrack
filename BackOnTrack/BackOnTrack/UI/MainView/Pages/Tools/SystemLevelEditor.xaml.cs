@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using BackOnTrack.Infrastructure.Helpers;
 
 namespace BackOnTrack.UI.MainView.Pages.Tools
@@ -21,7 +21,11 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
     /// </summary>
     public partial class SystemLevelEditor : UserControl
     {
-        public const string HostFileLocation = @"C:\Windows\System32\drivers\etc\hosts";
+        public string GetHostFileLocation()
+        {
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"system32\drivers\etc\hosts");
+        }
+
         private RunningApplication _runningApplication;
 
         public SystemLevelEditor()
@@ -42,7 +46,7 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
 
         public bool HostFileExists()
         {
-            return FileModification.FileExists(@"C:\Windows\System32\drivers\etc\hosts");
+            return FileModification.FileExists(GetHostFileLocation());
         }
         private void CreatHostFileButton(object sender, RoutedEventArgs e)
         {
@@ -50,7 +54,7 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
             {
                 try
                 {
-                    FileModification.WriteFile(HostFileLocation, "#Host-file created by BackOnTrack");
+                    FileModification.WriteFile(GetHostFileLocation(), "#Host-file created by BackOnTrack");
                     NoHostFileGrid.Visibility = Visibility.Hidden;
                 }
                 catch (UnauthorizedAccessException)

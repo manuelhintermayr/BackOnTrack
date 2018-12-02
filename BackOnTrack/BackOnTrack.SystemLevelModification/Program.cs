@@ -10,10 +10,7 @@ namespace BackOnTrack.SystemLevelModification
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Starting BackOnTrackSystemLevelModification");
-            Console.ReadKey();
-
-            // Go to http://aka.ms/dotnet-get-started-console to continue learning how to build a console app! 
+            SystemLeveModification application = new SystemLeveModification();
         }
     }
 }

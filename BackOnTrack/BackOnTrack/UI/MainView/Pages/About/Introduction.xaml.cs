@@ -12,10 +12,6 @@ namespace BackOnTrack.UI.MainView.Pages.About
         public Introduction()
         {
             InitializeComponent();
-
-            //BackOnTrack.Properties.Resources.Logo.
-
-            //LogoImage.Source = (ImageSource)(new ImageSourceConverter().ConvertFrom(BackOnTrack.Properties.Resources.Logo));
         }
     }
 }

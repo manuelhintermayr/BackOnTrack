@@ -9,7 +9,7 @@
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer>
             <StackPanel >
-                <TextBlock Text="Get finally Back On Track." Style="{StaticResource Heading1}" Margin="0,0,0,8"/>
+                <TextBlock Text="Finally getting Back On Track." Style="{StaticResource Heading1}" Margin="0,0,0,8"/>
                 <Image x:Name="LogoImage" Source="/BackOnTrack;component/Resources/Logo.png" Height="263" Width="134"/>
                 <TextBlock Text="Get back your focus, now!" Style="{StaticResource Heading2}" />
                 <mui:BBCodeBlock Margin="0,0,0,16" xml:space="preserve">Click [url=UI/MainView/Pages/Profiles/ViewProfiles.xaml]here[/url] to see a list of your profiles. Click [url=UI/MainView/Pages/Profiles/AddProfile.xaml]here[/url] to add a new profile.</mui:BBCodeBlock>
