@@ -95,7 +95,7 @@ namespace BackOnTrack.UI.Login
 
         private void EnableBlur()
         {
-            // got Blur configuration from: https://github.com/riverar/sample-win10-aeroglass/blob/master/LICENSE
+            // got Blur configuration from: https://github.com/riverar/sample-win10-aeroglass
             var windowHelper = new WindowInteropHelper(this);
 
             var accent = new AccentPolicy();

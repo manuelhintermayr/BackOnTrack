@@ -16,10 +16,10 @@
 Current Version is: [b]1.0.0[/b]</mui:BBCodeBlock>
                 <!--TODO: bind program version, add "here"-projectPage -->
 
-                <TextBlock Text="USED FRAMEWORKS" Style="{StaticResource Heading2}" />
-                <mui:BBCodeBlock xml:space="preserve">» text [url=http://www.google.com]http://www.google.com[/url] text
-» text [url=http://www.google.com]http://www.google.com[/url] text
-» text [url=http://www.google.com]http://www.google.com[/url] text
+                <TextBlock Text="USED FRAMEWORKS / CODES" Style="{StaticResource Heading2}" />
+                <mui:BBCodeBlock xml:space="preserve">» Blur-effect from [url=https://github.com/riverar/sample-win10-aeroglass]here[/url]
+» Single-Instance from [url=https://www.codeproject.com/Articles/32908/C-Single-Instance-App-With-the-Ability-To-Restore]here[/url]
+» Encrypting/Decrypting from [url=https://stackoverflow.com/questions/10168240/encrypting-decrypting-a-string-in-c-sharp]here[/url]
                 </mui:BBCodeBlock>
             </StackPanel>
         </ScrollViewer>
