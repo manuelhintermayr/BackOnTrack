@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+    <ApplicationIcon>..\BackOnTrack.Resources\Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FirstFloor.ModernUI, Version=1.0.5.0, Culture=neutral, PublicKeyToken=2d21ec3cd074c59a, processorArchitecture=MSIL">
@@ -211,6 +211,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -224,10 +225,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="..\BackOnTrack.Resources\Resources\Icon.ico">
+      <Link>Resources\Icon.ico</Link>
+    </Resource>
+    <Resource Include="..\BackOnTrack.Resources\Resources\Logo.png">
+      <Link>Resources\Logo.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Assets\FirstFloor.ModernUI.dll" />
-    <None Include="Resources\Icon.ico" />
-    <Resource Include="logo.ico" />
-    <Resource Include="Assets\logo.png" />
     <Content Include="Assets\WPFToolkit.dll" />
   </ItemGroup>
   <ItemGroup>
