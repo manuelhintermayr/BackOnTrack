@@ -74,4 +74,8 @@
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>echo F D| xcopy /y "$(TargetPath)" "$(SolutionDir)BackOnTrack\bin\Debug\$(TargetFileName)" 
+</PreBuildEvent>
+  </PropertyGroup>
 </Project>
