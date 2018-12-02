@@ -21,6 +21,8 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
     /// </summary>
     public partial class SystemLevelEditor : UserControl
     {
+        List<HostEntry> hostEntries = new List<HostEntry>();
+
         public string GetHostFileLocation()
         {
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"system32\drivers\etc\hosts");
@@ -46,6 +48,8 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
             {
                 NoHostFileGrid.Visibility = Visibility.Hidden;
                 SaveSystemSettings.Visibility = Visibility.Visible;
+
+                FillList();
             }
         }
 
@@ -83,11 +87,28 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
 
         #endregion
 
+        #region LoadHostFile
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            dataGrid1.ItemsSource = hostEntries;
+        }
+
+        private void FillList()
+        {
+            hostEntries.Clear();
+            hostEntries.Add(new HostEntry(){name = "one"});
+            hostEntries.Add(new HostEntry() { name = "two" });
+            hostEntries.Add(new HostEntry() { name = "three" });
+            //updateUi
+        }
+
+        #endregion
+
         private void SaveSystemSettings_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        
+
     }
 }

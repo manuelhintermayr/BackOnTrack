@@ -107,6 +107,7 @@
     <Compile Include="UI\MainView\Pages\Shutdown.xaml.cs">
       <DependentUpon>Shutdown.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\MainView\Pages\Tools\HostEntry.cs" />
     <Compile Include="UI\MainView\Pages\Tools\SystemLevelEditor.xaml.cs">
       <DependentUpon>SystemLevelEditor.xaml</DependentUpon>
     </Compile>
