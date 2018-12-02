@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace BackOnTrack.SystemLevelModification
 {
-    public class SystemLeveModification
+    public class SystemLevelModification
     {
         public string GetHostFileLocation()
         {
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"system32\drivers\etc\hosts");
         }
 
-        public SystemLeveModification()
+        public SystemLevelModification()
         {
             Console.WriteLine("Starting BackOnTrackSystemLevelModification");
             Console.WriteLine("Did this window get started by the official BackOnTrack-Application? \"y\"=Yes");
@@ -30,6 +30,16 @@ namespace BackOnTrack.SystemLevelModification
                 {
                     CreateNewHostFile();
                 }
+                else
+                {
+                    Environment.Exit(1);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Closing SystemLevelModification... Please make sure that this tool is only started by the official BackOnTrack application.");
+                Console.ReadKey();
+                Environment.Exit(1);
             }
         }
 
@@ -37,6 +47,7 @@ namespace BackOnTrack.SystemLevelModification
         {
             Console.WriteLine("Program was started without options, closing...");
             Console.ReadKey();
+            Environment.Exit(1);
         }
 
         public void CreateNewHostFile()
@@ -50,10 +61,16 @@ namespace BackOnTrack.SystemLevelModification
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"The following error occured: [\"{e.InnerException}\"]{Environment.NewLine}{e.Message}");
+                    Console.WriteLine($"The following error occured: [\"{e}\"]{Environment.NewLine}{e.Message}");
                     Console.ReadKey();
                     Environment.Exit(1);
                 }
+            }
+            else
+            {
+                Console.WriteLine($"System file \"{GetHostFileLocation()}\" exists already");
+                Console.ReadKey();
+                Environment.Exit(1);
             }
         }
 

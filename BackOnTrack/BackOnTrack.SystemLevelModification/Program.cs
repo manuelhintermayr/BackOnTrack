@@ -10,7 +10,7 @@ namespace BackOnTrack.SystemLevelModification
     {
         static void Main(string[] args)
         {
-            SystemLeveModification application = new SystemLeveModification();
+            SystemLevelModification application = new SystemLevelModification();
         }
     }
 }

@@ -13,7 +13,7 @@
                 <TextBlock Text="System Level Editor" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
                 <mui:BBCodeBlock BBCode="This tool will block website on system level, which means, changes will remain even if BackOnTrack is not running. Please use only this tool if you know what you are doing. For normal blocking click [url=UI/MainView/Pages/Profiles/ViewProfiles.xaml]here[/url]." Margin="0,0,0,16"/>
 
-                <Grid  Width="320" HorizontalAlignment="Left" Margin="0,0,20,0">
+                <Grid  Width="340" HorizontalAlignment="Left" Margin="0,0,20,0">
                     <Button x:Name="LoadSystemSettings" Content="Load system settings" HorizontalAlignment="Left" Click="LoadSystemSettings_Click"  />
                     <Button x:Name="SaveSystemSettings" Content="Save system settings" HorizontalAlignment="Right" Visibility="Hidden" Click="SaveSystemSettings_Click"/>
                 </Grid>

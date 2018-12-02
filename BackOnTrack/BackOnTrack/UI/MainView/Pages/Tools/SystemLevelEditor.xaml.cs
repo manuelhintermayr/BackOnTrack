@@ -36,9 +36,16 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
 
         private void LoadSystemSettings_Click(object sender, RoutedEventArgs e)
         {
+            LoadSystemSettings.Content = "Reload system settings";
             if (!HostFileExists())
             {
                 NoHostFileGrid.Visibility = Visibility.Visible;
+                SaveSystemSettings.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                NoHostFileGrid.Visibility = Visibility.Hidden;
+                SaveSystemSettings.Visibility = Visibility.Visible;
             }
         }
 
@@ -52,18 +59,19 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
         {
             if (!HostFileExists())
             {
-                try
+                int result = _runningApplication.Services.SystemLevelConfiguration.CreateNewHostFile();
+                if(result==0)
                 {
-                    FileModification.WriteFile(GetHostFileLocation(), "#Host-file created by BackOnTrack");
+                    _runningApplication.UI.MainView.CreateAlertWindow("SystemFile successfully created.", "The SystemFile was successfully created!");
                     NoHostFileGrid.Visibility = Visibility.Hidden;
                 }
-                catch (UnauthorizedAccessException)
+                else if(result==1)
                 {
-                    _runningApplication.UI.MainView.AlertNoAdminRights();
+                    _runningApplication.UI.MainView.CreateAlertWindow("Creating system file failed.", "Creating the new system file failed. Information was given in the previous window.");
                 }
-                catch (System.IO.IOException ex)
+                else
                 {
-                    _runningApplication.UI.MainView.AlertErrorWithFile(ex);
+                    _runningApplication.UI.MainView.CreateAlertWindow("Closing error.", "The tool for SystemFileModification was not closed in a correct way.");
                 }
 
             }
