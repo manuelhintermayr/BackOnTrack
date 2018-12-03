@@ -33,7 +33,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
         {
             string newProfileName = NewProfileName.Text.ToUpper();
             
-            if (newProfileName == "" || newProfileName == " " || newProfileName.Length > 48 || CheckIfProfileNameIsAlreadyUsed(newProfileName))
+            if (newProfileName == "" || newProfileName == " " || newProfileName.Length > 48 || CheckIfProfileNameIsAlreadyUsed(newProfileName) || newProfileName.Contains("'"))
             {
                 string alertTitle = "Error with new profile name.";
                 string alertContent = "Could not create a new profile. The new profile name may be invalid, too long or already used.";

@@ -38,6 +38,11 @@ namespace BackOnTrack.Services.UserConfiguration
         {
             CurrentUserConfiguration configuration = new CurrentUserConfiguration(){ProfileList = new List<Profile>()};
 
+            SaveConfiguration(configuration, password);
+        }
+
+        public void SaveConfiguration(CurrentUserConfiguration configuration, string password)
+        {
             var jsonConfiguration = JsonConvert.SerializeObject(configuration);
             string encryptedConfiguration = EncryptingHelper.Encrypt(jsonConfiguration, password);
 

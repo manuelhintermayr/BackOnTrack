@@ -61,9 +61,34 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void SaveProfilesButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            //save profiles
-            //update webproxy configuration
-            UpdateList();
+            string alertTitle = "Save profiles";
+            string alertContent =
+                "Do you want to save and enable your current displayed user configuration?";
+            var alertOkEvent = new RoutedEventHandler(SaveProfilesOkClick);
+
+            _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent, true, alertOkEvent);
+        }
+
+        private void SaveProfilesOkClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string password = _runningApplication.UI.MainView.GetLoggedInPassword();
+                _runningApplication.Services.UserConfiguration.SaveConfiguration(_runningApplication.UI.MainView.UserConfiguration, password);
+                
+                //update webproxy configuration
+                //start configuration
+                UpdateList();
+                _runningApplication.UI.MainView.CreateAlertWindow("Saving complete", "Profiles were successfully saved and loaded.");
+            }
+            catch (Exception ex)
+            {
+                string alertTitle = "Error saving profiles.";
+                string alertContent =
+                    $"Could not save the profiles. Following error occured:{Environment.NewLine}{ex}";
+
+                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
+            }
         }
 
         private void RevertChangesButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -80,12 +105,14 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
         {
             try
             {
+                string password = _runningApplication.UI.MainView.GetLoggedInPassword();
                 var originalConfiguration =
-                    _runningApplication.Services.UserConfiguration.OpenConfiguration(_runningApplication.UI.MainView
-                        .GetLoggedInPassword());
+                    _runningApplication.Services.UserConfiguration.OpenConfiguration(password);
 
                 _runningApplication.UI.MainView.SetCurrentUserConfiguration(originalConfiguration);
                 UpdateList();
+
+                _runningApplication.UI.MainView.CreateAlertWindow("Revert complete", "Reverting of user configuration was successfully.");
             }
             catch (Exception ex)
             {
@@ -95,8 +122,6 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
                 _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
             }
-
-
         }
     }
 }
