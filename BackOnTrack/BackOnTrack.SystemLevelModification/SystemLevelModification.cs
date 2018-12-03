@@ -30,6 +30,10 @@ namespace BackOnTrack.SystemLevelModification
                 {
                     CreateNewHostFile();
                 }
+                else if (settings.Contains("-replaceHostFile"))
+                {
+                    ReplaceHostFile(settings);
+                }
                 else
                 {
                     Environment.Exit(1);
@@ -72,6 +76,35 @@ namespace BackOnTrack.SystemLevelModification
                 Console.ReadKey();
                 Environment.Exit(1);
             }
+        }
+
+        private void ReplaceHostFile(string[] args)
+        {
+            string newPath = "";
+
+            foreach (var argument in args)
+            {
+                if (argument.Contains("-newPath"))
+                {
+                    newPath = argument.Substring(10, (argument.Length-11)).Replace("%20", " ");
+                    if (!FileModification.FileExists(newPath))
+                    {
+                        newPath = "";
+                    }
+                }
+            }
+
+            if(newPath=="")
+            {
+                Console.WriteLine("No valid path for new system file was given.");
+                Console.ReadKey();
+                Environment.Exit(1);
+            }
+
+            string hostContent = FileModification.ReadFile(newPath);
+            FileModification.WriteFile(GetHostFileLocation(), hostContent);
+            Environment.Exit(0);
+
         }
 
         public bool HostFileExists()

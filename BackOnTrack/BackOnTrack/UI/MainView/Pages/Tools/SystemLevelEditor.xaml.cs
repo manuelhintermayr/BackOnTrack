@@ -44,7 +44,10 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
 
             if (HostEntriesList.Visibility == Visibility.Visible)
             {
-                _runningApplication.UI.MainView.CreateAlertWindow("Reload system settings", "Are you sure you want to reload the system settings? This will reset all not saved changes.", true, new RoutedEventHandler(LoadSystemSettingsAction));
+                string alertTitle = "Reload system settings";
+                string alertContent =
+                    "Are you sure you want to reload the system settings? This will reset all not saved changes.";
+                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent, true, new RoutedEventHandler(LoadSystemSettingsAction));
             }
             else
             {
@@ -219,7 +222,46 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
 
         private void SaveSystemSettings_Click(object sender, RoutedEventArgs e)
         {
+            string alertTitle = "Save current system settings";
+            string alertContent =
+                "Are you sure you want to save the current configuration in the editor to the system file?";
+            _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent, true, new RoutedEventHandler(SaveCurrentSystemSettings));
+        }
 
+        private void SaveCurrentSystemSettings(object sender, RoutedEventArgs e)
+        {
+            string hostFileContent = BuildHostFileContent();
+
+            int result = _runningApplication.Services.SystemLevelConfiguration.UpdateHostFile(hostFileContent);
+            if (result == 0)
+            {
+                _runningApplication.UI.MainView.CreateAlertWindow("SystemFile was successfully updated.", "The SystemFile was successfully updated!");
+                NoHostFileGrid.Visibility = Visibility.Hidden;
+            }
+            else if (result == 1)
+            {
+                _runningApplication.UI.MainView.CreateAlertWindow("Updating system file failed.", "Updating the system file failed. Information was given in the previous window.");
+            }
+            else
+            {
+                _runningApplication.UI.MainView.CreateAlertWindow("Closing error.", "The tool for SystemFileModification was not closed in a correct way.");
+            }
+        }
+
+        private string BuildHostFileContent()
+        {
+            string hostFileContent = "";
+            for (int i = 0; i < HostEntries.Count; i++)
+            {
+                var hostEntry = HostEntries[i];
+                hostFileContent = $"{hostFileContent}{(hostEntry.IsEnabled ? "" : "#")}{hostEntry.Content}";
+                if ((i + 1) != HostEntries.Count) //checking for last entry 
+                {
+                    hostFileContent = $"{hostFileContent}{Environment.NewLine}";
+                }
+            }
+
+            return hostFileContent;
         }
 
         #endregion
