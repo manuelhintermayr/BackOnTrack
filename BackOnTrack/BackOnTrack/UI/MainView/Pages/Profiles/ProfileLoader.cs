@@ -11,6 +11,10 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
     {
         protected override object LoadContent(Uri uri)
         {
+            if (uri.ToString().Contains("/UI/MainView/Pages/Profiles/EmptyView.xaml"))
+            {
+                return new EmptyView();
+            }
             return new SpecificProfileView(uri.ToString().Substring(1));
         }
     }

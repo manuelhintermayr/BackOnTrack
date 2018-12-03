@@ -57,6 +57,8 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             {
                 NoProfilesYetGrid.Visibility = Visibility.Visible;
             }
+
+            ProfileList.SelectedSource = new Uri("/UI/MainView/Pages/Profiles/EmptyView.xaml", UriKind.Relative);//Workaround to remove profile views of already deleted profiles
         }
 
         private void SaveProfilesButton_Click(object sender, System.Windows.RoutedEventArgs e)

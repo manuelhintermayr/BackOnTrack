@@ -45,5 +45,28 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
             ProfileName.Text = profileName;
         }
+
+        private void DeleteCurrentProfile_Click(object sender, RoutedEventArgs e)
+        {
+            string alertTitle = "Remove profile";
+            string alertContent =
+                "Are you sure you want to delete this profile? Changes become active after saving.";
+            var alertOkEvent = new RoutedEventHandler(DeleteProfileOkClick);
+
+            _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent, true, alertOkEvent);
+        }
+
+        private void DeleteProfileOkClick(object sender, RoutedEventArgs e)
+        {
+            if (!_runningApplication.UI.MainView.UserConfiguration.ProfileList.Remove(CurrentProfile))
+            {
+                _runningApplication.UI.MainView.CreateAlertWindow("Error removing profile", "Could not remove the profile.");
+            }
+            else
+            {
+                _runningApplication.UI.MainView.ContentSource = new Uri("/UI/MainView/Pages/Profiles/ViewProfiles.xaml", UriKind.Relative);
+            }
+
+        }
     }
 }

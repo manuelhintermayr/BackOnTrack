@@ -14,7 +14,7 @@
                         <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading1}" Margin="0,0,0,8">
                             Profile '<TextBlock Text="{Binding Path=CurrentProfile.ProfileName}" />'
                         </TextBlock>
-                        <Button x:Name="DeleteCurrentProfile" HorizontalAlignment="Right">Delete Profile</Button>
+                        <Button x:Name="DeleteCurrentProfile" HorizontalAlignment="Right" Click="DeleteCurrentProfile_Click">Delete Profile</Button>
                     </Grid>
 
                     <TextBlock x:Name="ProfileName"/>
