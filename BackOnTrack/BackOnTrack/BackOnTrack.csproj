@@ -92,6 +92,10 @@
     <Compile Include="UI\MainView\Pages\Profiles\AddProfile.xaml.cs">
       <DependentUpon>AddProfile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\MainView\Pages\Profiles\ProfileLoader.cs" />
+    <Compile Include="UI\MainView\Pages\Profiles\SpecificProfileView.xaml.cs">
+      <DependentUpon>SpecificProfileView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainView\Pages\Settings\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
@@ -125,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MainView\Pages\Profiles\AddProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Profiles\SpecificProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
