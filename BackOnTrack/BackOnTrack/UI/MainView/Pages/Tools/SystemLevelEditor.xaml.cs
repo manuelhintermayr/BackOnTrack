@@ -69,6 +69,7 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
             }
             else
             {
+                HostEntriesList.Visibility = Visibility.Hidden; //fix to really reload all entries
                 FillList();
                 NoHostFileGrid.Visibility = Visibility.Hidden;
                 SaveSystemSettings.Visibility = Visibility.Visible;
@@ -187,14 +188,90 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
 
         #region Change Entries
 
-        private void EnDisAbleEntries_Click(object sender, RoutedEventArgs e)
+        private void EntryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            UpdateEnDisAbleDeleteButtonsVisibility();
+        }
 
+        private void UpdateEnDisAbleDeleteButtonsVisibility()
+        {
+            if (EntryList.SelectedItems.Count > 1 || EntryList.SelectedItem != null)
+            {
+                EnableEntries.IsEnabled = true;
+                DisableEntries.IsEnabled = true;
+                DeleteEntries.IsEnabled = true;
+            }
+            else
+            {
+                EnableEntries.IsEnabled = false;
+                DisableEntries.IsEnabled = false;
+                DeleteEntries.IsEnabled = false;
+            }
+        }
+
+        private void EnableEntries_Click(object sender, RoutedEventArgs e)
+        {
+            EnDisAbleSelectedEntries(true);
+        }
+
+        private void DisableEntries_Click(object sender, RoutedEventArgs e)
+        {
+            EnDisAbleSelectedEntries(false);
+        }
+
+        private void EnDisAbleSelectedEntries(bool enable)
+        {
+            if (EntryList.SelectedItems.Count > 1)
+            {
+                System.Collections.IList items = (System.Collections.IList)EntryList.SelectedItems;
+                var selectedItems = items.Cast<HostEntry>();
+                foreach (var entry in selectedItems)
+                {
+                    entry.IsEnabled = enable;
+                }
+            }
+            else
+            {
+                if (EntryList.SelectedItem != null)
+                {
+                    HostEntry entry = (HostEntry)EntryList.SelectedValue;
+                    entry.IsEnabled = enable;
+                }
+            }
+            EntryList.Items.Refresh();
         }
 
         private void DeleteEntries_Click(object sender, RoutedEventArgs e)
         {
+            string alertTitle = "Delete entrie(s)";
+            string alertContent =
+                "Are you sure you want to delete the selected entry / entries?";
+            _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent, true, new RoutedEventHandler(DeleteEntriesAction));
+        }
 
+        private void DeleteEntriesAction(object sender, RoutedEventArgs e)
+        {
+            if (EntryList.SelectedItems.Count > 1)
+            {
+                System.Collections.IList items = (System.Collections.IList)EntryList.SelectedItems;
+                var selectedItems = items.Cast<HostEntry>();
+
+                foreach (var entry in selectedItems)
+                {
+                    HostEntries.Remove(entry);
+                }
+            }
+            else
+            {
+                if (EntryList.SelectedItem != null)
+                {
+                    HostEntry entry = (HostEntry)EntryList.SelectedValue;
+                    HostEntries.Remove(entry);
+                }
+            }
+
+            EntryList.Items.Refresh();
+            UpdateEnDisAbleDeleteButtonsVisibility();
         }
 
         #endregion
@@ -265,5 +342,6 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
         }
 
         #endregion
+
     }
 }
