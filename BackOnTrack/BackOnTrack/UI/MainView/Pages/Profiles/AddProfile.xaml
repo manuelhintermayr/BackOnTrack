@@ -3,10 +3,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BackOnTrack.UI.MainView.Pages.Profiles"
+             xmlns:local="clr-namespace:BackOnTrack.UI.MainView.Pages.Profiles" xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid>
-            
+        <ScrollViewer>
+            <StackPanel x:Name="Panel" MinWidth="150">
+                <TextBlock Text="Add a new profile" Style="{StaticResource Heading1}" Margin="0,0,0,8"/>
+
+                <StackPanel x:Name="Form" Orientation="Vertical">
+                    <StackPanel.Resources>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Orientation" Value="Horizontal" />
+                            <Setter Property="Margin" Value="0,0,0,5" />
+                        </Style>
+                        <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                            <Setter Property="Width" Value="130" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                        <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                            <Setter Property="Padding" Value="0,3" />
+                        </Style>
+                        <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
+                            <Setter Property="Padding" Value="0,3" />
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <StackPanel>
+                        <Label Content="New profile name" Target="{Binding ElementName=NewProfileName}"/>
+                        <TextBox x:Name="NewProfileName" Width="150" />
+                    </StackPanel>
+
+                    <StackPanel>
+                        <Label />
+                        <CheckBox x:Name="EnableBlockingOnSystemLevel" IsChecked="True">
+                            <TextBlock FontWeight="Bold">Enable blocking on a system level.</TextBlock>
+                        </CheckBox>
+                    </StackPanel>
+                    <StackPanel >
+                        <Label />
+                        <CheckBox x:Name="EnableBlockingOnProxyLevel" IsChecked="True">
+                            <TextBlock FontWeight="Bold">Enable blocking on the proxy.</TextBlock>
+                        </CheckBox>
+                    </StackPanel>
+
+                    <Button x:Name="AddProfileButton"  Content="Add profile" Margin="100,16,0,0" HorizontalAlignment="Left" Click="AddProfileButton_Click" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

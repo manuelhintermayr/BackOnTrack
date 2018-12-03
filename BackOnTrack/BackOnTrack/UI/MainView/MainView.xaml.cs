@@ -28,6 +28,11 @@ namespace BackOnTrack.UI.MainView
             WindowIsShown = true;
         }
 
+        public string GetLoggedInPassword()
+        {
+            return _password;
+        }
+
         private void CloseWindowOperations()
         {
             _password = "";
