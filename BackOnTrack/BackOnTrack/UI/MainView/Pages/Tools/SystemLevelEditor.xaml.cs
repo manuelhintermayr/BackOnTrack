@@ -44,11 +44,15 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
             {
                 NoHostFileGrid.Visibility = Visibility.Visible;
                 SaveSystemSettings.Visibility = Visibility.Hidden;
+                HostEntryEnDisAble.Visibility = Visibility.Hidden;
+                HostEntriesList.Visibility = Visibility.Hidden;
             }
             else
             {
                 NoHostFileGrid.Visibility = Visibility.Hidden;
                 SaveSystemSettings.Visibility = Visibility.Visible;
+                HostEntryEnDisAble.Visibility = Visibility.Visible;
+                HostEntriesList.Visibility = Visibility.Visible;
 
                 FillList();
             }
@@ -154,6 +158,9 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
 
         }
 
-        
+        private void AddNewEntry_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

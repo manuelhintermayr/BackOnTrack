@@ -22,14 +22,34 @@
                     <mui:BBCodeBlock BBCode="Could not found system file." HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <Button Width="100" Height="28" Click="CreatHostFileButton" HorizontalAlignment="Right">Create file.</Button>
                 </Grid>
-                <Grid x:Name="HostEntriesList" Margin="16,0,16,0" VerticalAlignment="Stretch">
-                    <DataGrid Name="dataGrid1" HorizontalAlignment="Center"  IsReadOnly="True" IsEnabled="True"/>
+                <Grid x:Name="HostEntriesList" Visibility="Visible">
+                    <Grid VerticalAlignment="Top" Height="32" Margin="0,0,0,38">
+                        <Grid.Resources>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Orientation" Value="Horizontal" />
+                                <Setter Property="Margin" Value="0,0,0,5" />
+                            </Style>
+                            <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                                <Setter Property="Width" Value="130" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </Grid.Resources>
+                        <StackPanel HorizontalAlignment="Center">
+                            <Label Content="Add domain to block:" Target="{Binding ElementName=SampleTextbox}"/>
+                            <TextBox x:Name="DomainToBlockTextbox" Width="150" Margin="0,0,10,0" />
+                            <Button x:Name="AddNewEntry" Click="AddNewEntry_Click">Add entry</Button>
+                        </StackPanel>
+                    </Grid> 
+                    <Grid VerticalAlignment="Bottom" Margin="0,38,0,0">
+                        <DataGrid Name="dataGrid1" HorizontalAlignment="Center"  IsReadOnly="True" IsEnabled="True"/>
+                    </Grid>
                 </Grid>
             </StackPanel>
         </ScrollViewer>
-        <Grid x:Name="HostEntryEnDisAble" Height="100" VerticalAlignment="Bottom">
-            <Grid Height="60"  HorizontalAlignment="Center" Margin="16,0,0,0">
-                <Button x:Name="EnDisAbleEntries" Content="Enable/Disable selected entries" Click="EnDisAbleEntries_Click" />
+        <Grid x:Name="HostEntryEnDisAble" Height="100" VerticalAlignment="Bottom" Visibility="Hidden">
+            <Grid Height="60"  HorizontalAlignment="Center" Width="380">
+                <Button x:Name="EnDisAbleEntries" Content="Enable/Disable selected entries" Click="EnDisAbleEntries_Click"  HorizontalAlignment="Left"/>
+                <Button x:Name="DeleteEntries" Content="Delete selected entries" Click="EnDisAbleEntries_Click" HorizontalAlignment="Right"/>
             </Grid>
         </Grid>
     </Grid>
