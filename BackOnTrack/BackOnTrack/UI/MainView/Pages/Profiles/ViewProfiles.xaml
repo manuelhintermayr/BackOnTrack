@@ -8,19 +8,15 @@
              d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <Grid>
         <mui:ModernTab x:Name="ProfileList" Layout="List" Margin="0,0,0,100">
-            <mui:ModernTab.Links>
-                <mui:Link DisplayName="Lorem Ipsum 1" Source="/1" />
-                <mui:Link DisplayName="Lorem Ipsum 2" Source="/2" />
-                <mui:Link DisplayName="Lorem Ipsum 3" Source="/3"/>
-                <mui:Link DisplayName="Lorem Ipsum 4" Source="/4" />
-                <mui:Link DisplayName="Lorem Ipsum 5" Source="/5"/>
-            </mui:ModernTab.Links>
-
             <!-- ensures new LoremIpsum content is loaded for each uri -->
             <!--<mui:ModernTab.ContentLoader>
                 --><!--<app:LoremIpsumLoader />--><!--
             </mui:ModernTab.ContentLoader>-->
         </mui:ModernTab>
+        <Grid x:Name="NoProfilesYetGrid" VerticalAlignment="Top">
+            <mui:BBCodeBlock Margin="0,0,0,16" xml:space="preserve">No profiles yet. 
+Click [url=UI/MainView/Pages/Profiles/AddProfile.xaml]here[/url].</mui:BBCodeBlock>
+        </Grid>
         <Grid Height="100" VerticalAlignment="Bottom">
             <Grid Height="60"  HorizontalAlignment="Left" Margin="16,0,0,0">
                 <Button x:Name="SaveProfilesButton" Content="Save Profiles" Click="SaveProfilesButton_Click" />

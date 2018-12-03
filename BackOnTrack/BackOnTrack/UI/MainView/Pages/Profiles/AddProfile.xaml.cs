@@ -49,7 +49,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 EnableBlockingOnProxyLevel.IsChecked = true;
                 EnableBlockingOnProxyLevel.UpdateLayout();
                 EnableBlockingOnSystemLevel.IsChecked = true;
-                //_runningApplication.UI.MainView.
+                
                 ((FirstFloor.ModernUI.Windows.Controls.ModernFrame)(this.Parent)).Source = new Uri("/UI/MainView/Pages/Profiles/ViewProfiles.xaml", UriKind.Relative);
             }
         }

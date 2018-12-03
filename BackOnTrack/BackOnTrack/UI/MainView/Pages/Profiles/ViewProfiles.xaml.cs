@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using BackOnTrack.Services.UserConfiguration;
 using FirstFloor.ModernUI.Presentation;
@@ -28,6 +29,8 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void UpdateList()
         {
+            NoProfilesYetGrid.Visibility = Visibility.Hidden;
+
             //remove old entries
             var profileNameList = _runningApplication.UI.MainView.UserConfiguration.ProfileList
                 .Select(x => x.ProfileName).ToList();
@@ -48,6 +51,11 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 {
                     ProfileList.Links.Add(new Link() { DisplayName = profile.ProfileName, Source = new Uri(string.Format(CultureInfo.InvariantCulture, "/{0}", profile.ProfileName), UriKind.Relative) });
                 }
+            }
+
+            if (ProfileList.Links.Count == 0)
+            {
+                NoProfilesYetGrid.Visibility = Visibility.Visible;
             }
         }
 
