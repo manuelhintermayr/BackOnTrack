@@ -4,20 +4,45 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BackOnTrack.UI.MainView.Pages.Profiles"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid Margin="0,0,0,100">
             <ScrollViewer>
                 <StackPanel>
+                    <StackPanel.Resources>
+                        
+                        <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                            <Setter Property="Width" Value="130" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                        <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                            <Setter Property="Padding" Value="0,3" />
+                        </Style>
+                    </StackPanel.Resources>
                     <Grid>
                         <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading1}" Margin="0,0,0,8">
                             Profile '<TextBlock Text="{Binding Path=CurrentProfile.ProfileName}" />'
                         </TextBlock>
                         <Button x:Name="DeleteCurrentProfile" HorizontalAlignment="Right" Click="DeleteCurrentProfile_Click">Delete Profile</Button>
                     </Grid>
-
+                    <CheckBox x:Name="ProfileIsActivatedCheckbox" IsChecked="True">
+                        <TextBlock FontWeight="Bold">Profile is activated</TextBlock>
+                    </CheckBox>
+                    <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading2}" Margin="0,16,0,8">
+                        Add a new entry
+                    </TextBlock>
                     <TextBlock x:Name="ProfileName"/>
+                    <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading2}" Margin="0,16,0,8">
+                        View entries
+                    </TextBlock>
+                    <DataGrid Name="EntryList" ItemsSource="{Binding}" AutoGenerateColumns="False" >
+                        <DataGrid.Columns>
+                            <mui:DataGridTextColumn Header="Sample"  Binding="{Binding Sample}"/>
+                            <mui:DataGridTextColumn Header="Sample2"  Binding="{Binding Sample2}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </StackPanel>
             </ScrollViewer>
         </Grid>
