@@ -14,9 +14,9 @@ namespace BackOnTrack.Services.UserConfiguration
         public bool PreferableBlockingOnSystemLevel;
         public bool PreferableBlockingOnProxyLevel;
 
-        public static Profile CreateProfile(string profileName)
+        public static Profile CreateProfile(string profileName, bool blockOnSystemLevel, bool blockOnProxyLevel)
         {
-            return new Profile() { ProfileName = profileName, EntryList = new List<Entry>() };
+            return new Profile() { ProfileName = profileName, EntryList = new List<Entry>(), PreferableBlockingOnSystemLevel = blockOnSystemLevel, PreferableBlockingOnProxyLevel = blockOnProxyLevel};
         }
     }
 
