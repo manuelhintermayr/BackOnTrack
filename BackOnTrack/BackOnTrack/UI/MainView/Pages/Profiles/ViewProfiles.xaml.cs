@@ -68,8 +68,35 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void RevertChangesButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            //reset configuration
-            UpdateList();
+            string alertTitle = "Revert changes";
+            string alertContent =
+                $"This will revert all changes you made to your user profile since the last save and will reset the {Environment.NewLine}configuration to the current loaded. {Environment.NewLine}{Environment.NewLine}Are you sure you want to do this?";
+            var alertOkEvent = new RoutedEventHandler(RevertConfigurationOkClick);
+        
+            _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent, true, alertOkEvent);        
+        }
+
+        private void RevertConfigurationOkClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var originalConfiguration =
+                    _runningApplication.Services.UserConfiguration.OpenConfiguration(_runningApplication.UI.MainView
+                        .GetLoggedInPassword());
+
+                _runningApplication.UI.MainView.SetCurrentUserConfiguration(originalConfiguration);
+                UpdateList();
+            }
+            catch (Exception ex)
+            {
+                string alertTitle = "Error reloading configuration.";
+                string alertContent =
+                    $"Could not reload the configuration. Following error occured:{Environment.NewLine}{ex}";
+
+                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
+            }
+
+
         }
     }
 }

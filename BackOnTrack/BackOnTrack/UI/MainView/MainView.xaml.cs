@@ -28,6 +28,11 @@ namespace BackOnTrack.UI.MainView
             WindowIsShown = true;
         }
 
+        public void SetCurrentUserConfiguration(CurrentUserConfiguration configuration)
+        {
+            UserConfiguration = configuration;
+        }
+
         public string GetLoggedInPassword()
         {
             return _password;
