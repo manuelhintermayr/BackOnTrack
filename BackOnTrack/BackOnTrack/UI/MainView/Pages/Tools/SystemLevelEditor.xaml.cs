@@ -41,6 +41,22 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
         private void LoadSystemSettings_Click(object sender, RoutedEventArgs e)
         {
             LoadSystemSettings.Content = "Reload system settings";
+
+            if (HostEntriesList.Visibility == Visibility.Visible)
+            {
+                _runningApplication.UI.MainView.CreateAlertWindow("Reload system settings", "Are you sure you want to reload the system settings? This will reset all not saved changes.", true, new RoutedEventHandler(LoadSystemSettingsAction));
+            }
+            else
+            {
+                LoadSystemSettingsAction(sender, e);
+            }
+        }
+
+
+        private void LoadSystemSettingsAction(object sender, RoutedEventArgs e)
+        {
+            bool hostEntryWhereBeforeVisible = HostEntriesList.Visibility == Visibility.Visible;
+
             if (!HostFileExists())
             {
                 NoHostFileGrid.Visibility = Visibility.Visible;
@@ -50,12 +66,19 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
             }
             else
             {
-                HostEntriesList.Visibility = Visibility.Hidden; //workaround for updating grid
                 FillList();
                 NoHostFileGrid.Visibility = Visibility.Hidden;
                 SaveSystemSettings.Visibility = Visibility.Visible;
                 HostEntryEnDisAble.Visibility = Visibility.Visible;
                 HostEntriesList.Visibility = Visibility.Visible;
+            }
+
+            if (hostEntryWhereBeforeVisible)
+            {
+                string alertTitle = "System settings reloaded";
+                string alertContent = "The system settings where successfully reloaded!";
+
+                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
             }
         }
 
@@ -121,6 +144,7 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
             CurrentLineNumber = 0;
             AddAllLinesFromHostFileIntoEntryList();
             TransformAllLinesInEntryList();
+            EntryList.Items.Refresh();
         }
 
         private void TransformAllLinesInEntryList()
@@ -176,9 +200,17 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
 
         private void AddNewEntry_Click(object sender, RoutedEventArgs e)
         {
-            HostEntries.Add(new HostEntry(){Content = $"127.0.0.1   {DomainToBlockTextbox.Text}", IsEnabled = true, LineNumber = (CurrentLineNumber+1)});
-            DomainToBlockTextbox.Text = "";
-            CurrentLineNumber++;
+            if (DomainToBlockTextbox.Text == "" || DomainToBlockTextbox.Text.Contains(" "))
+            {
+                _runningApplication.UI.MainView.CreateAlertWindow("Correct domain value", "Please enter a correct value for a domain or a IP-address to block.");
+            }
+            else
+            {
+                HostEntries.Add(new HostEntry() { Content = $"127.0.0.1   {DomainToBlockTextbox.Text}", IsEnabled = true, LineNumber = (CurrentLineNumber + 1) });
+                DomainToBlockTextbox.Text = "";
+                CurrentLineNumber++;
+                EntryList.Items.Refresh();
+            }
         }
 
         #endregion
