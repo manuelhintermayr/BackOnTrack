@@ -31,7 +31,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void AddProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            string newProfileName = NewProfileName.Text;
+            string newProfileName = NewProfileName.Text.ToUpper();
             
             if (newProfileName == "" || newProfileName == " " || newProfileName.Length > 48 || CheckIfProfileNameIsAlreadyUsed(newProfileName))
             {
@@ -41,8 +41,6 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             }
             else
             {
-
-
                 Profile newProfile = Profile.CreateProfile(newProfileName, EnableBlockingOnProxyLevel.IsChecked.Value,
                     EnableBlockingOnSystemLevel.IsChecked.Value);
                 _runningApplication.UI.MainView.UserConfiguration.ProfileList.Add(newProfile);
@@ -51,7 +49,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 EnableBlockingOnProxyLevel.IsChecked = true;
                 EnableBlockingOnProxyLevel.UpdateLayout();
                 EnableBlockingOnSystemLevel.IsChecked = true;
-
+                //_runningApplication.UI.MainView.
                 ((FirstFloor.ModernUI.Windows.Controls.ModernFrame)(this.Parent)).Source = new Uri("/UI/MainView/Pages/Profiles/ViewProfiles.xaml", UriKind.Relative);
             }
         }

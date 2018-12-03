@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <Grid>
-        <mui:ModernTab x:Name="ProfileList" SelectedSource="/2" Layout="List">
+        <mui:ModernTab x:Name="ProfileList" Layout="List" Margin="0,0,0,100">
             <mui:ModernTab.Links>
                 <mui:Link DisplayName="Lorem Ipsum 1" Source="/1" />
                 <mui:Link DisplayName="Lorem Ipsum 2" Source="/2" />
@@ -21,5 +21,13 @@
                 --><!--<app:LoremIpsumLoader />--><!--
             </mui:ModernTab.ContentLoader>-->
         </mui:ModernTab>
+        <Grid Height="100" VerticalAlignment="Bottom">
+            <Grid Height="60"  HorizontalAlignment="Left" Margin="16,0,0,0">
+                <Button x:Name="SaveProfilesButton" Content="Save Profiles" Click="SaveProfilesButton_Click" />
+            </Grid>
+            <Grid Height="60" Width="280" HorizontalAlignment="Right" Margin="0,0,20,0">
+                <Button x:Name="RevertChangesButton" Content="Revert Changes" HorizontalAlignment="Right" Click="RevertChangesButton_Click"/>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>
