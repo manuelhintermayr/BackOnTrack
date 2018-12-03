@@ -41,15 +41,15 @@
                         </StackPanel>
                     </Grid> 
                     <Grid VerticalAlignment="Bottom" Margin="0,38,0,0">
-                        <DataGrid Name="dataGrid1" HorizontalAlignment="Center"  IsReadOnly="True" IsEnabled="True"/>
+                        <DataGrid Name="EntryList" HorizontalAlignment="Center" IsReadOnly="True" IsEnabled="True"/>
                     </Grid>
                 </Grid>
             </StackPanel>
         </ScrollViewer>
         <Grid x:Name="HostEntryEnDisAble" Height="100" VerticalAlignment="Bottom" Visibility="Hidden">
             <Grid Height="60"  HorizontalAlignment="Center" Width="380">
-                <Button x:Name="EnDisAbleEntries" Content="Enable/Disable selected entries" Click="EnDisAbleEntries_Click"  HorizontalAlignment="Left"/>
-                <Button x:Name="DeleteEntries" Content="Delete selected entries" Click="EnDisAbleEntries_Click" HorizontalAlignment="Right"/>
+                <Button x:Name="EnDisAbleEntries" Content="Enable/Disable selected entries" Click="EnDisAbleEntries_Click" IsEnabled="False" HorizontalAlignment="Left"/>
+                <Button x:Name="DeleteEntries" Content="Delete selected entries" Click="DeleteEntries_Click" IsEnabled="False" HorizontalAlignment="Right"/>
             </Grid>
         </Grid>
     </Grid>

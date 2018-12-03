@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -95,9 +96,27 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
         #region LoadHostFile
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            dataGrid1.ItemsSource = HostEntries;
-            var x = dataGrid1.Columns;
+            EntryList.ItemsSource = HostEntries;
+            
+            //HostEntries.Sort(new Comparison<>());
+            var x = EntryList.Columns[0];
         }
+        //class ColumComparer : IComparer
+        //{
+        //    public int Compare(Object q, Object r)
+        //    {
+        //        string first = q
+        //        Point a = (p)q;
+        //        Point b = (p)r;
+        //        if ((a.x == b.x) && (a.y == b.y))
+        //            return 0;
+        //        if ((a.x < b.x) || ((a.x == b.x) && (a.y < b.y)))
+        //            return -1;
+
+        //        return 1;
+        //    }
+        //}
+
 
         private void FillList()
         {
@@ -120,7 +139,7 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
                 }
                 else
                 {
-                    currentEntry.BIsEnabled = true;
+                    currentEntry.IsEnabled = true;
                 }
             }
         }
@@ -134,7 +153,7 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    HostEntry newEntry = new HostEntry() { Content = line, ALineNumber = (CurrentLineNumber + 1), BIsEnabled = false};
+                    HostEntry newEntry = new HostEntry() { Content = line, LineNumber = (CurrentLineNumber + 1), IsEnabled = false};
                     HostEntries.Add(newEntry);
                     CurrentLineNumber++;
                 }
@@ -151,16 +170,31 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
 
         }
 
+        private void DeleteEntries_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         #endregion
+
+        #region Add Entry
+
+        private void AddNewEntry_Click(object sender, RoutedEventArgs e)
+        {
+            HostEntries.Add(new HostEntry(){Content = $"127.0.0.1   {DomainToBlockTextbox.Text}", IsEnabled = true, LineNumber = (CurrentLineNumber+1)});
+            DomainToBlockTextbox.Text = "";
+            CurrentLineNumber++;
+        }
+
+        #endregion
+
+        #region Save Entries
 
         private void SaveSystemSettings_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void AddNewEntry_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        #endregion
     }
 }
