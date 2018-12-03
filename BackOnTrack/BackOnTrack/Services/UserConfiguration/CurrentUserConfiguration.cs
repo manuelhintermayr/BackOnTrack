@@ -22,12 +22,15 @@ namespace BackOnTrack.Services.UserConfiguration
 
     public class Entry
     {
-        public string Content;
-        public bool IsEnabled;
+        public string Url { get; set; }
+        public bool IsEnabled { get; set; }
 
-        public static Entry CreateEntry(string content, bool isEnabled = true)
+        public EntryType EntryType { get; set; }
+
+        public static Entry CreateEntry(string content, EntryType entryType, bool isEnabled = true)
         {
-            return new Entry() { Content = content, IsEnabled = isEnabled };
+            return new Entry() { Url = content, IsEnabled = isEnabled, EntryType = entryType};
         }
     }
+    public enum EntryType { Block, Redirect };
 }

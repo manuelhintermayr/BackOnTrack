@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BackOnTrack.UI.MainView.Pages.Profiles"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
+             xmlns:userConfiguration="clr-namespace:BackOnTrack.Services.UserConfiguration"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -20,12 +22,17 @@
                         <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
                             <Setter Property="Padding" Value="0,3" />
                         </Style>
+                        <ObjectDataProvider x:Key="EntryEnum" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+                        <ObjectDataProvider.MethodParameters>
+                            <x:Type Type="userConfiguration:EntryType"/>
+                        </ObjectDataProvider.MethodParameters>
+                        </ObjectDataProvider>
                     </StackPanel.Resources>
                     <Grid>
                         <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading1}" Margin="0,0,0,8">
                             Profile '<TextBlock Text="{Binding Path=CurrentProfile.ProfileName}" />'
                         </TextBlock>
-                        <Button x:Name="DeleteCurrentProfile" HorizontalAlignment="Right" Click="DeleteCurrentProfile_Click">Delete Profile</Button>
+                        <Button x:Name="DeleteCurrentProfile" HorizontalAlignment="Right" Click="DeleteCurrentProfile_Click" Margin="0,0,10,0">Delete Profile</Button>
                     </Grid>
                     <CheckBox x:Name="ProfileIsActivatedCheckbox" IsChecked="True">
                         <TextBlock FontWeight="Bold">Profile is activated</TextBlock>
@@ -34,8 +41,8 @@
                         Add a new entry
                     </TextBlock>
                     
-                    <Grid HorizontalAlignment="Center">
-                        <Border BorderBrush="Teal" BorderThickness="1">
+                    <Grid HorizontalAlignment="Left" Margin="10,0,0,0">
+                        <Border BorderBrush="Teal" BorderThickness="0.5">
                             <StackPanel Margin="5">
                                 <StackPanel.Resources>
                                     <Style TargetType="StackPanel">
@@ -65,10 +72,13 @@
                     <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading2}" Margin="0,16,0,8">
                         View entries
                     </TextBlock>
-                    <DataGrid Name="EntryList" ItemsSource="{Binding}" AutoGenerateColumns="False" >
+                    <DataGrid Name="EntryList" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False">
                         <DataGrid.Columns>
-                            <mui:DataGridTextColumn Header="Sample"  Binding="{Binding Sample}"/>
-                            <mui:DataGridTextColumn Header="Sample2"  Binding="{Binding Sample2}"/>
+                            <mui:DataGridTextColumn Header="Url"  Binding="{Binding Url}"/>
+                            <mui:DataGridComboBoxColumn Header="Type"  SelectedItemBinding="{Binding EntryType}" ItemsSource="{Binding Source={StaticResource EntryEnum}}"/>
+                            <mui:DataGridTextColumn Header="Edit"  Binding="{Binding Edit}">
+                            </mui:DataGridTextColumn>
+                            <mui:DataGridCheckBoxColumn Header="Enabled"  Binding="{Binding IsEnabled}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>

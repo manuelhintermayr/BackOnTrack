@@ -42,6 +42,11 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                     break;
                 }
             }
+
+            CurrentProfile.EntryList.Add(new Entry(){Url = "facebook.com", IsEnabled = true, EntryType = EntryType.Redirect});
+            CurrentProfile.EntryList.Add(new Entry() { Url = "m.facebook.com", IsEnabled = true, EntryType = EntryType.Block});
+            CurrentProfile.EntryList.Add(new Entry() { Url = "touch.facebook.com", IsEnabled = true, EntryType = EntryType.Block});
+            EntryList.DataContext = CurrentProfile.EntryList;
         }
 
         private void DeleteCurrentProfile_Click(object sender, RoutedEventArgs e)
