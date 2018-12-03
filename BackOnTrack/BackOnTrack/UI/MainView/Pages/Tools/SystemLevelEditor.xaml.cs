@@ -21,7 +21,8 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
     /// </summary>
     public partial class SystemLevelEditor : UserControl
     {
-        List<HostEntry> hostEntries = new List<HostEntry>();
+        List<HostEntry> HostEntries = new List<HostEntry>();
+        int CurrentLineNumber = 0;
 
         public string GetHostFileLocation()
         {
@@ -90,16 +91,51 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
         #region LoadHostFile
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            dataGrid1.ItemsSource = hostEntries;
+            dataGrid1.ItemsSource = HostEntries;
+            var x = dataGrid1.Columns;
         }
 
         private void FillList()
         {
-            hostEntries.Clear();
-            hostEntries.Add(new HostEntry(){name = "one"});
-            hostEntries.Add(new HostEntry() { name = "two" });
-            hostEntries.Add(new HostEntry() { name = "three" });
-            //updateUi
+            HostEntries.Clear();
+            CurrentLineNumber = 0;
+            AddAllLinesFromHostFileIntoEntryList();
+            TransformAllLinesInEntryList();
+            this.UpdateLayout();
+            this.UpdateDefaultStyle();
+        }
+
+        private void TransformAllLinesInEntryList()
+        {
+            for (int i = 0; i < HostEntries.Count;i++)
+            {
+                var currentEntry = HostEntries[i];
+                if (currentEntry.Content.StartsWith("#"))
+                {
+                    currentEntry.Content = currentEntry.Content.Substring(1);
+                }
+                else
+                {
+                    currentEntry.BIsEnabled = true;
+                }
+            }
+        }
+
+        private void AddAllLinesFromHostFileIntoEntryList()
+        {
+            string fileContent = FileModification.ReadFile(GetHostFileLocation());
+
+            using (StringReader reader = new StringReader(fileContent))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    HostEntry newEntry = new HostEntry() { Content = line, ALineNumber = (CurrentLineNumber + 1), BIsEnabled = false};
+                    HostEntries.Add(newEntry);
+                    CurrentLineNumber++;
+                }
+            }
+
         }
 
         #endregion

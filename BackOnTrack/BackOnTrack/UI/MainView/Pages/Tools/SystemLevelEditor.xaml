@@ -11,7 +11,7 @@
         <ScrollViewer>
             <StackPanel x:Name="Panel" MinWidth="150">
                 <TextBlock Text="System Level Editor" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
-                <mui:BBCodeBlock BBCode="This tool will block website on system level, which means, changes will remain even if BackOnTrack is not running. Please use only this tool if you know what you are doing. For normal blocking click [url=UI/MainView/Pages/Profiles/ViewProfiles.xaml]here[/url]." Margin="0,0,0,16"/>
+                <mui:BBCodeBlock BBCode="This tool will change the system file and can block websites on system level, which means, changes will remain even if BackOnTrack is not running. Please only use this tool if you know what you are doing. For normal blocking click [url=UI/MainView/Pages/Profiles/ViewProfiles.xaml]here[/url]." Margin="0,0,0,16"/>
 
                 <Grid  Width="340" HorizontalAlignment="Left" Margin="0,0,20,0">
                     <Button x:Name="LoadSystemSettings" Content="Load system settings" HorizontalAlignment="Left" Click="LoadSystemSettings_Click"  />
@@ -23,8 +23,10 @@
                     <Button Width="100" Height="28" Click="CreatHostFileButton" HorizontalAlignment="Right">Create file.</Button>
                 </Grid>
 
-                <Grid x:Name="HostEntriesList" Margin="32,8,0,0" HorizontalAlignment="Left">
-                    <DataGrid Name="dataGrid1" IsReadOnly="True" IsEnabled="True" />
+                <!--<StackPanel x:Name="Form" Orientation="Vertical"></StackPanel>-->
+                <Grid x:Name="HostEntriesList" Margin="16,0,16,0" HorizontalAlignment="Left">
+                    <DataGrid Name="dataGrid1" IsReadOnly="True" IsEnabled="True"/>
+                    <!--<Button VerticalAlignment="Center">asdf</Button>-->
                 </Grid>
 
             </StackPanel>

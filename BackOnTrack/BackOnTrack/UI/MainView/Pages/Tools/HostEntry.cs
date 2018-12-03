@@ -8,6 +8,10 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
 {
     public class HostEntry
     {
-        public string name { get; set; }
+        public string Content { get; set; }
+
+        public int ALineNumber { get; set; }
+
+        public bool BIsEnabled { get; set; }
     }
 }
