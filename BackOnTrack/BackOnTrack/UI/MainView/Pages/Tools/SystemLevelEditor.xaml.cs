@@ -140,11 +140,20 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
 
         #endregion
 
+        #region Change Entries
+
+        private void EnDisAbleEntries_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        #endregion
+
         private void SaveSystemSettings_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-
+        
     }
 }

@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
     <Grid>
-        <ScrollViewer>
+        <ScrollViewer Margin="0,0,0,105">
             <StackPanel x:Name="Panel" MinWidth="150">
                 <TextBlock Text="System Level Editor" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
                 <mui:BBCodeBlock BBCode="This tool will change the system file and can block websites on system level, which means, changes will remain even if BackOnTrack is not running. Please only use this tool if you know what you are doing. For normal blocking click [url=UI/MainView/Pages/Profiles/ViewProfiles.xaml]here[/url]." Margin="0,0,0,16"/>
@@ -22,14 +22,15 @@
                     <mui:BBCodeBlock BBCode="Could not found system file." HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <Button Width="100" Height="28" Click="CreatHostFileButton" HorizontalAlignment="Right">Create file.</Button>
                 </Grid>
-
-                <!--<StackPanel x:Name="Form" Orientation="Vertical"></StackPanel>-->
-                <Grid x:Name="HostEntriesList" Margin="16,0,16,0" HorizontalAlignment="Left">
-                    <DataGrid Name="dataGrid1" IsReadOnly="True" IsEnabled="True"/>
-                    <!--<Button VerticalAlignment="Center">asdf</Button>-->
+                <Grid x:Name="HostEntriesList" Margin="16,0,16,0" VerticalAlignment="Stretch">
+                    <DataGrid Name="dataGrid1" HorizontalAlignment="Center"  IsReadOnly="True" IsEnabled="True"/>
                 </Grid>
-
             </StackPanel>
         </ScrollViewer>
+        <Grid x:Name="HostEntryEnDisAble" Height="100" VerticalAlignment="Bottom">
+            <Grid Height="60"  HorizontalAlignment="Center" Margin="16,0,0,0">
+                <Button x:Name="EnDisAbleEntries" Content="Enable/Disable selected entries" Click="EnDisAbleEntries_Click" />
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>
