@@ -42,8 +42,6 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                     break;
                 }
             }
-
-            ProfileName.Text = profileName;
         }
 
         private void DeleteCurrentProfile_Click(object sender, RoutedEventArgs e)

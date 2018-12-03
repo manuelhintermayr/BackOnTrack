@@ -33,7 +33,35 @@
                     <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading2}" Margin="0,16,0,8">
                         Add a new entry
                     </TextBlock>
-                    <TextBlock x:Name="ProfileName"/>
+                    
+                    <Grid HorizontalAlignment="Center">
+                        <Border BorderBrush="Teal" BorderThickness="1">
+                            <StackPanel Margin="5">
+                                <StackPanel.Resources>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Margin" Value="0,0,0,5" />
+                                    </Style>
+                                </StackPanel.Resources>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Domain/IpAddress" Target="{Binding ElementName=NewAddressToBlockTextbox}"/>
+                                    <TextBox x:Name="NewAddressToBlockTextbox" Width="150" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Blocking Type" Target="{Binding ElementName=BlockingTypeDropbox}"/>
+                                    <ComboBox x:Name="BlockingTypeDropbox" Width="150" SelectedIndex="0">
+                                        <ComboBoxItem>Block</ComboBoxItem>
+                                        <ComboBoxItem>Redirect</ComboBoxItem>
+                                    </ComboBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Redirect to" Target="{Binding ElementName=RedirectToTextbox}"/>
+                                    <TextBox x:Name="RedirectTo" Width="150" />
+                                </StackPanel>
+                                <Button Content="Add Entry" Margin="100,16,0,0" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                    
                     <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading2}" Margin="0,16,0,8">
                         View entries
                     </TextBlock>

@@ -13,7 +13,7 @@
                 <mui:ModernTab.Links>
                     <mui:Link DisplayName="General" Source="/UI/MainView/Pages/Settings/SettingsGeneral.xaml" />
                     <mui:Link DisplayName="WebProxy" Source="/UI/MainView/Pages/Settings/SettingsWebProxy.xaml" />
-                    <mui:Link DisplayName="Examples" Source="/UI/MainView/Pages/Settings/SettingsExamples.xaml" />
+                    <!--<mui:Link DisplayName="Examples" Source="/UI/MainView/Pages/Settings/SettingsExamples.xaml" />-->
                 </mui:ModernTab.Links>
             </mui:ModernTab>
         </Grid>
