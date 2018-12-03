@@ -11,7 +11,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
     {
         protected override object LoadContent(Uri uri)
         {
-            return new SpecificProfileView(uri.ToString());
+            return new SpecificProfileView(uri.ToString().Substring(1));
         }
     }
 }

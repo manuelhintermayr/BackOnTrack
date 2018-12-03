@@ -9,7 +9,7 @@ namespace BackOnTrack.Services.UserConfiguration
 
     public class Profile
     {
-        public string ProfileName;
+        public string ProfileName { get; set; }
         public List<Entry> EntryList;
         public bool PreferableBlockingOnSystemLevel;
         public bool PreferableBlockingOnProxyLevel;

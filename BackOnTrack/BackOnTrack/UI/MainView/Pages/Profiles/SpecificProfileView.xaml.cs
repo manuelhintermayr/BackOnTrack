@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BackOnTrack.Services.UserConfiguration;
 
 namespace BackOnTrack.UI.MainView.Pages.Profiles
 {
@@ -20,9 +21,28 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
     /// </summary>
     public partial class SpecificProfileView : UserControl
     {
+        private RunningApplication _runningApplication;
+        public Profile CurrentProfile { get; set; }
+
         public SpecificProfileView(string profileName)
         {
+            _runningApplication = RunningApplication.Instance();
             InitializeComponent();
+            this.DataContext = this;
+            Setup(profileName);
+        }
+
+        private void Setup(string profileName)
+        {
+            foreach (var profile in _runningApplication.UI.MainView.UserConfiguration.ProfileList)
+            {
+                if (profile.ProfileName == profileName)
+                {
+                    CurrentProfile = profile;
+                    break;
+                }
+            }
+
             ProfileName.Text = profileName;
         }
     }

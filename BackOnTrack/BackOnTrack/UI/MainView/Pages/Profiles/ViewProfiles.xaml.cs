@@ -18,8 +18,8 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         public ViewProfiles()
         {
-            InitializeComponent();
             _runningApplication = RunningApplication.Instance();
+            InitializeComponent();
         }
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)

@@ -7,6 +7,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-          <TextBlock x:Name="ProfileName"/>  
+        <Grid Margin="0,0,0,100">
+            <ScrollViewer>
+                <StackPanel>
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading1}" Margin="0,0,0,8">
+                            Profile '<TextBlock Text="{Binding Path=CurrentProfile.ProfileName}" />'
+                        </TextBlock>
+                        <Button x:Name="DeleteCurrentProfile" HorizontalAlignment="Right">Delete Profile</Button>
+                    </Grid>
+
+                    <TextBlock x:Name="ProfileName"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>

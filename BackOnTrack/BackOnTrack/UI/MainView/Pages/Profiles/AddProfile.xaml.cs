@@ -31,7 +31,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void AddProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            string newProfileName = NewProfileName.Text.ToUpper();
+            string newProfileName = NewProfileName.Text;
             
             if (newProfileName == "" || newProfileName == " " || newProfileName.Length > 48 || CheckIfProfileNameIsAlreadyUsed(newProfileName) || newProfileName.Contains("'"))
             {
@@ -56,8 +56,8 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private bool CheckIfProfileNameIsAlreadyUsed(string profileName)
         {
-            return _runningApplication.UI.MainView.UserConfiguration.ProfileList.Select(x => x.ProfileName).ToList()
-                .Contains(profileName);
+            return _runningApplication.UI.MainView.UserConfiguration.ProfileList.Select(x => x.ProfileName.ToUpper()).ToList()
+                .Contains(profileName.ToUpper());
         }
     }
 }
