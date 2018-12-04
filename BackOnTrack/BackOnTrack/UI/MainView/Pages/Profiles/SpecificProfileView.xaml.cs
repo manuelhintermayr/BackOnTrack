@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,6 +37,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
         {
             foreach (var profile in _runningApplication.UI.MainView.UserConfiguration.ProfileList)
             {
+                
                 if (profile.ProfileName == profileName)
                 {
                     CurrentProfile = profile;
@@ -43,9 +45,6 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 }
             }
 
-            CurrentProfile.EntryList.Add(new Entry(){Url = "facebook.com", IsEnabled = true, EntryType = EntryType.Redirect});
-            CurrentProfile.EntryList.Add(new Entry() { Url = "m.facebook.com", IsEnabled = true, EntryType = EntryType.Block});
-            CurrentProfile.EntryList.Add(new Entry() { Url = "touch.facebook.com", IsEnabled = true, EntryType = EntryType.Block});
             EntryList.DataContext = CurrentProfile.EntryList;
         }
 
@@ -94,7 +93,64 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             catch (Exception) { }
         }
 
+        private void AddEntryButton_Click(object sender, RoutedEventArgs e)
+        {
+            EntryType getSelectedEntryType = (EntryType) BlockingTypeComboBox.SelectedItem;
+            string addressToBlock = NewAddressToBlockTextbox.Text;
+            string addressRedirectTo = RedirectTo.Text;
+
+            string correctAddressPattern =
+                @"^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$";
+            Match correctAddressToBlock = Regex.Match(addressToBlock, correctAddressPattern, RegexOptions.IgnoreCase);
+            Match correctRedirectAddress = Regex.Match(addressRedirectTo, correctAddressPattern, RegexOptions.IgnoreCase);
+
+
+            if (!correctAddressToBlock.Success)
+            {
+                string alertTitle = "Invalid address";
+                string alertContent = "The address you entered to block is invalid.";
+                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
+            }
+            else
+            {
+                if (getSelectedEntryType == EntryType.Redirect && !correctRedirectAddress.Success)
+                {
+                    string alertTitle = "Invalid address";
+                    string alertContent = "The address you entered for redirecting is invalid.";
+                    _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
+                }
+                else
+                {
+                    Entry newEntry = null;
+                    if (getSelectedEntryType == EntryType.Block)
+                    {
+                        newEntry = Entry.CreateBlockEntry(addressToBlock);
+                    }
+                    if (getSelectedEntryType == EntryType.Redirect)
+                    {
+                        newEntry = Entry.CreateRedirectEntry(addressToBlock, addressRedirectTo);
+                    }
+
+                    CurrentProfile.EntryList.Add(newEntry);
+
+                    string alertTitle = "Entry successfully created.";
+                    string alertContent = "Entry was successfully created and added.";
+                    _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
+
+                    NewAddressToBlockTextbox.Text = "";
+                    RedirectTo.Text = "";
+                    BlockingTypeComboBox.SelectedIndex = 0;
+                    EntryList.Items.Refresh();
+                }
+
+            }
+        }
+
         #endregion
 
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            EntryList.Items.Refresh();
+        }
     }
 }

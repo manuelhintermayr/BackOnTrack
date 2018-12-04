@@ -27,10 +27,20 @@ namespace BackOnTrack.Services.UserConfiguration
 
         public EntryType EntryType { get; set; }
 
-        public static Entry CreateEntry(string content, EntryType entryType, bool isEnabled = true)
+        public static Entry CreateBlockEntry(string url, bool isEnabled = true)
         {
-            return new Entry() { Url = content, IsEnabled = isEnabled, EntryType = entryType};
+            return new Entry() { Url = url, IsEnabled = isEnabled, EntryType = EntryType.Block};
+        }
+        public static RedirectEntry CreateRedirectEntry(string url, string redirectUrl, bool isEnabled = true)
+        {
+            return new RedirectEntry() { Url = url, RedirectUrl = redirectUrl, IsEnabled = isEnabled, EntryType = EntryType.Redirect };
         }
     }
+
+    public class RedirectEntry : Entry
+    {
+        public string RedirectUrl { get; set; }
+    }
+
     public enum EntryType { Block, Redirect };
 }

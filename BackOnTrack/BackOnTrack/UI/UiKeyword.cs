@@ -9,7 +9,7 @@ namespace BackOnTrack.UI
     {
         public LoginWindow Login;
         public MainView.MainView MainView;
-        public RunningApplication _runningApplication;
+        private RunningApplication _runningApplication;
 
         public UiKeyword(bool openLoginView = true)
         {
