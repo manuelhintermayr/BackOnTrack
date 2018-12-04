@@ -56,6 +56,16 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             EntryList.DataContext = CurrentProfile.EntryList;
         }
 
+        private void EntryList_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            string headerName = (string)e.Column.Header;
+            if (headerName == "Url")
+            {
+                UpdateUrl();
+            }
+
+        }
+
         private void DeleteCurrentProfile_Click(object sender, RoutedEventArgs e)
         {
             string alertTitle = "Remove profile";
@@ -161,7 +171,6 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
         }
 
         #endregion
-
         #region Remove an Entry
 
         private void RemoveEntryButton_Click(object sender, RoutedEventArgs e)
@@ -187,8 +196,20 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             }
         }
 
+
         #endregion
+        #region Edit an existing Entry
 
+        private void EntryEditButton_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
+
+        public void UpdateUrl()
+        {
+            //Validate new value and reset if necessary 
+        }
+
+        #endregion
     }
 }

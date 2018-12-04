@@ -73,15 +73,15 @@
                     <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading2}" Margin="0,16,0,8">
                         View entries
                     </TextBlock>
-                    <DataGrid Name="EntryList" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False">
+                    <DataGrid Name="EntryList" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CellEditEnding="EntryList_CellEditEnding">
                         <DataGrid.Columns>
                             <mui:DataGridTextColumn Header="Url"  Binding="{Binding Url}"/>
-                            <mui:DataGridComboBoxColumn Header="Type"  SelectedItemBinding="{Binding EntryType}" ItemsSource="{Binding Source={StaticResource EntryTypeValues}}"/>
+                            <mui:DataGridComboBoxColumn Header="Type" IsReadOnly="True" SelectedItemBinding="{Binding EntryType}" ItemsSource="{Binding Source={StaticResource EntryTypeValues}}"/>
 
                             <DataGridTemplateColumn Header="Edit">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button>Edit</Button>
+                                        <Button x:Name="EntryEditButton" Click="EntryEditButton_Click">Edit</Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
