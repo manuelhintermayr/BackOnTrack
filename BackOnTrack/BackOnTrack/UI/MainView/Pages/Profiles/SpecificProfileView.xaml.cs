@@ -35,6 +35,12 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             Setup(_profileName);
         }
 
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Setup(_profileName);
+            EntryList.Items.Refresh();
+        }
+
         private void Setup(string profileName)
         {
             foreach (var profile in _runningApplication.UI.MainView.UserConfiguration.ProfileList)
@@ -105,12 +111,18 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 @"^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$";
             Match correctAddressToBlock = Regex.Match(addressToBlock, correctAddressPattern, RegexOptions.IgnoreCase);
             Match correctRedirectAddress = Regex.Match(addressRedirectTo, correctAddressPattern, RegexOptions.IgnoreCase);
-
+            var listOfAllBlockUrlsInAllProfiles = (from profile in _runningApplication.UI.MainView.UserConfiguration.ProfileList from entry in profile.EntryList select entry.Url).ToList();
 
             if (!correctAddressToBlock.Success)
             {
                 string alertTitle = "Invalid address";
                 string alertContent = "The address you entered to block is invalid.";
+                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
+            }
+            else if (listOfAllBlockUrlsInAllProfiles.Contains(addressToBlock))
+            {
+                string alertTitle = "Address already used";
+                string alertContent = "The address you entered to block is already used in this or another profile.";
                 _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
             }
             else
@@ -150,10 +162,33 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         #endregion
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        #region Remove an Entry
+
+        private void RemoveEntryButton_Click(object sender, RoutedEventArgs e)
         {
-            Setup(_profileName);
-            EntryList.Items.Refresh();
+            string alertTitle = "Removing entry";
+            string alertContent = "Are you sure you want to remove this entry?";
+            var alertOkEvent = new RoutedEventHandler(DeleteEntryOkClick);
+
+            _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent, true, alertOkEvent);
         }
+
+        private void DeleteEntryOkClick(object sender, RoutedEventArgs e)
+        {
+            var entryToRemove = CurrentProfile.EntryList[EntryList.SelectedIndex];
+
+            if (!CurrentProfile.EntryList.Remove(entryToRemove))
+            {
+                _runningApplication.UI.MainView.CreateAlertWindow("Error removing entry", "Could not remove the entry.");
+            }
+            else
+            {
+                EntryList.Items.Refresh();
+            }
+        }
+
+        #endregion
+
+
     }
 }
