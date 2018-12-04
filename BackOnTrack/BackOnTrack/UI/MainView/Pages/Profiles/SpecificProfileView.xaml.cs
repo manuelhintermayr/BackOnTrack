@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -25,6 +26,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
         private RunningApplication _runningApplication;
         private string _profileName;
         public Profile CurrentProfile { get; set; }
+        public static string CurrentSelectedUrlName { get; set; }
 
         public SpecificProfileView(string profileName)
         {
@@ -54,16 +56,6 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             }
 
             EntryList.DataContext = CurrentProfile.EntryList;
-        }
-
-        private void EntryList_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            string headerName = (string)e.Column.Header;
-            if (headerName == "Url")
-            {
-                UpdateUrl();
-            }
-
         }
 
         private void DeleteCurrentProfile_Click(object sender, RoutedEventArgs e)
@@ -117,19 +109,13 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             string addressToBlock = NewAddressToBlockTextbox.Text;
             string addressRedirectTo = RedirectTo.Text;
 
-            string correctAddressPattern =
-                @"^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$";
-            Match correctAddressToBlock = Regex.Match(addressToBlock, correctAddressPattern, RegexOptions.IgnoreCase);
-            Match correctRedirectAddress = Regex.Match(addressRedirectTo, correctAddressPattern, RegexOptions.IgnoreCase);
-            var listOfAllBlockUrlsInAllProfiles = (from profile in _runningApplication.UI.MainView.UserConfiguration.ProfileList from entry in profile.EntryList select entry.Url).ToList();
-
-            if (!correctAddressToBlock.Success)
+            if (!AddressValidationRule.IsCorrectAddress(addressToBlock))
             {
                 string alertTitle = "Invalid address";
                 string alertContent = "The address you entered to block is invalid.";
                 _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
             }
-            else if (listOfAllBlockUrlsInAllProfiles.Contains(addressToBlock))
+            else if (AddressValidationRule.IsAddressAlreadyUsed(addressToBlock))
             {
                 string alertTitle = "Address already used";
                 string alertContent = "The address you entered to block is already used in this or another profile.";
@@ -137,7 +123,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             }
             else
             {
-                if (getSelectedEntryType == EntryType.Redirect && !correctRedirectAddress.Success)
+                if (getSelectedEntryType == EntryType.Redirect && !AddressValidationRule.IsCorrectAddress(addressRedirectTo))
                 {
                     string alertTitle = "Invalid address";
                     string alertContent = "The address you entered for redirecting is invalid.";
@@ -205,9 +191,14 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         }
 
-        public void UpdateUrl()
+        private void EntryList_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            //Validate new value and reset if necessary 
+
+            string headerName = (string)e.Column.Header;
+            if (headerName == "Url")
+            {
+                CurrentSelectedUrlName = ((Entry) (EntryList.SelectedItem)).Url;
+            }
         }
 
         #endregion

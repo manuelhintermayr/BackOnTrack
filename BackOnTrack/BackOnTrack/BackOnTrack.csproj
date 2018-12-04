@@ -92,6 +92,7 @@
     <Compile Include="UI\MainView\Pages\Profiles\AddProfile.xaml.cs">
       <DependentUpon>AddProfile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\MainView\Pages\Profiles\AddressValidationRule.cs" />
     <Compile Include="UI\MainView\Pages\Profiles\EmptyView.xaml.cs">
       <DependentUpon>EmptyView.xaml</DependentUpon>
     </Compile>

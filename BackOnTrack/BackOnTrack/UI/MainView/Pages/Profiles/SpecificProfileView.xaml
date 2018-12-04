@@ -75,7 +75,23 @@
                     </TextBlock>
                     <DataGrid Name="EntryList" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CellEditEnding="EntryList_CellEditEnding">
                         <DataGrid.Columns>
-                            <mui:DataGridTextColumn Header="Url"  Binding="{Binding Url}"/>
+                            <DataGridTextColumn Header="Url">
+                                <DataGridTextColumn.Binding>
+                                    <Binding Path="Url" UpdateSourceTrigger="LostFocus">
+                                        <Binding.ValidationRules>
+                                            <local:AddressValidationRule  />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+
+                            <!--<mui:DataGridTextColumn Header="Url"  Binding="{Binding Url}" >
+                                <DataGridTextColumn.ClipboardContentBinding>
+                                    <Binding.ValidationRules>
+                                        <local:AddressValidationRule  />
+                                    </Binding.ValidationRules>
+                                </DataGridTextColumn.ClipboardContentBinding>
+                            </mui:DataGridTextColumn>-->
                             <mui:DataGridComboBoxColumn Header="Type" IsReadOnly="True" SelectedItemBinding="{Binding EntryType}" ItemsSource="{Binding Source={StaticResource EntryTypeValues}}"/>
 
                             <DataGridTemplateColumn Header="Edit">
