@@ -23,6 +23,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
     public partial class SpecificProfileView : UserControl
     {
         private RunningApplication _runningApplication;
+        private string _profileName;
         public Profile CurrentProfile { get; set; }
 
         public SpecificProfileView(string profileName)
@@ -30,7 +31,8 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             _runningApplication = RunningApplication.Instance();
             InitializeComponent();
             this.DataContext = this;
-            Setup(profileName);
+            _profileName = profileName;
+            Setup(_profileName);
         }
 
         private void Setup(string profileName)
@@ -150,6 +152,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            Setup(_profileName);
             EntryList.Items.Refresh();
         }
     }
