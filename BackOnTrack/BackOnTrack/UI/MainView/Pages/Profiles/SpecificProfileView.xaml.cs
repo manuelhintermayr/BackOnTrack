@@ -71,5 +71,30 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             }
 
         }
+
+        #region Add new Entry
+
+        private void BlockingTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                EntryType newEntryType = (EntryType) e.AddedItems[0];
+              
+                if (newEntryType == EntryType.Block)
+                {
+                    RedirectTo.Text = "";
+                    RedirectPanel.Visibility = Visibility.Hidden;
+                }
+
+                if (newEntryType == EntryType.Redirect)
+                {
+                    RedirectPanel.Visibility = Visibility.Visible;
+                }
+            }
+            catch (Exception) { }
+        }
+
+        #endregion
+
     }
 }

@@ -24,7 +24,6 @@
             <ScrollViewer>
                 <StackPanel>
                     <StackPanel.Resources>
-                        
                         <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
                             <Setter Property="Width" Value="130" />
                             <Setter Property="VerticalAlignment" Value="Center" />
@@ -59,10 +58,10 @@
                                     <TextBox x:Name="NewAddressToBlockTextbox" Width="150" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <Label Content="Blocking Type" Target="{Binding ElementName=BlockingTypeDropbox}"/>
-                                    <ComboBox x:Name="BlockingTypeDropbox" Width="150" SelectedIndex="0" ItemsSource="{Binding Source={StaticResource EntryTypeValues}}" />
+                                    <Label Content="Blocking Type" Target="{Binding ElementName=BlockingTypeComboBox}"/>
+                                    <ComboBox x:Name="BlockingTypeComboBox" Width="150" SelectedIndex="0" ItemsSource="{Binding Source={StaticResource EntryTypeValues}}" SelectionChanged="BlockingTypeComboBox_SelectionChanged" />
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel x:Name="RedirectPanel" Orientation="Horizontal" Visibility="Hidden">
                                     <Label Content="Redirect to" Target="{Binding ElementName=RedirectToTextbox}"/>
                                     <TextBox x:Name="RedirectTo" Width="150" />
                                 </StackPanel>
