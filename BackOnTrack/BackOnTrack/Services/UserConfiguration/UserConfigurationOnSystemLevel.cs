@@ -55,13 +55,7 @@ namespace BackOnTrack.Services.UserConfiguration
 
         private void AddMissingEntriesIntoEntryList(CurrentUserConfiguration newConfiguration)
         {
-            var listOfActiveBlockEntries = (
-                from profile in newConfiguration.ProfileList from entry in profile.EntryList
-                where 
-                    entry.EntryType==EntryType.Block && 
-                    entry.IsEnabled && 
-                    entry.SystemLevelBlockingIsEnabled
-                select entry.Url).ToList();
+            List<string> listOfActiveBlockEntries = GetListOfActiveBlockEntries(newConfiguration);
 
             List<string> stringListOfEntries = HostEntries.Select(x => x.Content).ToList();
 
@@ -74,14 +68,40 @@ namespace BackOnTrack.Services.UserConfiguration
                     {
                         HostEntries.Add(new HostEntry() { Content = entryLine });
                     }
-
                 }
             }
         }
 
         private void RemoveNotActiveEntriesFromEntryList(CurrentUserConfiguration newConfiguration)
         {
-            //throw new NotImplementedException();
+            List<string> listOfActiveBlockEntries = GetListOfActiveBlockEntries(newConfiguration).Select(x=> $"127.0.0.1  {x} #BackOnTrackEntry").ToList();
+
+            for (int i = HostEntries.Count - 1; i >= 0; i--)
+            {
+                var currentHostEntry = HostEntries[i];
+                if (currentHostEntry.Content.Contains("#BackOnTrackEntry"))
+                {
+                    //this is a #BackOnTrackEntry
+                    if (!listOfActiveBlockEntries.Contains(currentHostEntry.Content))
+                    {
+                        //old entry
+                        HostEntries.RemoveAt(i);
+                    }
+                }
+            }
+        }
+
+        private List<string> GetListOfActiveBlockEntries(CurrentUserConfiguration usedConfiguration)
+        {
+            return (
+                from profile in usedConfiguration.ProfileList
+                from entry in profile.EntryList
+                where
+                    entry.EntryType == EntryType.Block &&
+                    entry.IsEnabled &&
+                    entry.SystemLevelBlockingIsEnabled
+                select entry.Url
+                ).ToList();
         }
 
         private void CreateHostFile()
