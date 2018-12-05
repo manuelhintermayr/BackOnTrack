@@ -49,8 +49,12 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 EnableBlockingOnProxyLevel.IsChecked = true;
                 EnableBlockingOnProxyLevel.UpdateLayout();
                 EnableBlockingOnSystemLevel.IsChecked = true;
-                
-                ((FirstFloor.ModernUI.Windows.Controls.ModernFrame)(this.Parent)).Source = new Uri("/UI/MainView/Pages/Profiles/ViewProfiles.xaml", UriKind.Relative);//todo update to use MainView to set the path
+
+                string alertTitle = "Profile created.";
+                string alertContent = "Profile was successfully created!";
+                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
+
+                //((FirstFloor.ModernUI.Windows.Controls.ModernFrame)(this.Parent)).Source = new Uri("/UI/MainView/Pages/Profiles/ViewProfiles.xaml", UriKind.Relative);//todo update to use MainView to set the path
             }
         }
 

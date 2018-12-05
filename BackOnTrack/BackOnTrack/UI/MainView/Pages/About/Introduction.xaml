@@ -12,7 +12,7 @@
                 <TextBlock Text="Finally getting Back On Track." Style="{StaticResource Heading1}" Margin="0,0,0,8"/>
                 <Image x:Name="LogoImage" Source="/BackOnTrack;component/Resources/Logo.png" Height="263" Width="134"/>
                 <TextBlock Text="Get back your focus, now!" Style="{StaticResource Heading2}" />
-                <mui:BBCodeBlock Margin="0,0,0,16" xml:space="preserve">Click [url=UI/MainView/Pages/Profiles/ViewProfiles.xaml]here[/url] to see a list of your profiles. Click [url=UI/MainView/Pages/Profiles/AddProfile.xaml]here[/url] to add a new profile.</mui:BBCodeBlock>
+                <mui:BBCodeBlock Margin="0,0,0,16" xml:space="preserve"><!--Click [url=UI/MainView/Pages/Profiles/ViewProfiles.xaml]here[/url] to see a list of your profiles.--> Click [url=UI/MainView/Pages/Profiles/AddProfile.xaml]here[/url] to add a new profile.</mui:BBCodeBlock>
 
                 <TextBlock Text="Problem" Style="{StaticResource Heading2}" />
                 <mui:BBCodeBlock Margin="0,0,0,16" xml:space="preserve">Humans tend to automatically pick up every little piece of information and decide afterwards whether it’s important or not. With a constant stream of new information (social networks, twitter, videos...) on the World-Wide-Web, it is no wonder that people get distracted by the ability to access the Internet from their mobile phones at any time. This continuous interruption by information has several disadvantages. The distraction means that the person can no longer focus entirely on a particular task, the work progress is reduced and a lot of time is wasted. In short: The actual work takes longer (like reading a book) and a lot of time is lost.

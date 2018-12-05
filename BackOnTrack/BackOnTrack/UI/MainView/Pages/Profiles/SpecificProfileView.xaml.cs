@@ -30,7 +30,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             get { return (bool)GetValue(EntryEditButtonIsEnabledProperty); }
             set { SetValue(EntryEditButtonIsEnabledProperty, value); }
         }
-        // Using a DependencyProperty as the backing store for bConnected.  This enables animation, styling, binding, etc...
+        
         public static readonly DependencyProperty EntryEditButtonIsEnabledProperty =
             DependencyProperty.Register("EntryEditButtonIsEnabled", typeof(bool), typeof(SpecificProfileView), new PropertyMetadata(false));
 
@@ -52,6 +52,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             try
             {
                 EntryList.Items.Refresh();
+                EntryEditButtonIsEnabled = true;
             }
             catch (Exception) { }
 

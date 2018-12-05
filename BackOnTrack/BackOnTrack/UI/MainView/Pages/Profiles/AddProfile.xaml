@@ -48,7 +48,14 @@
                         </CheckBox>
                     </StackPanel>
 
-                    <Button x:Name="AddProfileButton"  Content="Add profile" Margin="100,16,0,0" HorizontalAlignment="Left" Click="AddProfileButton_Click" />
+                    <Grid Margin="100,16,0,0" HorizontalAlignment="Left" Width="200">
+                        <Button x:Name="AddProfileButton"  Content="Add profile"  HorizontalAlignment="Left" Click="AddProfileButton_Click" />
+                        <!--<Button Content="introduction"
+                                Command="mui:LinkCommands.NavigateLink"
+                                CommandParameter="/UI/MainView/Pages/Profiles/ViewProfiles.xaml" HorizontalAlignment="Right"/>-->
+                    </Grid>
+                    
+
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
