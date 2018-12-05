@@ -20,7 +20,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
     /// </summary>
     public partial class EditEntry : UserControl
     {
-        public EditEntry()
+        public EditEntry(Services.UserConfiguration.Entry currentEntry)
         {
             InitializeComponent();
         }

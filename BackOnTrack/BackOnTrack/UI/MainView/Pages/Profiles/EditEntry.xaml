@@ -4,9 +4,89 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BackOnTrack.UI.MainView.Pages.Profiles"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
+             xmlns:userConfiguration="clr-namespace:BackOnTrack.Services.UserConfiguration"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="350" d:DesignWidth="400">
+    <UserControl.Resources>
+        <ObjectDataProvider MethodName="GetValues"
+                            ObjectType="{x:Type core:Enum}"
+                            x:Key="EntryTypeValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="userConfiguration:EntryType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
     <Grid>
-            
+        <ScrollViewer>
+            <StackPanel x:Name="Panel" MinWidth="150">
+                <TextBlock Text="Edit Entry" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
+                <mui:BBCodeBlock BBCode="Here you can change the entry settings." Margin="0,0,0,16"/>
+
+                <StackPanel x:Name="Form" Orientation="Vertical">
+                    <StackPanel.Resources>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Orientation" Value="Horizontal" />
+                            <Setter Property="Margin" Value="0,0,0,5" />
+                        </Style>
+                        <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                            <Setter Property="Width" Value="135" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Margin" Value="0,0,15,0" />
+                        </Style>
+                        <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                            <Setter Property="Padding" Value="0,3" />
+                        </Style>
+                        <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
+                            <Setter Property="Padding" Value="0,3" />
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <StackPanel>
+                        <Label Content="Domain name to block" Target="{Binding ElementName=EntryDomainNameTextBox}"/>
+                        <TextBox x:Name="EntryDomainNameTextBox" Width="150" />
+                    </StackPanel>
+
+                    <StackPanel>
+                        <Label Content="Blocking Type" Target="{Binding ElementName=EntryBlockingTypeComboBox}"/>
+                        <ComboBox x:Name="EntryBlockingTypeComboBox" Width="150" IsEnabled="False" SelectedIndex="0" ItemsSource="{Binding Source={StaticResource EntryTypeValues}}" />
+                    </StackPanel>
+
+                    <StackPanel>
+                        <Label Content="Redirect address" Target="{Binding ElementName=EntryRedirectTextBox}"/>
+                        <TextBox x:Name="EntryRedirectTextBox" Width="150" />
+                    </StackPanel>
+
+                    <StackPanel>
+                        <Label/>
+                        <CheckBox x:Name="EntryRunsOnSystemLevelCheckbox">
+                            <TextBlock FontWeight="Bold">Entry is blocked on a system level.</TextBlock>
+                        </CheckBox>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <Label/>
+                        <CheckBox x:Name="EntryRunsOnProxyLevelCheckbox">
+                            <TextBlock FontWeight="Bold">Entry is blocked on the proxy.</TextBlock>
+                        </CheckBox>
+                    </StackPanel>
+
+                    <StackPanel Visibility="Hidden">
+                        <Label Content="asdf" />
+                    </StackPanel>
+
+                    <StackPanel>
+                        <Label/>
+                        <CheckBox x:Name="EntryIsEnabledCheckbox">
+                            <TextBlock FontWeight="Bold">Entry is enabled</TextBlock>
+                        </CheckBox>
+                    </StackPanel>
+
+
+                    <Button Content="Update" Margin="100,16,0,0" HorizontalAlignment="Left" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>
