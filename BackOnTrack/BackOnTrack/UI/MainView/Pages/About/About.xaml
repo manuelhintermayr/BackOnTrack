@@ -20,6 +20,8 @@ Current Version is: [b]1.0.0[/b]</mui:BBCodeBlock>
                 <mui:BBCodeBlock xml:space="preserve">» Blur-effect from [url=https://github.com/riverar/sample-win10-aeroglass]here[/url]
 » Single-Instance from [url=https://www.codeproject.com/Articles/32908/C-Single-Instance-App-With-the-Ability-To-Restore]here[/url]
 » Encrypting/Decrypting from [url=https://stackoverflow.com/questions/10168240/encrypting-decrypting-a-string-in-c-sharp]here[/url]
+» Various icons from [url=http://modernuiicons.com]here[/url]
+» WPF-UI from [url=https://github.com/firstfloorsoftware/mui]here[/url]
                 </mui:BBCodeBlock>
             </StackPanel>
         </ScrollViewer>
