@@ -46,7 +46,7 @@ namespace BackOnTrack.Services.UserConfiguration
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    HostEntry newEntry = new HostEntry() { Content = line, IsEnabled = false };
+                    HostEntry newEntry = new HostEntry() { Content = line };
                     HostEntries.Add(newEntry);
                 }
             }
@@ -63,8 +63,20 @@ namespace BackOnTrack.Services.UserConfiguration
                     entry.SystemLevelBlockingIsEnabled
                 select entry.Url).ToList();
 
-            //HostEntries.Add(new HostEntry() { Content = $"127.0.0.1   {DomainToBlockTextbox.Text}", IsEnabled = true, LineNumber = (CurrentLineNumber + 1) });
-            //throw new NotImplementedException();
+            List<string> stringListOfEntries = HostEntries.Select(x => x.Content).ToList();
+
+            if (listOfActiveBlockEntries.Count != 0)
+            {
+                foreach (string blockedAddress in listOfActiveBlockEntries)
+                {
+                    string entryLine = $"127.0.0.1  {blockedAddress} #BackOnTrackEntry";
+                    if (!stringListOfEntries.Contains(entryLine))
+                    {
+                        HostEntries.Add(new HostEntry() { Content = entryLine });
+                    }
+
+                }
+            }
         }
 
         private void RemoveNotActiveEntriesFromEntryList(CurrentUserConfiguration newConfiguration)
