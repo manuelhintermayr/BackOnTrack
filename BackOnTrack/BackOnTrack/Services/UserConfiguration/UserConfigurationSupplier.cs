@@ -60,5 +60,24 @@ namespace BackOnTrack.Services.UserConfiguration
 
             return null;
         }
+
+        #region UserConfiguration on System Level
+
+        public void ApplyUserConfigurationOnSystemLevel(CurrentUserConfiguration newConfiguration)
+        {
+            
+            //throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region UserConfiguration on Proxy Level
+
+        public void ApplyUserConfigurationOnProxy(CurrentUserConfiguration newConfiguration)
+        {
+            //throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

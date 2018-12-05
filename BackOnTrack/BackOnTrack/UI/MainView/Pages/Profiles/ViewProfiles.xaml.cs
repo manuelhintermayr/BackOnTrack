@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Controls;
 using BackOnTrack.Services.UserConfiguration;
@@ -80,15 +81,18 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
         {
             try
             {
+                var newConfiguration = _runningApplication.UI.MainView.UserConfiguration;
                 string password = _runningApplication.UI.MainView.GetLoggedInPassword();
-                _runningApplication.Services.UserConfiguration.SaveConfiguration(_runningApplication.UI.MainView.UserConfiguration, password);
-                
-                //update webproxy configuration
-                //start configuration
+                _runningApplication.Services.UserConfiguration.SaveConfiguration(newConfiguration, password);
+
+                _runningApplication.Services.UserConfiguration.ApplyUserConfigurationOnSystemLevel(newConfiguration);
+                _runningApplication.Services.UserConfiguration.ApplyUserConfigurationOnProxy(newConfiguration);
+
                 UpdateList();
-                _runningApplication.UI.MainView.CreateAlertWindow("Saving complete", "Profiles were successfully saved and loaded.");
+                _runningApplication.UI.MainView.CreateAlertWindow("Saving complete",
+                    "Profiles were successfully saved and loaded.");
             }
-            catch (Exception ex)
+            catch (System.IO.IOException ex)
             {
                 string alertTitle = "Error saving profiles.";
                 string alertContent =
@@ -96,6 +100,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
                 _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
             }
+
         }
 
         private void RevertChangesButton_Click(object sender, System.Windows.RoutedEventArgs e)
