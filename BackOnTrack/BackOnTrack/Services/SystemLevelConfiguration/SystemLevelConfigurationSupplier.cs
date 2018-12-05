@@ -37,10 +37,17 @@ namespace BackOnTrack.Services.SystemLevelConfiguration
             System.Diagnostics.Process execution = new System.Diagnostics.Process();
             execution.StartInfo.FileName = currentLocation+"\\"+ "BackOnTrack.SystemLevelModification.exe";
             execution.StartInfo.Arguments = args;
-            execution.Start();
-            execution.WaitForExit();
-            
-            return execution.ExitCode;
+            try
+            {
+                execution.Start();
+                execution.WaitForExit();
+
+                return execution.ExitCode;
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                return -1;
+            }
         }
 
 

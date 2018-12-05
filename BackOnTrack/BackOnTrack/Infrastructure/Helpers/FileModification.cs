@@ -1,9 +1,15 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace BackOnTrack.Infrastructure.Helpers
 {
     public static class FileModification
     {
+        public static string GetHostFileLocation()
+        {
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"system32\drivers\etc\hosts");
+        }
+
         public static string ReadFile(string filename)
         {
             string content = "";

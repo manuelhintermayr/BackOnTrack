@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Controls;
+using BackOnTrack.Infrastructure.Exceptions;
 using BackOnTrack.Services.UserConfiguration;
 using FirstFloor.ModernUI.Presentation;
 using FirstFloor.ModernUI.Windows;
@@ -71,7 +72,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
         {
             string alertTitle = "Save profiles";
             string alertContent =
-                "Do you want to save and enable your current displayed user configuration?";
+                $"Do you want to save and enable your current displayed user configuration? {Environment.NewLine}You will get asked for admin rights.";
             var alertOkEvent = new RoutedEventHandler(SaveProfilesOkClick);
 
             _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent, true, alertOkEvent);
@@ -97,6 +98,13 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 string alertTitle = "Error saving profiles.";
                 string alertContent =
                     $"Could not save the profiles. Following error occured:{Environment.NewLine}{ex}";
+
+                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
+            }
+            catch (SystemLevelException ex)
+            {
+                string alertTitle = "Error with saving on SystemLevel";
+                string alertContent = ex.Message;
 
                 _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
             }

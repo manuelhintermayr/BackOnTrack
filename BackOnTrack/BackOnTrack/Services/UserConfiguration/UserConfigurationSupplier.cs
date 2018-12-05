@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using BackOnTrack.Infrastructure.Exceptions;
 using BackOnTrack.Infrastructure.Helpers;
 using Newtonsoft.Json;
 
@@ -8,12 +10,14 @@ namespace BackOnTrack.Services.UserConfiguration
     public class UserConfigurationSupplier
     {
         public string ConfigurationPath;
+        private UserConfigurationOnSystemLevel systemLevel;
 
         public UserConfigurationSupplier()
         {
             ConfigurationPath = 
                 $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\profiles.settings";
             //todo: ^make configurable for testing
+            systemLevel = new UserConfigurationOnSystemLevel();
         }
 
         public bool CheckPassword(string password)
@@ -65,8 +69,7 @@ namespace BackOnTrack.Services.UserConfiguration
 
         public void ApplyUserConfigurationOnSystemLevel(CurrentUserConfiguration newConfiguration)
         {
-            
-            //throw new NotImplementedException();
+            systemLevel.ApplyingConfiguration(newConfiguration);   
         }
 
         #endregion

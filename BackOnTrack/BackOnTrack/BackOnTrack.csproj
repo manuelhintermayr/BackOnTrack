@@ -71,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Infrastructure\Exceptions\SystemLevelException.cs" />
     <Compile Include="Infrastructure\Helpers\AutorunHelper.cs" />
     <Compile Include="Infrastructure\Helpers\EncryptingHelper.cs" />
     <Compile Include="Infrastructure\Helpers\FileModification.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Services\ProgramConfiguration\ProgramConfigurationSupplier.cs" />
     <Compile Include="Services\SystemLevelConfiguration\SystemLevelConfigurationSupplier.cs" />
     <Compile Include="Services\UserConfiguration\CurrentUserConfiguration.cs" />
+    <Compile Include="Services\UserConfiguration\UserConfigurationOnSystemLevel.cs" />
     <Compile Include="Services\WebProxy\RunningWebProxy.cs" />
     <Compile Include="Services\UserConfiguration\UserConfigurationSupplier.cs" />
     <Compile Include="Services\ServicesKeyword.cs" />

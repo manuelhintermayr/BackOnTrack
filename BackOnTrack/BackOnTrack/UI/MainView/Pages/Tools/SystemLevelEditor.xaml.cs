@@ -26,11 +26,6 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
         List<HostEntry> HostEntries = new List<HostEntry>();
         int CurrentLineNumber = 0;
 
-        public string GetHostFileLocation()
-        {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"system32\drivers\etc\hosts");
-        }
-
         private RunningApplication _runningApplication;
 
         public SystemLevelEditor()
@@ -91,7 +86,7 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
 
         public bool HostFileExists()
         {
-            return FileModification.FileExists(GetHostFileLocation());
+            return FileModification.FileExists(FileModification.GetHostFileLocation());
         }
         private void CreatHostFileButton(object sender, RoutedEventArgs e)
         {
@@ -170,7 +165,7 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
 
         private void AddAllLinesFromHostFileIntoEntryList()
         {
-            string fileContent = FileModification.ReadFile(GetHostFileLocation());
+            string fileContent = FileModification.ReadFile(FileModification.GetHostFileLocation());
 
             using (StringReader reader = new StringReader(fileContent))
             {
