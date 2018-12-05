@@ -94,7 +94,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             }
             else
             {
-                _runningApplication.UI.MainView.ContentSource = new Uri("/UI/MainView/Pages/Profiles/ViewProfiles.xaml", UriKind.Relative);
+                ViewProfiles.Instance.UpdateList();
             }
 
         }

@@ -51,7 +51,6 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-            //
             _window.Close();
         }
     }

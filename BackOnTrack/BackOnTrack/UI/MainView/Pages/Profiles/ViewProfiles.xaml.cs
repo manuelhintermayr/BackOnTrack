@@ -6,6 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using BackOnTrack.Services.UserConfiguration;
 using FirstFloor.ModernUI.Presentation;
+using FirstFloor.ModernUI.Windows;
+using FirstFloor.ModernUI.Windows.Navigation;
 
 namespace BackOnTrack.UI.MainView.Pages.Profiles
 {
@@ -16,6 +18,8 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
     {
         public RunningApplication _runningApplication;
 
+        public static ViewProfiles Instance; 
+
         public ViewProfiles()
         {
             _runningApplication = RunningApplication.Instance();
@@ -24,10 +28,11 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
+            Instance = this;
             UpdateList();
         }
 
-        private void UpdateList()
+        public void UpdateList()
         {
             NoProfilesYetGrid.Visibility = Visibility.Hidden;
 
@@ -125,5 +130,16 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
             }
         }
+
+        #region For updating the list
+
+        private void ProfileList_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Instance = this;
+        }
+
+        #endregion
+
+
     }
 }
