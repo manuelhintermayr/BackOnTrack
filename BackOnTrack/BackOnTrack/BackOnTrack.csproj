@@ -93,6 +93,9 @@
       <DependentUpon>AddProfile.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\MainView\Pages\Profiles\AddressValidationRule.cs" />
+    <Compile Include="UI\MainView\Pages\Profiles\EditEntry.xaml.cs">
+      <DependentUpon>EditEntry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainView\Pages\Profiles\EmptyView.xaml.cs">
       <DependentUpon>EmptyView.xaml</DependentUpon>
     </Compile>
@@ -133,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MainView\Pages\Profiles\AddProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Profiles\EditEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

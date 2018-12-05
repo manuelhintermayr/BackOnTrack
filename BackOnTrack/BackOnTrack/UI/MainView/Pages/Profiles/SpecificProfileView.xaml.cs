@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BackOnTrack.Services.UserConfiguration;
+using BackOnTrack.UI.MainView.Pages.Settings;
+using FirstFloor.ModernUI.Windows.Controls;
 
 namespace BackOnTrack.UI.MainView.Pages.Profiles
 {
@@ -203,6 +205,18 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void EntryEditButton_Click(object sender, RoutedEventArgs e)
         {
+            var wnd = new ModernWindow
+            {
+                Style = (Style)App.Current.Resources["BlankWindow"],
+                Title = "ModernWindow",
+                IsTitleVisible = true,
+                Content = new SettingsExamples(),
+                Width = 480,
+                Height = 480
+            };
+            wnd.ResizeMode = ResizeMode.CanResizeWithGrip;
+            //wnd.Closing += 
+            wnd.Show();
 
         }
 
