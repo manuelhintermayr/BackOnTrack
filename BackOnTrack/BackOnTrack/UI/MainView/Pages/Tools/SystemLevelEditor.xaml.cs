@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using BackOnTrack.Infrastructure.Helpers;
+using BackOnTrack.Services.UserConfiguration;
 
 namespace BackOnTrack.UI.MainView.Pages.Tools
 {
