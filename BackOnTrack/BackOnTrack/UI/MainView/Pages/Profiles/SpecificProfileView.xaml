@@ -74,7 +74,7 @@
                     <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading2}" Margin="0,16,0,8">
                         View entries
                     </TextBlock>
-                    <DataGrid Name="EntryList" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CellEditEnding="EntryList_CellEditEnding" BeginningEdit="EntryList_BeginningEdit" RowEditEnding="EntryList_RowEditEnding">
+                    <DataGrid Name="EntryList" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CellEditEnding="EntryList_CellEditEnding" BeginningEdit="EntryList_BeginningEdit" RowEditEnding="EntryList_RowEditEnding" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Url">
                                 <DataGridTextColumn.Binding>

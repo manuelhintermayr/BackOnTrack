@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BackOnTrack.Services.UserConfiguration;
+using FirstFloor.ModernUI.Windows.Controls;
 
 namespace BackOnTrack.UI.MainView.Pages.Profiles
 {
@@ -21,34 +22,37 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
     /// </summary>
     public partial class EditEntry : UserControl
     {
-        private Entry _currenEntry;
-        public EditEntry(Entry currentEntry)
+        private Entry _currentEntry;
+        private ModernWindow _window;
+        public EditEntry(Entry currentEntry, ModernWindow wnd)
         {
             InitializeComponent();
-            _currenEntry = currentEntry;
+            _currentEntry = currentEntry;
+            _window = wnd;
             Setup();
         }
 
         public void Setup()
         {
-            EntryDomainNameTextBox.Text = _currenEntry.Url;
-            EntryBlockingTypeComboBox.SelectedIndex = (int)_currenEntry.EntryType;
-            if (_currenEntry.EntryType == EntryType.Redirect)
+            EntryDomainNameTextBox.Text = _currentEntry.Url;
+            EntryBlockingTypeComboBox.SelectedIndex = (int)_currentEntry.EntryType;
+            if (_currentEntry.EntryType == EntryType.Redirect)
             {
-                EntryRedirectTextBox.Text = _currenEntry.RedirectUrl;
+                EntryRedirectTextBox.Text = _currentEntry.RedirectUrl;
             }
             else
             {
                 RedirectStackPanel.Visibility = Visibility.Hidden;
             }
-            EntryRunsOnSystemLevelCheckbox.IsChecked = _currenEntry.SystemLevelBlockingIsEnabled;
-            EntryRunsOnProxyLevelCheckbox.IsChecked = _currenEntry.ProxyBlockingIsEnabled;
-            EntryIsEnabledCheckbox.IsChecked = _currenEntry.IsEnabled;
+            EntryRunsOnSystemLevelCheckbox.IsChecked = _currentEntry.SystemLevelBlockingIsEnabled;
+            EntryRunsOnProxyLevelCheckbox.IsChecked = _currentEntry.ProxyBlockingIsEnabled;
+            EntryIsEnabledCheckbox.IsChecked = _currentEntry.IsEnabled;
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
             //
+            _window.Close();
         }
     }
 }

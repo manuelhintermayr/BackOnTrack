@@ -222,10 +222,10 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 Style = (Style)App.Current.Resources["BlankWindow"],
                 Title = $"Edit entry from profile \"{CurrentProfile.ProfileName}\"",
                 IsTitleVisible = true,
-                Content = new EditEntry(currentEntry),
                 Width = 410,
                 Height = 400
-            };  
+            };
+            wnd.Content = new EditEntry(currentEntry, wnd);
             wnd.ResizeMode = ResizeMode.NoResize;
             wnd.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             wnd.Closing += OnEditWindowClosing;
@@ -239,6 +239,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
         {
             _runningApplication.UI.MainView.Show();
             _runningApplication.UI.MainView.IsInEntryEditingMode = false;
+            EntryList.Items.Refresh();
         }
 
         private void EntryList_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
