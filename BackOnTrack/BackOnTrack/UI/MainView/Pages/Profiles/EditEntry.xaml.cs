@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BackOnTrack.Services.UserConfiguration;
 
 namespace BackOnTrack.UI.MainView.Pages.Profiles
 {
@@ -20,9 +21,34 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
     /// </summary>
     public partial class EditEntry : UserControl
     {
-        public EditEntry(Services.UserConfiguration.Entry currentEntry)
+        private Entry _currenEntry;
+        public EditEntry(Entry currentEntry)
         {
             InitializeComponent();
+            _currenEntry = currentEntry;
+            Setup();
+        }
+
+        public void Setup()
+        {
+            EntryDomainNameTextBox.Text = _currenEntry.Url;
+            EntryBlockingTypeComboBox.SelectedIndex = (int)_currenEntry.EntryType;
+            if (_currenEntry.EntryType == EntryType.Redirect)
+            {
+                EntryRedirectTextBox.Text = _currenEntry.RedirectUrl;
+            }
+            else
+            {
+                RedirectStackPanel.Visibility = Visibility.Hidden;
+            }
+            EntryRunsOnSystemLevelCheckbox.IsChecked = _currenEntry.SystemLevelBlockingIsEnabled;
+            EntryRunsOnProxyLevelCheckbox.IsChecked = _currenEntry.ProxyBlockingIsEnabled;
+            EntryIsEnabledCheckbox.IsChecked = _currenEntry.IsEnabled;
+        }
+
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            //
         }
     }
 }

@@ -152,11 +152,20 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                     Entry newEntry = null;
                     if (getSelectedEntryType == EntryType.Block)
                     {
-                        newEntry = Entry.CreateBlockEntry(addressToBlock);
+                        newEntry = Entry.CreateBlockEntry(
+                            addressToBlock, 
+                            CurrentProfile.PreferableBlockingOnSystemLevel, 
+                            CurrentProfile.PreferableBlockingOnProxyLevel
+                            );
                     }
                     if (getSelectedEntryType == EntryType.Redirect)
                     {
-                        newEntry = Entry.CreateRedirectEntry(addressToBlock, addressRedirectTo);
+                        newEntry = Entry.CreateRedirectEntry(
+                            addressToBlock, 
+                            addressRedirectTo,
+                            CurrentProfile.PreferableBlockingOnSystemLevel,
+                            CurrentProfile.PreferableBlockingOnProxyLevel
+                            );
                     }
 
                     CurrentProfile.EntryList.Add(newEntry);

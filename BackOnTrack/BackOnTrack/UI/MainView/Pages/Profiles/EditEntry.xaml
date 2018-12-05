@@ -53,7 +53,7 @@
                         <ComboBox x:Name="EntryBlockingTypeComboBox" Width="150" IsEnabled="False" SelectedIndex="0" ItemsSource="{Binding Source={StaticResource EntryTypeValues}}" />
                     </StackPanel>
 
-                    <StackPanel>
+                    <StackPanel x:Name="RedirectStackPanel">
                         <Label Content="Redirect address" Target="{Binding ElementName=EntryRedirectTextBox}"/>
                         <TextBox x:Name="EntryRedirectTextBox" Width="150" />
                     </StackPanel>
@@ -84,7 +84,7 @@
                     </StackPanel>
 
 
-                    <Button Content="Update" Margin="100,16,0,0" HorizontalAlignment="Left" />
+                    <Button x:Name="UpdateButton" Content="Update" Margin="100,16,0,0" HorizontalAlignment="Left" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
