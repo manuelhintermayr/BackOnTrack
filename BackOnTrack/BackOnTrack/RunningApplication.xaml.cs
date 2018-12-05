@@ -51,7 +51,7 @@ namespace BackOnTrack
                 ShowWindow();
             }
 
-            return hwnd;
+            return IntPtr.Zero;
         }
 
         private void Setup()

@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BackOnTrack.Services.UserConfiguration;
-using FirstFloor.ModernUI.Windows.Controls;
 
 namespace BackOnTrack.UI.MainView.Pages.Profiles
 {
@@ -22,41 +21,34 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
     /// </summary>
     public partial class EditEntry : UserControl
     {
-        private Entry _currentEntry;
-        private SpecificProfileView _currentProfile;
-        private ModernWindow _currentWindow;
-        public EditEntry(Entry currentEntry, SpecificProfileView specificProfileView, ModernWindow wnd)
+        private Entry _currenEntry;
+        public EditEntry(Entry currentEntry)
         {
             InitializeComponent();
-            _currentEntry = currentEntry;
-            _currentProfile = specificProfileView;
-            _currentWindow = wnd;
+            _currenEntry = currentEntry;
             Setup();
         }
 
         public void Setup()
         {
-            EntryDomainNameTextBox.Text = _currentEntry.Url;
-            EntryBlockingTypeComboBox.SelectedIndex = (int)_currentEntry.EntryType;
-            if (_currentEntry.EntryType == EntryType.Redirect)
+            EntryDomainNameTextBox.Text = _currenEntry.Url;
+            EntryBlockingTypeComboBox.SelectedIndex = (int)_currenEntry.EntryType;
+            if (_currenEntry.EntryType == EntryType.Redirect)
             {
-                EntryRedirectTextBox.Text = _currentEntry.RedirectUrl;
+                EntryRedirectTextBox.Text = _currenEntry.RedirectUrl;
             }
             else
             {
                 RedirectStackPanel.Visibility = Visibility.Hidden;
             }
-            EntryRunsOnSystemLevelCheckbox.IsChecked = _currentEntry.SystemLevelBlockingIsEnabled;
-            EntryRunsOnProxyLevelCheckbox.IsChecked = _currentEntry.ProxyBlockingIsEnabled;
-            EntryIsEnabledCheckbox.IsChecked = _currentEntry.IsEnabled;
+            EntryRunsOnSystemLevelCheckbox.IsChecked = _currenEntry.SystemLevelBlockingIsEnabled;
+            EntryRunsOnProxyLevelCheckbox.IsChecked = _currenEntry.ProxyBlockingIsEnabled;
+            EntryIsEnabledCheckbox.IsChecked = _currenEntry.IsEnabled;
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-            //...
-            //_currentProfile.EntryList.Items.Refresh();
-            //_currentProfile.ShowMainWindow();
-            _currentWindow.Close();
+            //
         }
     }
 }

@@ -222,10 +222,10 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 Style = (Style)App.Current.Resources["BlankWindow"],
                 Title = $"Edit entry from profile \"{CurrentProfile.ProfileName}\"",
                 IsTitleVisible = true,
+                Content = new EditEntry(currentEntry),
                 Width = 410,
                 Height = 400
-            };
-            wnd.Content = Content = new EditEntry(currentEntry, this, wnd);
+            };  
             wnd.ResizeMode = ResizeMode.NoResize;
             wnd.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             wnd.Closing += OnEditWindowClosing;
@@ -233,11 +233,6 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
             _runningApplication.UI.MainView.IsInEntryEditingMode = true;
             _runningApplication.UI.MainView.Hide();
-        }
-
-        public void ShowMainWindow()
-        {
-            _runningApplication.UI.MainView.Show();
         }
 
         public void OnEditWindowClosing(object sender, CancelEventArgs e)
