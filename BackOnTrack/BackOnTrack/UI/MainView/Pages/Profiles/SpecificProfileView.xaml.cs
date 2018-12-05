@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -205,19 +206,29 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void EntryEditButton_Click(object sender, RoutedEventArgs e)
         {
+            Entry currentEntry = CurrentProfile.EntryList[EntryList.SelectedIndex];
+
             var wnd = new ModernWindow
             {
                 Style = (Style)App.Current.Resources["BlankWindow"],
-                Title = "ModernWindow",
+                Title = $"Edit entry from profile \"{CurrentProfile.ProfileName}\"",
                 IsTitleVisible = true,
                 Content = new SettingsExamples(),
                 Width = 480,
                 Height = 480
-            };
+            };  
             wnd.ResizeMode = ResizeMode.CanResizeWithGrip;
-            //wnd.Closing += 
+            wnd.Closing += OnEditWindowClosing;
             wnd.Show();
 
+            _runningApplication.UI.MainView.IsInEntryEditingMode = true;
+            _runningApplication.UI.MainView.Hide();
+        }
+
+        public void OnEditWindowClosing(object sender, CancelEventArgs e)
+        {
+            _runningApplication.UI.MainView.Show();
+            _runningApplication.UI.MainView.IsInEntryEditingMode = false;
         }
 
         private void EntryList_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)

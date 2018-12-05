@@ -17,6 +17,7 @@ namespace BackOnTrack.UI.MainView
         public CurrentUserConfiguration UserConfiguration;
         public bool WindowIsShown;
         private string _password;
+        public bool IsInEntryEditingMode { get; set; }
 
         public MainView(CurrentUserConfiguration userConfiguration, string password)
         {
@@ -26,6 +27,7 @@ namespace BackOnTrack.UI.MainView
             UserConfiguration = userConfiguration;
             _password = password;
             WindowIsShown = true;
+            IsInEntryEditingMode = false;
         }
 
         public void SetCurrentUserConfiguration(CurrentUserConfiguration configuration)

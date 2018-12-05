@@ -16,7 +16,7 @@ Width="730" Height="700" Closed="ModernWindow_Closed">
     </mui:ModernWindow.TitleLinks>
 
     <mui:ModernWindow.MenuLinkGroups>
-        <mui:LinkGroup DisplayName="about">
+        <mui:LinkGroup DisplayName="home">
             <mui:LinkGroup.Links>
                 <mui:Link DisplayName="Introduction" Source="UI/MainView/Pages/About/Introduction.xaml" />
                 <mui:Link DisplayName="About" Source="UI/MainView/Pages/About/About.xaml"  />
@@ -30,7 +30,7 @@ Width="730" Height="700" Closed="ModernWindow_Closed">
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="tools">
             <mui:LinkGroup.Links>
-                <mui:Link DisplayName="System-Level Editor" Source="UI/MainView/Pages/Tools/SystemLevelEditor.xaml"  />
+                <mui:Link DisplayName="Advanced System-Level Editor" Source="UI/MainView/Pages/Tools/SystemLevelEditor.xaml"  />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="Settings" GroupKey="settings">

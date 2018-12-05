@@ -149,6 +149,11 @@ namespace BackOnTrack
                     {
                         showWindowToFront = UI.MainView;
                     }
+
+                    if (UI.MainView.IsInEntryEditingMode)
+                    {
+                        return;
+                    }
                 }
 
                 WinApi.ShowToFront(new WindowInteropHelper(showWindowToFront).Handle);

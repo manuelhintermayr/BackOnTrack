@@ -10,8 +10,8 @@
     <Grid>
         <ScrollViewer Margin="0,0,0,105">
             <StackPanel x:Name="Panel" MinWidth="150">
-                <TextBlock Text="System Level Editor" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
-                <mui:BBCodeBlock BBCode="This tool will change the system file and can block websites on system level, which means, changes will remain even if BackOnTrack is not running. Please only use this tool if you know what you are doing. For normal blocking click [url=UI/MainView/Pages/Profiles/ViewProfiles.xaml]here[/url]." Margin="0,0,0,16"/>
+                <TextBlock Text="Advanced System Level Editor" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
+                <mui:BBCodeBlock BBCode="This tool will change the system file and can block websites on system level, which means, changes will remain even if BackOnTrack is not running. Entered values will not be checked if they are correct. Please only use this tool if you know what you are doing. For normal blocking click [url=UI/MainView/Pages/Profiles/ViewProfiles.xaml]here[/url]." Margin="0,0,0,16"/>
 
                 <Grid  Width="340" HorizontalAlignment="Left" Margin="0,0,20,0">
                     <Button x:Name="LoadSystemSettings" Content="Load system settings" HorizontalAlignment="Left" Click="LoadSystemSettings_Click"  />
