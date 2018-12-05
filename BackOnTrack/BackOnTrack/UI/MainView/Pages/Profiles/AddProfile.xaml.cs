@@ -50,7 +50,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 EnableBlockingOnProxyLevel.UpdateLayout();
                 EnableBlockingOnSystemLevel.IsChecked = true;
                 
-                ((FirstFloor.ModernUI.Windows.Controls.ModernFrame)(this.Parent)).Source = new Uri("/UI/MainView/Pages/Profiles/ViewProfiles.xaml", UriKind.Relative);
+                ((FirstFloor.ModernUI.Windows.Controls.ModernFrame)(this.Parent)).Source = new Uri("/UI/MainView/Pages/Profiles/ViewProfiles.xaml", UriKind.Relative);//todo update to use MainView to set the path
             }
         }
 

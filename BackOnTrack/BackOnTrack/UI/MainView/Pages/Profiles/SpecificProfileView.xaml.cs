@@ -26,6 +26,14 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
         private RunningApplication _runningApplication;
         private string _profileName;
         public Profile CurrentProfile { get; set; }
+        public bool EntryEditButtonIsEnabled {
+            get { return (bool)GetValue(EntryEditButtonIsEnabledProperty); }
+            set { SetValue(EntryEditButtonIsEnabledProperty, value); }
+        }
+        // Using a DependencyProperty as the backing store for bConnected.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EntryEditButtonIsEnabledProperty =
+            DependencyProperty.Register("EntryEditButtonIsEnabled", typeof(bool), typeof(SpecificProfileView), new PropertyMetadata(false));
+
         public static string CurrentSelectedUrlName { get; set; }
 
         public SpecificProfileView(string profileName)
@@ -35,12 +43,18 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             this.DataContext = this;
             _profileName = profileName;
             Setup(_profileName);
+            EntryEditButtonIsEnabled = true;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Setup(_profileName);
-            EntryList.Items.Refresh();
+            try
+            {
+                EntryList.Items.Refresh();
+            }
+            catch (Exception) { }
+
         }
 
         private void Setup(string profileName)
@@ -193,7 +207,6 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void EntryList_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-
             string headerName = (string)e.Column.Header;
             if (headerName == "Url")
             {
@@ -202,5 +215,20 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
         }
 
         #endregion
+
+        private void EntryList_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            string headerName = (string)e.Column.Header;
+            if (headerName == "Url")
+            {
+                EntryEditButtonIsEnabled = false;
+            }
+            
+        }
+
+        private void EntryList_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            EntryEditButtonIsEnabled = true;
+        }
     }
 }

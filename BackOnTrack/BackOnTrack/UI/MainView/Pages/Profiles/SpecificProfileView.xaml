@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:BackOnTrack.UI.MainView.Pages.Profiles"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:core="clr-namespace:System;assembly=mscorlib"
+             x:Name="SpecificProfileViewControl"
              xmlns:userConfiguration="clr-namespace:BackOnTrack.Services.UserConfiguration"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
@@ -73,7 +74,7 @@
                     <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading2}" Margin="0,16,0,8">
                         View entries
                     </TextBlock>
-                    <DataGrid Name="EntryList" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CellEditEnding="EntryList_CellEditEnding">
+                    <DataGrid Name="EntryList" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CellEditEnding="EntryList_CellEditEnding" BeginningEdit="EntryList_BeginningEdit" RowEditEnding="EntryList_RowEditEnding">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Url">
                                 <DataGridTextColumn.Binding>
@@ -85,19 +86,12 @@
                                 </DataGridTextColumn.Binding>
                             </DataGridTextColumn>
 
-                            <!--<mui:DataGridTextColumn Header="Url"  Binding="{Binding Url}" >
-                                <DataGridTextColumn.ClipboardContentBinding>
-                                    <Binding.ValidationRules>
-                                        <local:AddressValidationRule  />
-                                    </Binding.ValidationRules>
-                                </DataGridTextColumn.ClipboardContentBinding>
-                            </mui:DataGridTextColumn>-->
                             <mui:DataGridComboBoxColumn Header="Type" IsReadOnly="True" SelectedItemBinding="{Binding EntryType}" ItemsSource="{Binding Source={StaticResource EntryTypeValues}}"/>
 
                             <DataGridTemplateColumn Header="Edit">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="EntryEditButton" Click="EntryEditButton_Click">Edit</Button>
+                                        <Button x:Name="EntryEditButton" IsEnabled="{Binding EntryEditButtonIsEnabled, ElementName=SpecificProfileViewControl}" Click="EntryEditButton_Click">Edit</Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -107,7 +101,7 @@
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="RemoveEntryButton" Click="RemoveEntryButton_Click">Remove</Button>
+                                        <Button x:Name="RemoveEntryButton" IsEnabled="{Binding EntryEditButtonIsEnabled, ElementName=SpecificProfileViewControl}" Click="RemoveEntryButton_Click">Remove</Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
