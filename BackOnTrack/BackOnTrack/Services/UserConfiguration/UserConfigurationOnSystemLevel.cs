@@ -55,6 +55,15 @@ namespace BackOnTrack.Services.UserConfiguration
 
         private void AddMissingEntriesIntoEntryList(CurrentUserConfiguration newConfiguration)
         {
+            var listOfActiveBlockEntries = (
+                from profile in newConfiguration.ProfileList from entry in profile.EntryList
+                where 
+                    entry.EntryType==EntryType.Block && 
+                    entry.IsEnabled && 
+                    entry.SystemLevelBlockingIsEnabled
+                select entry.Url).ToList();
+
+            //HostEntries.Add(new HostEntry() { Content = $"127.0.0.1   {DomainToBlockTextbox.Text}", IsEnabled = true, LineNumber = (CurrentLineNumber + 1) });
             //throw new NotImplementedException();
         }
 
