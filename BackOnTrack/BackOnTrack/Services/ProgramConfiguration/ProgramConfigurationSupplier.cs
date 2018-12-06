@@ -75,7 +75,12 @@ namespace BackOnTrack.Services.ProgramConfiguration
 
         private void CreateNewConfiguration()
         {
-            Configuration = new CurrentProgramConfiguration() { ProxyEnabled = false, AutoRunEnabled = true};
+            Configuration = new CurrentProgramConfiguration()
+            {
+                ProxyEnabled = false,
+                ProxyPortNumber = 8000,
+                AutoRunEnabled = true
+            };
             SaveConfiguration(Configuration);
         }
 
@@ -93,6 +98,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
             }
 
             TempConfiguration.ProxyEnabled = Configuration.ProxyEnabled;
+            TempConfiguration.ProxyPortNumber = Configuration.ProxyPortNumber;
             TempConfiguration.AutoRunEnabled = Configuration.AutoRunEnabled;
 
             LoadingConfiguration();
@@ -101,6 +107,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
         private void CopyTempConfigurationToCurrentConfig()
         {
             Configuration.ProxyEnabled = TempConfiguration.ProxyEnabled;
+            Configuration.ProxyPortNumber = TempConfiguration.ProxyPortNumber;
             Configuration.AutoRunEnabled = TempConfiguration.AutoRunEnabled;
         }
 

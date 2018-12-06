@@ -13,6 +13,15 @@
                 <TextBlock Text="WEB PROXY" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
                 <mui:BBCodeBlock BBCode="This is the overall general configuration for the program. Changes here will be made only for the current user." Margin="0,0,0,16"/>
 
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Port address" Target="{Binding ElementName=ProxyPortAddress}"/>
+                    <TextBox x:Name="ProxyPortAddress" Width="150">
+                        <!--<TextBox.Text>
+                            <Binding ElementName="ProxyPortNumber" />
+                        </TextBox.Text>-->
+                    </TextBox>
+                </StackPanel>
+
                 <Grid HorizontalAlignment="Left">
                     <CheckBox Content="WebProxy enabled" Margin="0,0,0,4" IsChecked="{Binding Path=ProxyEnabled}" />
                 </Grid>

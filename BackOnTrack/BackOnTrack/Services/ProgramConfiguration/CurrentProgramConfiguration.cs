@@ -9,6 +9,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
     {
         private bool _proxyEnabled;
         private bool _autoRunEnabled;
+        private int _proxyPortNumber;
 
         public bool ProxyEnabled
         {
@@ -17,6 +18,16 @@ namespace BackOnTrack.Services.ProgramConfiguration
             {
                 _proxyEnabled = value;
                 OnPropertyChanged("ProxyEnabled");
+            }
+        }
+
+        public int ProxyPortNumber
+        {
+            get { return _proxyPortNumber; }
+            set
+            {
+                _proxyPortNumber = value;
+                OnPropertyChanged("ProxyPortNumber");
             }
         }
 
