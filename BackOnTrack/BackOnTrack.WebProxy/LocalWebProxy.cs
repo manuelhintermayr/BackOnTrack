@@ -16,6 +16,7 @@ namespace BackOnTrack.WebProxy
     {
         private readonly ProxyServer _proxyServer;
         #region Configuration
+        public bool ProxyIsEnabled { get; set; }
         private bool _isSystemProxy;
         private ProxyUserConfiguration _currentConfiguration;
         public static bool ProxyRunning { get; set; }
@@ -87,6 +88,11 @@ namespace BackOnTrack.WebProxy
         public void LoadProxyProfileFromFileSystem()
         {
             _currentConfiguration.LoadCurrentUserConfiguration();
+        }
+
+        public void ApplyUserConfigurationOnProxy(CurrentUserConfiguration userConfigurations)
+        {
+            _currentConfiguration.ApplyUserConfiguration(userConfigurations);
         }
 
         public void SetPortNumber(int portNumber)

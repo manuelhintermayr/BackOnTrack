@@ -9,11 +9,13 @@ namespace BackOnTrack.Services.UserConfiguration
 {
     public class UserConfigurationSupplier
     {
+        public RunningApplication _runningApplication;
         public string ConfigurationPath;
         private UserConfigurationOnSystemLevel systemLevel;
 
         public UserConfigurationSupplier()
         {
+            _runningApplication = RunningApplication.Instance();
             ConfigurationPath = 
                 $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\profiles.settings";
             //todo: ^make configurable for testing
@@ -78,7 +80,7 @@ namespace BackOnTrack.Services.UserConfiguration
 
         public void ApplyUserConfigurationOnProxy(CurrentUserConfiguration newConfiguration)
         {
-            //throw new NotImplementedException();
+            _runningApplication.Services.WebProxy.UpdateConfiguration(newConfiguration);
         }
 
         #endregion

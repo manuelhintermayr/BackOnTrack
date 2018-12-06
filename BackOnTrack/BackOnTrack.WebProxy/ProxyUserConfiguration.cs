@@ -60,6 +60,11 @@ namespace BackOnTrack.WebProxy
             _listOfRedirectSites.Clear();
             FillListOfBlockedSites();
             FillListOfRedirectSites();
+
+            if (saveConfiguration)
+            {
+                SaveUserConfiguration(userConfiguration);
+            }
         }
 
         private void FillListOfBlockedSites()
@@ -110,12 +115,7 @@ namespace BackOnTrack.WebProxy
 
         #endregion
 
-
-
-
-
-
-        private void SaveUserConfiguration()
+        private void SaveUserConfiguration(CurrentUserConfiguration userConfiguration)
         {
 
         }

@@ -8,7 +8,15 @@ namespace BackOnTrack.Services.WebProxy
 {
     public class RunningWebProxy
     {
-        public bool ProxyIsEnabled { get; set; }
+        public bool ProxyIsEnabled
+        {
+            get
+            {
+                return _webProxy.ProxyIsEnabled;
+            }
+            set { _webProxy.ProxyIsEnabled = value; }
+        }
+
         public bool ProxyIsRunning { get; set; }
         private RunningApplication _runningApplication;
         private LocalWebProxy _webProxy;
@@ -67,7 +75,17 @@ namespace BackOnTrack.Services.WebProxy
         #region Proxy configuration
         public void UpdateConfiguration(CurrentUserConfiguration newConfiguration)
         {
-            //todo update configuration
+            if (ProxyIsRunning) // mutex for proxyConfiguration
+            {
+                ProxyIsEnabled = false;
+            }
+            
+            _webProxy.ApplyUserConfigurationOnProxy(newConfiguration);
+
+            if (ProxyIsRunning)
+            {
+                ProxyIsEnabled = true;
+            }
         }
         public void UpdatePortNumber(int portNumber)
         {
