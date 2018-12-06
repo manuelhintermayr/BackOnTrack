@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using BackOnTrack.SharedResources.Infrastructure.Helpers;
 using BackOnTrack.SharedResources.Models;
 using BackOnTrack.WebProxy.Exceptions;
+using Newtonsoft.Json;
 
 namespace BackOnTrack.WebProxy
 {
     public class ProxyUserConfiguration
     {
+        private const string _configurationPassword = "BackOnTrackProxy";
         private CurrentUserConfiguration _currentConfiguration;
         private List<string> _listOfBlockedSites;
         private List<RedirectEntry> _listOfRedirectSites;
@@ -117,7 +119,10 @@ namespace BackOnTrack.WebProxy
 
         private void SaveUserConfiguration(CurrentUserConfiguration userConfiguration)
         {
+            var jsonConfiguration = JsonConvert.SerializeObject(userConfiguration);
+            string encryptedConfiguration = EncryptingHelper.Encrypt(jsonConfiguration, _configurationPassword);
 
+            FileModification.WriteFile(GetProxyUserConfigurationPath(), encryptedConfiguration);
         }
 
     }
