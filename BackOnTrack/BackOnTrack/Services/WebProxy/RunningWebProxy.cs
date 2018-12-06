@@ -16,7 +16,6 @@ namespace BackOnTrack.Services.WebProxy
             }
             set { _webProxy.ProxyIsEnabled = value; }
         }
-
         public bool ProxyIsRunning { get; set; }
         private RunningApplication _runningApplication;
         private LocalWebProxy _webProxy;
@@ -98,18 +97,23 @@ namespace BackOnTrack.Services.WebProxy
         {
             _webProxy.SetPortNumber(portNumber);
         }
+
+        public int GetPortNumber()
+        {
+            return _webProxy.GetPortNumber();
+        }
         #endregion
 
         #region Start Quit and Dispose Proxy
         public void Start()
         {
             //webProxy.StartProxy();
-            //ProxyIsRunning = true;
+            ProxyIsRunning = true;
         }
         public void Quit()
         {
             //webProxy.QuitProxy();
-            //ProxyIsRunning = false;
+            ProxyIsRunning = false;
         }
         public void Dispose()
         {

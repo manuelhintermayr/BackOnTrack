@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using BackOnTrack.WebProxy.Exceptions;
 
 namespace BackOnTrack.UI.MainView.Pages.Settings
 {
@@ -76,6 +77,12 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
             catch (System.IO.IOException ex)
             {
                 _runningApplication.UI.MainView.AlertErrorWithFile(ex);
+            }
+            catch (WebProxyPortAlreadyInUseException ex)
+            {
+                string alertTitle = "Shutting down WebProxy";
+                string alertContent = ex.Message;
+                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
             }
         }
 

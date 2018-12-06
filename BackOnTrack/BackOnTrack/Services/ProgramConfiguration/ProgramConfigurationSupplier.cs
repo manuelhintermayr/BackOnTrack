@@ -8,6 +8,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
 {
     public class ProgramConfigurationSupplier
     {
+        public RunningApplication _runningApplication;
         public string ConfigurationPath;
         public CurrentProgramConfiguration Configuration;
         public CurrentProgramConfiguration TempConfiguration;
@@ -15,6 +16,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
 
         public ProgramConfigurationSupplier()
         {
+            _runningApplication = RunningApplication.Instance();
             ConfigurationPath =
                 $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\config.settings";
             //todo: ^ make more configurable for testing 
@@ -131,15 +133,38 @@ namespace BackOnTrack.Services.ProgramConfiguration
                 }
             }
 
-            if (Configuration.ProxyEnabled)
+            if (_runningApplication.Services != null)
             {
-                //turn on
-            }
-            else
-            {
-                //turn off
-            }
+                //only if services are already initialized
+                if (Configuration.ProxyEnabled)
+                {
+                    int newProxyPortNumber = Int32.Parse(Configuration.ProxyPortNumber);
 
+                    if (_runningApplication.Services.WebProxy.ProxyIsRunning)
+                    {
+                        //proxy already running
+                        if (_runningApplication.Services.WebProxy.GetPortNumber() != newProxyPortNumber)
+                        {
+                            _runningApplication.Services.WebProxy.Quit();
+                            _runningApplication.Services.WebProxy.UpdatePortNumber(newProxyPortNumber);
+                            _runningApplication.Services.WebProxy.Start();
+                        }
+                    }
+                    else
+                    {
+                        //must start proxy
+                        _runningApplication.Services.WebProxy.UpdatePortNumber(newProxyPortNumber);
+                        _runningApplication.Services.WebProxy.Start();
+                    }
+                }
+                else
+                {
+                    if (_runningApplication.Services.WebProxy.ProxyIsRunning)
+                    {
+                        _runningApplication.Services.WebProxy.Quit();
+                    }
+                }
+            }
         }
     }
 }

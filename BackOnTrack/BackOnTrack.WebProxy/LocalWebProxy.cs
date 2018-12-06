@@ -17,6 +17,7 @@ namespace BackOnTrack.WebProxy
         private readonly ProxyServer _proxyServer;
         #region Configuration
         public bool ProxyIsEnabled { get; set; }
+        private int _portNumber;
         private bool _isSystemProxy;
         private ProxyUserConfiguration _currentConfiguration;
         public static bool ProxyRunning { get; set; }
@@ -105,9 +106,15 @@ namespace BackOnTrack.WebProxy
                 }
                 else
                 {
+                    _portNumber = portNumber;
                     //todo set port
                 }
             }
+        }
+
+        public int GetPortNumber()
+        {
+            return _portNumber;
         }
 
         #endregion
