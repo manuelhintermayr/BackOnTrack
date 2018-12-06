@@ -13,9 +13,8 @@ namespace BackOnTrack.WebProxy
 {
     public class LocalWebProxy : IDisposable
     {
-        //todo: Copy UserConfiguration always before starting or after update
         private readonly ProxyServer _proxyServer;
-
+        //private CurrentUserConfiguration currentConfiguration;
         #region Configuration
         private bool _isSystemProxy;
         private List<string> ListOfBlockedSites;

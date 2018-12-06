@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace BackOnTrack.Resources.Models
+namespace BackOnTrack.Services.SystemLevelConfiguration
 {
     public class CurrentProgramConfiguration : INotifyPropertyChanged
     {

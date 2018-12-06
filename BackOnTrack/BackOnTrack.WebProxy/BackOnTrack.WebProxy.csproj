@@ -64,6 +64,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\BackOnTrack.Resources\BackOnTrack.Resources.csproj">
+      <Project>{f8c7eb69-be71-4298-a1e6-c874121664f1}</Project>
+      <Name>BackOnTrack.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
