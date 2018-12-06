@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
+using BackOnTrack.SharedResources.Models;
 using BackOnTrack.WebProxy.Exceptions;
 using Titanium.Web.Proxy;
 using Titanium.Web.Proxy.EventArguments;
@@ -14,17 +15,13 @@ namespace BackOnTrack.WebProxy
     public class LocalWebProxy : IDisposable
     {
         private readonly ProxyServer _proxyServer;
-        //private CurrentUserConfiguration currentConfiguration;
         #region Configuration
         private bool _isSystemProxy;
         private List<string> ListOfBlockedSites;
-        #endregion
-
-        private ExplicitProxyEndPoint explicitEndPoint;
-        
-
-        
+        private CurrentUserConfiguration _currentConfiguration;
         public static bool ProxyRunning { get; set; }
+        #endregion
+        private ExplicitProxyEndPoint explicitEndPoint;
         private readonly ExplicitProxyEndPoint endPoint = new ExplicitProxyEndPoint(IPAddress.Loopback, 8000, true);
 
         public LocalWebProxy(bool isSystemProxy = true)
@@ -34,13 +31,7 @@ namespace BackOnTrack.WebProxy
             ListOfBlockedSites = new List<string>();
         }
 
-        public void SetList(List<string> blockedList)
-        {
-            //should only be called if proxy is not running
-
-            ListOfBlockedSites = blockedList;
-        }
-
+        #region Proxy Start Quit and Dispose
         public void StartProxy(int port = 8000)
         {
             //todo custom port configuration
@@ -77,6 +68,26 @@ namespace BackOnTrack.WebProxy
             explicitEndPoint = null;
             ProxyRunning = false;
         }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _proxyServer?.Dispose();
+                ProxyRunning = false;
+            }
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
+
+        #region Set Proxy Configuration
+
+        
+
+        #endregion
 
         #region ProxyOperations
 
@@ -180,21 +191,6 @@ namespace BackOnTrack.WebProxy
             _proxyServer.BeforeResponse += OnResponse;
         }
 
-        #endregion
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _proxyServer?.Dispose();
-                ProxyRunning = false;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        #endregion      
     }
 }

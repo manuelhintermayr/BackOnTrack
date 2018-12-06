@@ -7,11 +7,11 @@ namespace BackOnTrack.WebProxy
     {
         static void Main(string[] args)
         {
-            var proxy = new LocalWebProxy();
-            proxy.SetList(new List<string>(){"google.com"});
-            proxy.StartProxy();
-            Console.Read();
-            proxy.QuitProxy();
+            //var proxy = new LocalWebProxy();
+            //proxy.SetList(new List<string>(){"google.com"});
+            //proxy.StartProxy();
+            //Console.Read();
+            //proxy.QuitProxy();
         }
 
     }
