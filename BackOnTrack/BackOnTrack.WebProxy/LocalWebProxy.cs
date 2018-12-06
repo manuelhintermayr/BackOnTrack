@@ -94,29 +94,29 @@ namespace BackOnTrack.WebProxy
         {
             Console.WriteLine(e.WebSession.Request.Url);
 
-            foreach (string blockedSite in ListOfBlockedSites)
-            {
-                if ((e.WebSession.Request.RequestUri.AbsoluteUri.Contains(blockedSite)))
-                {
-                    e.Ok("<!DOCTYPE html>" +
-                         "<html><body><h1>" +
-                         "Website Blocked" +
-                         "</h1>" +
-                         "<p>Blocked by BackOnTrack.</p>" +
-                         "</body>" +
-                         "</html>", null);
+            //foreach (string blockedSite in ListOfBlockedSites)
+            //{
+            //    if ((e.WebSession.Request.RequestUri.AbsoluteUri.Contains(blockedSite)))
+            //    {
+            //        e.Ok("<!DOCTYPE html>" +
+            //             "<html><body><h1>" +
+            //             "Website Blocked" +
+            //             "</h1>" +
+            //             "<p>Blocked by BackOnTrack.</p>" +
+            //             "</body>" +
+            //             "</html>", null);
 
-                    //e.Respond(new Response());
-                }
+            //        //e.Respond(new Response());
+            //    }
 
-                if (e.WebSession.Request.RequestUri.AbsoluteUri.Contains("wikipedia.org"))
-                {
-                    e.Redirect("https://www.apple.com");
-                }
+            //    if (e.WebSession.Request.RequestUri.AbsoluteUri.Contains("wikipedia.org"))
+            //    {
+            //        e.Redirect("https://www.apple.com");
+            //    }
 
 
 
-            }
+            //}
 
 
             //if (!e.WebSession.Request.RequestUri.AbsoluteUri.Contains("manuelweb.at/test"))

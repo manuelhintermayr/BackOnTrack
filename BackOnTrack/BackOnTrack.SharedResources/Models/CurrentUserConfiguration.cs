@@ -16,6 +16,14 @@ namespace BackOnTrack.SharedResources.Models
             }
         }
 
+        public CurrentUserConfiguration()
+        {
+            if (ProfileList == null)
+            {
+                ProfileList = new List<Profile>();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string property)
@@ -39,12 +47,12 @@ namespace BackOnTrack.SharedResources.Models
             }
         }
         public List<Entry> EntryList;
-        public bool PreferableBlockingOnSystemLevel;
-        public bool PreferableBlockingOnProxyLevel;
+        public bool PreferableBlockingOnSystemLevel; //this means that new entries over the UI will be created with this value 
+        public bool PreferableBlockingOnProxyLevel; //this means that new entries over the UI will be created with this value
 
-        public static Profile CreateProfile(string profileName, bool blockOnSystemLevel, bool blockOnProxyLevel)
+        public static Profile CreateProfile(string profileName, bool preferableBlockOnSystemLevel, bool preferableBlockOnProxyLevel)
         {
-            return new Profile() { ProfileName = profileName, EntryList = new List<Entry>(), ProfileIsEnabled = true, PreferableBlockingOnSystemLevel = blockOnSystemLevel, PreferableBlockingOnProxyLevel = blockOnProxyLevel };
+            return new Profile() { ProfileName = profileName, EntryList = new List<Entry>(), ProfileIsEnabled = true, PreferableBlockingOnSystemLevel = preferableBlockOnSystemLevel, PreferableBlockingOnProxyLevel = preferableBlockOnProxyLevel };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
