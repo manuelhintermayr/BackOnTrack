@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BackOnTrack.Infrastructure.Helpers;
 using BackOnTrack.Resources.Infrastructure.Helpers;
 
 namespace BackOnTrack.Services.SystemLevelConfiguration

@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using BackOnTrack.Annotations;
+using System.Text;
 
-namespace BackOnTrack.Services.ProgramConfiguration
+namespace BackOnTrack.Resources.Models
 {
     public class CurrentProgramConfiguration : INotifyPropertyChanged
     {
@@ -13,7 +13,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
 
         public bool ProxyEnabled
         {
-            get { return _proxyEnabled;}
+            get { return _proxyEnabled; }
             set
             {
                 _proxyEnabled = value;

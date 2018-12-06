@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Controls;
 using BackOnTrack.Infrastructure.Exceptions;
-using BackOnTrack.Services.UserConfiguration;
 using FirstFloor.ModernUI.Presentation;
-using FirstFloor.ModernUI.Windows;
-using FirstFloor.ModernUI.Windows.Navigation;
 
 namespace BackOnTrack.UI.MainView.Pages.Profiles
 {

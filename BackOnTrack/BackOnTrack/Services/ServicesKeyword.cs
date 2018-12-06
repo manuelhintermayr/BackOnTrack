@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using BackOnTrack.Services.ProgramConfiguration;
+﻿using BackOnTrack.Services.ProgramConfiguration;
 using BackOnTrack.Services.SystemLevelConfiguration;
 using BackOnTrack.Services.UserConfiguration;
 

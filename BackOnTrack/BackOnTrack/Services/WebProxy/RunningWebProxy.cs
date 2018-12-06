@@ -1,4 +1,5 @@
-﻿using BackOnTrack.WebProxy;
+﻿using BackOnTrack.Services.UserConfiguration;
+using BackOnTrack.WebProxy;
 
 namespace BackOnTrack.Services.WebProxy
 {
@@ -18,6 +19,11 @@ namespace BackOnTrack.Services.WebProxy
         public void Quit()
         {
             webProxy.QuitProxy();
+        }
+
+        public void UpdateConfiguration(CurrentUserConfiguration newConfiguration)
+        {
+            //...
         }
 
         public void Dispose()

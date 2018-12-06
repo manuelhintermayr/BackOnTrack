@@ -79,7 +79,6 @@
     <Compile Include="Infrastructure\Helpers\SingleInstance.cs" />
     <Compile Include="Infrastructure\Helpers\WinApi.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Services\ProgramConfiguration\CurrentProgramConfiguration.cs" />
     <Compile Include="Services\ProgramConfiguration\ProgramConfigurationSupplier.cs" />
     <Compile Include="Services\SystemLevelConfiguration\SystemLevelConfigurationSupplier.cs" />
     <Compile Include="Services\UserConfiguration\CurrentUserConfiguration.cs" />
