@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using BackOnTrack.Resources.Models;
 using BackOnTrack.Services.UserConfiguration;
 using FirstFloor.ModernUI.Windows.Controls;
 

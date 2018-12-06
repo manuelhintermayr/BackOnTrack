@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BackOnTrack.UI.MainView.Pages.Profiles"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:core="clr-namespace:System;assembly=mscorlib"
-             xmlns:userConfiguration="clr-namespace:BackOnTrack.Services.UserConfiguration"
+             xmlns:models="clr-namespace:BackOnTrack.Resources.Models;assembly=BackOnTrack.Resources"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="400">
     <UserControl.Resources>
@@ -14,7 +14,7 @@
                             ObjectType="{x:Type core:Enum}"
                             x:Key="EntryTypeValues">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="userConfiguration:EntryType" />
+                <x:Type TypeName="models:EntryType" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>

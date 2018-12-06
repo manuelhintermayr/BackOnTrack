@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BackOnTrack.Infrastructure.Helpers;
 using BackOnTrack.Resources.Infrastructure.Helpers;
+using BackOnTrack.Resources.Models;
 using Newtonsoft.Json;
 
 namespace BackOnTrack.Services.UserConfiguration

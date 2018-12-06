@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text;
 
-namespace BackOnTrack.Services.UserConfiguration
+namespace BackOnTrack.Resources.Models
 {
     public class CurrentUserConfiguration : INotifyPropertyChanged
     {
         private List<Profile> _profileList;
-        public List<Profile> ProfileList { 
+        public List<Profile> ProfileList
+        {
             get { return _profileList; }
             set
             {
@@ -43,7 +46,7 @@ namespace BackOnTrack.Services.UserConfiguration
 
         public static Profile CreateProfile(string profileName, bool blockOnSystemLevel, bool blockOnProxyLevel)
         {
-            return new Profile() { ProfileName = profileName, EntryList = new List<Entry>(), ProfileIsEnabled = true, PreferableBlockingOnSystemLevel = blockOnSystemLevel, PreferableBlockingOnProxyLevel = blockOnProxyLevel};
+            return new Profile() { ProfileName = profileName, EntryList = new List<Entry>(), ProfileIsEnabled = true, PreferableBlockingOnSystemLevel = blockOnSystemLevel, PreferableBlockingOnProxyLevel = blockOnProxyLevel };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -65,7 +68,7 @@ namespace BackOnTrack.Services.UserConfiguration
         public bool ProxyBlockingIsEnabled { get; set; }
 
 
-        public static Entry CreateBlockEntry(string url, bool systemLevelBlockingIsEnabled, bool proxyBlockingIsEnabled,  bool isEnabled = true)
+        public static Entry CreateBlockEntry(string url, bool systemLevelBlockingIsEnabled, bool proxyBlockingIsEnabled, bool isEnabled = true)
         {
             return new Entry()
             {
@@ -91,4 +94,5 @@ namespace BackOnTrack.Services.UserConfiguration
     }
 
     public enum EntryType { Block, Redirect };
+
 }
