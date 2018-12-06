@@ -153,6 +153,13 @@ namespace BackOnTrack.WebProxy
             FileModification.WriteFile(GetProxyUserConfigurationPath(), encryptedConfiguration);
         }
 
+        public void CreateEmptyProfileConfigurationIfNotExists()
+        {
+            if (!FileModification.FileExists(GetProxyUserConfigurationPath()))
+            {
+                SaveUserConfiguration(new CurrentUserConfiguration());
+            }
+        }
     }
 
     public class RedirectEntry

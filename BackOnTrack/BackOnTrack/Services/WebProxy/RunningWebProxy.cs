@@ -120,5 +120,10 @@ namespace BackOnTrack.Services.WebProxy
             _webProxy.Dispose();
         }
         #endregion
+
+        public void CreateEmptyProfileConfigurationIfNotExists()
+        {
+            _webProxy.CreateEmptyProfileConfigurationIfNotExists();
+        }
     }
 }

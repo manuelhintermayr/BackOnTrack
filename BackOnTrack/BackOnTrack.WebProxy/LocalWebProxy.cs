@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
+using BackOnTrack.SharedResources.Infrastructure.Helpers;
 using BackOnTrack.SharedResources.Models;
 using BackOnTrack.WebProxy.Exceptions;
 using Titanium.Web.Proxy;
@@ -224,6 +225,11 @@ namespace BackOnTrack.WebProxy
             _proxyServer.BeforeResponse += OnResponse;
         }
 
-        #endregion      
+        #endregion
+
+        public void CreateEmptyProfileConfigurationIfNotExists()
+        {
+            _currentConfiguration.CreateEmptyProfileConfigurationIfNotExists();
+        }
     }
 }

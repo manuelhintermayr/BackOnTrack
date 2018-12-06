@@ -138,6 +138,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
                 //only if services are already initialized
                 if (Configuration.ProxyEnabled)
                 {
+                    _runningApplication.Services.WebProxy.CreateEmptyProfileConfigurationIfNotExists();
                     int newProxyPortNumber = Int32.Parse(Configuration.ProxyPortNumber);
 
                     if (_runningApplication.Services.WebProxy.ProxyIsRunning)
