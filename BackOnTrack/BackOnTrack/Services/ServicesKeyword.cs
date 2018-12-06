@@ -1,6 +1,7 @@
 ﻿using BackOnTrack.Services.ProgramConfiguration;
 using BackOnTrack.Services.SystemLevelConfiguration;
 using BackOnTrack.Services.UserConfiguration;
+using BackOnTrack.Services.WebProxy;
 
 namespace BackOnTrack.Services
 {
@@ -8,14 +9,14 @@ namespace BackOnTrack.Services
     {
         public UserConfigurationSupplier UserConfiguration;
         public ProgramConfigurationSupplier ProgramConfiguration;
-        public WebProxy.RunningWebProxy WebProxy;
+        public RunningWebProxy WebProxy;
         public SystemLevelConfigurationSupplier SystemLevelConfiguration;
         public ServicesKeyword()
         {
             ProgramConfiguration = new ProgramConfigurationSupplier();
             UserConfiguration = new UserConfigurationSupplier();
             SystemLevelConfiguration = new SystemLevelConfigurationSupplier();
-            WebProxy = new WebProxy.RunningWebProxy();
+            WebProxy = new RunningWebProxy(this);
         }
     }
 }

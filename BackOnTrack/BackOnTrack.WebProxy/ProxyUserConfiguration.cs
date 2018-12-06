@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BackOnTrack.SharedResources.Infrastructure.Helpers;
 using BackOnTrack.SharedResources.Models;
+using BackOnTrack.WebProxy.Exceptions;
 
 namespace BackOnTrack.WebProxy
 {
@@ -19,7 +21,7 @@ namespace BackOnTrack.WebProxy
             _listOfRedirectSites = new List<RedirectEntry>();
         }
 
-        #region Lists getter
+        #region Getter
 
         public List<string> GetListOfBlockedSites()
         {
@@ -31,11 +33,20 @@ namespace BackOnTrack.WebProxy
             return _listOfRedirectSites;
         }
 
+        public string GetProxyUserConfigurationPath()
+        {
+            return $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\proxy.profiles";
+        }
+
         #endregion
         #region Loading user configuration from file system
 
         public void LoadCurrentUserConfiguration()
         {
+            if (!FileModification.FileExists(GetProxyUserConfigurationPath()))
+            {
+                throw new WebProxyNoProfilesFileException($"WebProxy file \"{GetProxyUserConfigurationPath()}\" does not exist.");
+            }
             //...
             //ApplyUserConfiguration(false);
         }

@@ -84,7 +84,10 @@ namespace BackOnTrack.WebProxy
 
         #region Set Proxy Configuration
 
-        
+        public void LoadProxyProfileFromFileSystem()
+        {
+            _currentConfiguration.LoadCurrentUserConfiguration();
+        }
 
         #endregion
 
