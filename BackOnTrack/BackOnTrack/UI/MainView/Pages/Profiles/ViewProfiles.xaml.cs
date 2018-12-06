@@ -91,7 +91,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
                 UpdateList();
                 _runningApplication.UI.MainView.CreateAlertWindow("Saving complete",
-                    "Profiles were successfully saved and loaded.");
+                    $"Profiles were successfully saved and loaded.{Environment.NewLine}{Environment.NewLine}For proxy blocking please make sure proxy is turned on in settings.");
             }
             catch (System.IO.IOException ex)
             {
