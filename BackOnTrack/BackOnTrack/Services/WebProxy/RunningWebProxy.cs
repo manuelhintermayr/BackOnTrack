@@ -1,4 +1,5 @@
-﻿using BackOnTrack.Infrastructure.Helpers;
+﻿using System;
+using BackOnTrack.Infrastructure.Helpers;
 using BackOnTrack.SharedResources.Models;
 using BackOnTrack.WebProxy;
 using BackOnTrack.WebProxy.Exceptions;
@@ -8,6 +9,7 @@ namespace BackOnTrack.Services.WebProxy
     public class RunningWebProxy
     {
         public bool ProxyIsEnabled { get; set; }
+        public bool ProxyIsRunning { get; set; }
         private RunningApplication _runningApplication;
         private LocalWebProxy _webProxy;
         public RunningWebProxy(ServicesKeyword servicesKeyword)
@@ -15,59 +17,79 @@ namespace BackOnTrack.Services.WebProxy
             _runningApplication = RunningApplication.Instance();
             _webProxy = new LocalWebProxy();
             ProxyIsEnabled = servicesKeyword.ProgramConfiguration.Configuration.ProxyEnabled;
+            ProxyIsRunning = false;
             SetupWebProxyForProgramStart(servicesKeyword);
         }
 
+        #region Proxy configuration for program start
         private void SetupWebProxyForProgramStart(ServicesKeyword servicesKeyword)
         {
             if (ProxyIsEnabled)
             {
-                //this should not be the first run of the program
                 try
                 {
                     _webProxy.LoadProxyProfileFromFileSystem();
+                    UpdatePortNumber(Int32.Parse(servicesKeyword.ProgramConfiguration.Configuration.ProxyPortNumber));
+                    Start();
                 }
                 catch (WebProxyNoProfilesFileException e)
                 {
-                    Messages.CreateMessageBox(
-                        e.Message,
-                        "Back on Track - proxy file does not exit", true);
-                    Messages.CreateMessageBox(
-                        "Proxy is shutting down.",
-                        "Back on Track - Proxy shutting down", true);
+                    string errorTitle = "Back on Track - proxy file does not exit";
+                    string errorMessage = e.Message;
 
-                    ProxyIsEnabled = false;
-                    servicesKeyword.ProgramConfiguration.TempConfiguration.ProxyEnabled = false;
-                    servicesKeyword.ProgramConfiguration.SaveCurrentConfiguration();
+                    ProgramStartShuttingDownProxy(errorTitle, errorMessage, servicesKeyword);
                 }
-                
-                
-            }
-            else
-            {
-                //could be the first run of the program
-            }
+                catch (WebProxyPortAlreadyInUseException e)
+                {
+                    string errorTitle = "Back on Track - Proxy port number already in use";
+                    string errorMessage = e.Message;
 
+                    ProgramStartShuttingDownProxy(errorTitle, errorMessage, servicesKeyword);
+                }
+            }
         }
+        private void ProgramStartShuttingDownProxy(string errorTitle, string errorMessage, ServicesKeyword servicesKeyword)
+        {
+            Messages.CreateMessageBox(
+                errorMessage,
+                errorTitle, true);
 
+            Messages.CreateMessageBox(
+                "Proxy is shutting down.",
+                "Back on Track - Proxy shutting down", true);
+
+            ProxyIsEnabled = false;
+            servicesKeyword.ProgramConfiguration.TempConfiguration.ProxyEnabled = false;
+            servicesKeyword.ProgramConfiguration.SaveCurrentConfiguration();
+        }
+        #endregion
+
+        #region Proxy configuration
+        public void UpdateConfiguration(CurrentUserConfiguration newConfiguration)
+        {
+            //todo update configuration
+        }
+        public void UpdatePortNumber(int portNumber)
+        {
+            _webProxy.SetPortNumber(portNumber);
+        }
+        #endregion
+
+        #region Start Quit and Dispose Proxy
         public void Start()
         {
             //webProxy.StartProxy();
+            //ProxyIsRunning = true;
         }
-
         public void Quit()
         {
             //webProxy.QuitProxy();
+            //ProxyIsRunning = false;
         }
-
-        public void UpdateConfiguration(CurrentUserConfiguration newConfiguration)
-        {
-            //...
-        }
-
         public void Dispose()
         {
             _webProxy.Dispose();
         }
+        #endregion
     }
 }

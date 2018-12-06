@@ -19,9 +19,9 @@ namespace BackOnTrack.WebProxy
         private bool _isSystemProxy;
         private ProxyUserConfiguration _currentConfiguration;
         public static bool ProxyRunning { get; set; }
-        #endregion
         private ExplicitProxyEndPoint explicitEndPoint;
         private readonly ExplicitProxyEndPoint endPoint = new ExplicitProxyEndPoint(IPAddress.Loopback, 8000, true);
+        #endregion
 
         public LocalWebProxy(bool isSystemProxy = true)
         {
@@ -31,19 +31,19 @@ namespace BackOnTrack.WebProxy
         }
 
         #region Proxy Start Quit and Dispose
-        public void StartProxy(int port = 8000)
+        public void StartProxy()
         {
             //todo custom port configuration
 
             SetRequestConfiguration(); //set Configuration
 
-            if (!PortInUse(endPoint))
+            if (!PortInUse(endPoint.Port))
             {
                 StartProxyWithEndPoint(); //set end point
             }
             else
             {
-                throw new WebProxyPortProblemException($"Cannot create a WebProxy. Port {endPoint.Port} is beeing used.");
+                throw new WebProxyPortAlreadyInUseException($"Cannot create a WebProxy. Port {endPoint.Port} is beeing used.");
             }
 
             if (_isSystemProxy)
@@ -87,6 +87,21 @@ namespace BackOnTrack.WebProxy
         public void LoadProxyProfileFromFileSystem()
         {
             _currentConfiguration.LoadCurrentUserConfiguration();
+        }
+
+        public void SetPortNumber(int portNumber)
+        {
+            if (!ProxyRunning)
+            {
+                if(PortInUse(portNumber))
+                {
+                    throw new WebProxyPortAlreadyInUseException($"Port \"{portNumber}\" is already used.");
+                }
+                else
+                {
+                    //todo set port
+                }
+            }
         }
 
         #endregion
@@ -144,33 +159,36 @@ namespace BackOnTrack.WebProxy
         {
             SetProxyEndPoint(endPoint);
             _proxyServer.Start();
-            if (!PortInUse(endPoint))
+            if (!PortInUse(endPoint.Port))
             {
                 QuitProxy();//Port cannot be used
-                throw new WebProxyPortProblemException($"Cannot create a WebProxy. Port {endPoint.Port} cannot be used.");
+                throw new WebProxyPortAlreadyInUseException($"Cannot create a WebProxy. Port {endPoint.Port} cannot be used.");
             }
         }
 
 
 
-        public static bool PortInUse(ExplicitProxyEndPoint endPointToCheck)
+        public static bool PortInUse(int portNumber)
         {
             bool inUse = false;
+            ExplicitProxyEndPoint endPointToCheck1 = new ExplicitProxyEndPoint(IPAddress.Loopback, portNumber, true);
+            ExplicitProxyEndPoint endPointToCheck2 = new ExplicitProxyEndPoint(IPAddress.Parse("0.0.0.0"), portNumber, true);
+            ExplicitProxyEndPoint endPointToCheck3 = new ExplicitProxyEndPoint(IPAddress.IPv6Loopback, portNumber, true);
 
             IPGlobalProperties ipProperties = IPGlobalProperties.GetIPGlobalProperties();
-            IPEndPoint[] ipEndPoints = ipProperties.GetActiveTcpListeners();
+            IPEndPoint[] activeTcpListeners = ipProperties.GetActiveTcpListeners();
 
-
-            foreach (IPEndPoint endPoint in ipEndPoints)
+            foreach (IPEndPoint endPoint in activeTcpListeners)
             {
-                if (endPoint.Address.ToString() == endPointToCheck.IpAddress.ToString() &&
-                    endPoint.Port == endPointToCheck.Port)
+                if ((endPoint.Address.ToString() == endPointToCheck1.IpAddress.ToString() ||
+                     endPoint.Address.ToString() == endPointToCheck2.IpAddress.ToString() ||
+                     endPoint.Address.ToString() == endPointToCheck3.IpAddress.ToString()
+                     ) && endPoint.Port == endPointToCheck1.Port)
                 {
                     inUse = true;
                     break;
                 }
             }
-
 
             return inUse;
         }
