@@ -73,7 +73,6 @@
     </ApplicationDefinition>
     <Compile Include="Infrastructure\Exceptions\SystemLevelException.cs" />
     <Compile Include="Infrastructure\Helpers\AutorunHelper.cs" />
-    <Compile Include="Infrastructure\Helpers\EncryptingHelper.cs" />
     <Compile Include="Infrastructure\Helpers\Messages.cs" />
     <Compile Include="Infrastructure\Helpers\ProgramInfo.cs" />
     <Compile Include="Infrastructure\Helpers\SingleInstance.cs" />

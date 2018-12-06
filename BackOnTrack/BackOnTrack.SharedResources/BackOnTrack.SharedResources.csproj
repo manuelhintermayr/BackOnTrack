@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Helpers\EncryptingHelper.cs" />
     <Compile Include="Infrastructure\Helpers\FileModification.cs" />
     <Compile Include="Models\CurrentUserConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
