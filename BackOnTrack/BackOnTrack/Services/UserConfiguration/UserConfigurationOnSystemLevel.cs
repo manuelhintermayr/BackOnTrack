@@ -26,16 +26,49 @@ namespace BackOnTrack.Services.UserConfiguration
             }
 
             AddAllLinesFromHostFileIntoEntryList();
-            RemoveNotActiveEntriesFromEntryList(newConfiguration);
             AddMissingEntriesIntoEntryList(newConfiguration);
+            RemoveNotActiveEntriesFromEntryList(newConfiguration);
 
+            SaveHostFile();
             HostEntries.Clear();
         }
+
+        #region HostFile manipulation
 
         private bool HostFileExists()
         {
             return FileModification.FileExists(FileModification.GetHostFileLocation());
         }
+
+        private void CreateHostFile()
+        {
+            int result = _runningApplication.Services.SystemLevelConfiguration.CreateNewHostFile();
+            if (result == 1)
+            {
+                throw new SystemLevelException("Creating the new system file failed. Information was given in the previous window.");
+            }
+            else if (result != 0)
+            {
+                throw new SystemLevelException("The tool for SystemFileModification was not closed in a correct way.");
+            }
+        }
+
+        private void SaveHostFile()
+        {
+            string hostFileContent = BuildHostFileContent();
+            int result = _runningApplication.Services.SystemLevelConfiguration.UpdateHostFile(hostFileContent);
+            if (result == 1)
+            {
+                throw new SystemLevelException("Updating the system file failed. Information was given in the previous window.");
+            }
+            else if(result != 0)
+            {
+                throw new SystemLevelException("The tool for SystemFileModification was not closed in a correct way.");
+            }
+        }
+
+        #endregion
+
 
         private void AddAllLinesFromHostFileIntoEntryList()
         {
@@ -91,6 +124,22 @@ namespace BackOnTrack.Services.UserConfiguration
             }
         }
 
+        private string BuildHostFileContent()
+        {
+            string hostFileContent = "";
+            for (int i = 0; i < HostEntries.Count; i++)
+            {
+                var hostEntry = HostEntries[i];
+                hostFileContent = $"{hostFileContent}{hostEntry.Content}";
+                if ((i + 1) != HostEntries.Count) //checking for last entry 
+                {
+                    hostFileContent = $"{hostFileContent}{Environment.NewLine}";
+                }
+            }
+
+            return hostFileContent;
+        }
+
         private List<string> GetListOfActiveBlockEntries(CurrentUserConfiguration usedConfiguration)
         {
             return (
@@ -102,19 +151,8 @@ namespace BackOnTrack.Services.UserConfiguration
                     entry.SystemLevelBlockingIsEnabled
                 select entry.Url
                 ).ToList();
-        }
 
-        private void CreateHostFile()
-        {
-            int result = _runningApplication.Services.SystemLevelConfiguration.CreateNewHostFile();
-            if (result == 1)
-            {
-                throw new SystemLevelException("Creating the new system file failed. Information was given in the previous window.");
-            }
-            else if (result != 0)
-            {
-                throw new SystemLevelException("The tool for SystemFileModification was not closed in a correct way.");
-            }
+            //todo: add profile isEnabled t/f
         }
     }
 }
