@@ -1,5 +1,6 @@
 ﻿using System;
 using BackOnTrack.Infrastructure.Helpers;
+using BackOnTrack.UI.MainView.Pages.Settings;
 using Newtonsoft.Json;
 
 namespace BackOnTrack.Services.ProgramConfiguration
@@ -78,7 +79,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
             Configuration = new CurrentProgramConfiguration()
             {
                 ProxyEnabled = false,
-                ProxyPortNumber = 8000,
+                ProxyPortNumber = "8000",
                 AutoRunEnabled = true
             };
             SaveConfiguration(Configuration);

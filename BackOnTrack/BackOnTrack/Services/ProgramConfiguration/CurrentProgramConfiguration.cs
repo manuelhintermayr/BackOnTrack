@@ -20,13 +20,20 @@ namespace BackOnTrack.Services.ProgramConfiguration
                 OnPropertyChanged("ProxyEnabled");
             }
         }
-
-        public int ProxyPortNumber
+        public string ProxyPortNumber
         {
-            get { return _proxyPortNumber; }
+            get { return _proxyPortNumber.ToString(); }
             set
             {
-                _proxyPortNumber = value;
+                try
+                {
+                    _proxyPortNumber = Int32.Parse(value);
+                }
+                catch (Exception)
+                {
+                    _proxyPortNumber = 0;
+                }
+
                 OnPropertyChanged("ProxyPortNumber");
             }
         }
