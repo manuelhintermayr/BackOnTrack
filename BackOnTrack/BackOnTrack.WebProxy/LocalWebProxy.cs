@@ -17,8 +17,7 @@ namespace BackOnTrack.WebProxy
         private readonly ProxyServer _proxyServer;
         #region Configuration
         private bool _isSystemProxy;
-        private List<string> ListOfBlockedSites;
-        private CurrentUserConfiguration _currentConfiguration;
+        private ProxyUserConfiguration _currentConfiguration;
         public static bool ProxyRunning { get; set; }
         #endregion
         private ExplicitProxyEndPoint explicitEndPoint;
@@ -28,7 +27,7 @@ namespace BackOnTrack.WebProxy
         {
             _isSystemProxy = isSystemProxy;
             _proxyServer = new ProxyServer();
-            ListOfBlockedSites = new List<string>();
+            _currentConfiguration = new ProxyUserConfiguration();
         }
 
         #region Proxy Start Quit and Dispose
