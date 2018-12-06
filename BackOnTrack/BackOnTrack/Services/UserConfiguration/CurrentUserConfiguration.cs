@@ -1,22 +1,57 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BackOnTrack.Services.UserConfiguration
 {
-    public class CurrentUserConfiguration
+    public class CurrentUserConfiguration : INotifyPropertyChanged
     {
-        public List<Profile> ProfileList; 
+        private List<Profile> _profileList;
+        public List<Profile> ProfileList { 
+            get { return _profileList; }
+            set
+            {
+                _profileList = value;
+                OnPropertyChanged("ProfileList");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string property)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
+        }
     }
 
-    public class Profile
+    public class Profile : INotifyPropertyChanged
     {
         public string ProfileName { get; set; }
+        private bool _profileIsEnabled;
+        public bool ProfileIsEnabled
+        {
+            get { return _profileIsEnabled; }
+            set
+            {
+                _profileIsEnabled = value;
+                OnPropertyChanged("ProfileIsEnabled");
+            }
+        }
         public List<Entry> EntryList;
         public bool PreferableBlockingOnSystemLevel;
         public bool PreferableBlockingOnProxyLevel;
 
         public static Profile CreateProfile(string profileName, bool blockOnSystemLevel, bool blockOnProxyLevel)
         {
-            return new Profile() { ProfileName = profileName, EntryList = new List<Entry>(), PreferableBlockingOnSystemLevel = blockOnSystemLevel, PreferableBlockingOnProxyLevel = blockOnProxyLevel};
+            return new Profile() { ProfileName = profileName, EntryList = new List<Entry>(), ProfileIsEnabled = true, PreferableBlockingOnSystemLevel = blockOnSystemLevel, PreferableBlockingOnProxyLevel = blockOnProxyLevel};
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string property)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
         }
     }
 

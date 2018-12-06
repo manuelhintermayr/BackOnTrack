@@ -54,6 +54,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             Setup(_profileName);
             try
             {
+                ProfileIsActivatedCheckbox.IsChecked = CurrentProfile.ProfileIsEnabled;
                 EntryList.Items.Refresh();
                 EntryEditButtonIsEnabled = true;
             }

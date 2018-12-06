@@ -146,13 +146,12 @@ namespace BackOnTrack.Services.UserConfiguration
                 from profile in usedConfiguration.ProfileList
                 from entry in profile.EntryList
                 where
+                    profile.ProfileIsEnabled &&
                     entry.EntryType == EntryType.Block &&
                     entry.IsEnabled &&
                     entry.SystemLevelBlockingIsEnabled
                 select entry.Url
                 ).ToList();
-
-            //todo: add profile isEnabled t/f
         }
     }
 }

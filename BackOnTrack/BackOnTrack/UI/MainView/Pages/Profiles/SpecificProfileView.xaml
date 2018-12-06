@@ -39,7 +39,7 @@
                         </TextBlock>
                         <Button x:Name="DeleteCurrentProfile" HorizontalAlignment="Right" Click="DeleteCurrentProfile_Click" Margin="0,0,10,0">Delete Profile</Button>
                     </Grid>
-                    <CheckBox x:Name="ProfileIsActivatedCheckbox" IsChecked="True">
+                    <CheckBox x:Name="ProfileIsActivatedCheckbox" IsChecked="{Binding Path=CurrentProfile.ProfileIsEnabled}" >
                         <TextBlock FontWeight="Bold">Profile is activated</TextBlock>
                     </CheckBox>
                     <TextBlock HorizontalAlignment="Left" Style="{StaticResource Heading2}" Margin="0,16,0,8">
