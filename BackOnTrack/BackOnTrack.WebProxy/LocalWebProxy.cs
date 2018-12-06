@@ -32,7 +32,44 @@ namespace BackOnTrack.WebProxy
             _proxyServer = new ProxyServer();
             _currentConfiguration = new ProxyUserConfiguration();
         }
+        #region Set Proxy Configuration
 
+        public void LoadProxyProfileFromFileSystem()
+        {
+            _currentConfiguration.LoadCurrentUserConfiguration();
+        }
+
+        public void CreateEmptyProfileConfigurationIfNotExists()
+        {
+            _currentConfiguration.CreateEmptyProfileConfigurationIfNotExists();
+        }
+
+        public void ApplyUserConfigurationOnProxy(CurrentUserConfiguration userConfigurations)
+        {
+            _currentConfiguration.ApplyUserConfiguration(userConfigurations);
+        }
+
+        public void SetPortNumber(int portNumber)
+        {
+            if (!ProxyRunning)
+            {
+                if(PortInUse(portNumber))
+                {
+                    throw new WebProxyPortAlreadyInUseException($"Port \"{portNumber}\" is already used.");
+                }
+                else
+                {
+                    _portNumber = portNumber;
+                }
+            }
+        }
+
+        public int GetPortNumber()
+        {
+            return _portNumber;
+        }
+
+        #endregion
         #region Proxy Start Quit and Dispose
         public void StartProxy()
         {
@@ -84,89 +121,6 @@ namespace BackOnTrack.WebProxy
             GC.SuppressFinalize(this);
         }
         #endregion
-
-        #region Set Proxy Configuration
-
-        public void LoadProxyProfileFromFileSystem()
-        {
-            _currentConfiguration.LoadCurrentUserConfiguration();
-        }
-
-        public void ApplyUserConfigurationOnProxy(CurrentUserConfiguration userConfigurations)
-        {
-            _currentConfiguration.ApplyUserConfiguration(userConfigurations);
-        }
-
-        public void SetPortNumber(int portNumber)
-        {
-            if (!ProxyRunning)
-            {
-                if(PortInUse(portNumber))
-                {
-                    throw new WebProxyPortAlreadyInUseException($"Port \"{portNumber}\" is already used.");
-                }
-                else
-                {
-                    _portNumber = portNumber;
-                    //todo set port
-                }
-            }
-        }
-
-        public int GetPortNumber()
-        {
-            return _portNumber;
-        }
-
-        #endregion
-
-        #region ProxyOperations
-
-        private async Task OnRequest(object sender, SessionEventArgs e)
-        {
-            Console.WriteLine(e.WebSession.Request.Url);
-
-            //foreach (string blockedSite in ListOfBlockedSites)
-            //{
-            //    if ((e.WebSession.Request.RequestUri.AbsoluteUri.Contains(blockedSite)))
-            //    {
-            //        e.Ok("<!DOCTYPE html>" +
-            //             "<html><body><h1>" +
-            //             "Website Blocked" +
-            //             "</h1>" +
-            //             "<p>Blocked by BackOnTrack.</p>" +
-            //             "</body>" +
-            //             "</html>", null);
-
-            //        //e.Respond(new Response());
-            //    }
-
-            //    if (e.WebSession.Request.RequestUri.AbsoluteUri.Contains("wikipedia.org"))
-            //    {
-            //        e.Redirect("https://www.apple.com");
-            //    }
-
-
-
-            //}
-
-
-            //if (!e.WebSession.Request.RequestUri.AbsoluteUri.Contains("manuelweb.at/test"))
-            //{
-            //    e.Redirect("https://manuelweb.at/test/");
-            //}
-
-
-        }
-
-        //Modify response
-        private async Task OnResponse(object sender, SessionEventArgs e)
-        {
-            // On Response
-        }
-
-        #endregion
-
         #region ProxyStartOperations
 
         private void StartProxyWithEndPoint()
@@ -226,10 +180,51 @@ namespace BackOnTrack.WebProxy
         }
 
         #endregion
+        #region ProxyOperations
 
-        public void CreateEmptyProfileConfigurationIfNotExists()
+        private async Task OnRequest(object sender, SessionEventArgs e)
         {
-            _currentConfiguration.CreateEmptyProfileConfigurationIfNotExists();
+            Console.WriteLine(e.WebSession.Request.Url);
+
+            //foreach (string blockedSite in ListOfBlockedSites)
+            //{
+            //    if ((e.WebSession.Request.RequestUri.AbsoluteUri.Contains(blockedSite)))
+            //    {
+            //        e.Ok("<!DOCTYPE html>" +
+            //             "<html><body><h1>" +
+            //             "Website Blocked" +
+            //             "</h1>" +
+            //             "<p>Blocked by BackOnTrack.</p>" +
+            //             "</body>" +
+            //             "</html>", null);
+
+            //        //e.Respond(new Response());
+            //    }
+
+            //    if (e.WebSession.Request.RequestUri.AbsoluteUri.Contains("wikipedia.org"))
+            //    {
+            //        e.Redirect("https://www.apple.com");
+            //    }
+
+
+
+            //}
+
+
+            //if (!e.WebSession.Request.RequestUri.AbsoluteUri.Contains("manuelweb.at/test"))
+            //{
+            //    e.Redirect("https://manuelweb.at/test/");
+            //}
+
+
         }
+
+        //Modify response
+        private async Task OnResponse(object sender, SessionEventArgs e)
+        {
+            // On Response
+        }
+
+        #endregion
     }
 }
