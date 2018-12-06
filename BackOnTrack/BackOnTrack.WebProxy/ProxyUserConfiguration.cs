@@ -49,8 +49,36 @@ namespace BackOnTrack.WebProxy
             {
                 throw new WebProxyNoProfilesFileException($"WebProxy file \"{GetProxyUserConfigurationPath()}\" does not exist.");
             }
-            //...
-            //ApplyUserConfiguration(false);
+            else
+            {
+                string encryptedConfigurationContent = FileModification.ReadFile(GetProxyUserConfigurationPath());
+                bool fileIsBroken = false;
+                if (encryptedConfigurationContent != "")
+                {
+                    try
+                    {
+                        string configurationContent =
+                            EncryptingHelper.Decrypt(encryptedConfigurationContent, _configurationPassword);
+                        var configuration =
+                            JsonConvert.DeserializeObject<CurrentUserConfiguration>(configurationContent);
+                        ApplyUserConfiguration(configuration, false);
+                    }
+                    catch (Exception)
+                    {
+                        fileIsBroken = true;
+                    }
+
+                }
+                else
+                {
+                    fileIsBroken = true;
+                }
+
+                if (fileIsBroken)
+                {
+                    throw new WebProxyBrokenProfileConfigurationException($"WebProxy file \"{GetProxyUserConfigurationPath()}\" is broken.");
+                }
+            }
         }
 
         #endregion

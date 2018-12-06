@@ -78,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\WebProxyBrokenProfileConfigurationException.cs" />
     <Compile Include="Exceptions\WebProxyNoProfilesFileException.cs" />
     <Compile Include="Exceptions\WebProxyPortAlreadyInUseException.cs" />
     <Compile Include="Program.cs" />

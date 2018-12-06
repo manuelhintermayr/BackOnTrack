@@ -47,6 +47,13 @@ namespace BackOnTrack.Services.WebProxy
 
                     ProgramStartShuttingDownProxy(errorTitle, errorMessage, servicesKeyword);
                 }
+                catch (WebProxyBrokenProfileConfigurationException e)
+                {
+                    string errorTitle = "Back on Track - Proxy profile configuration file is broken";
+                    string errorMessage = e.Message;
+
+                    ProgramStartShuttingDownProxy(errorTitle, errorMessage, servicesKeyword);
+                }
                 catch (WebProxyPortAlreadyInUseException e)
                 {
                     string errorTitle = "Back on Track - Proxy port number already in use";
