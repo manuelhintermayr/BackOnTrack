@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BackOnTrack.UI.MainView.Pages.Profiles"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:core="clr-namespace:System;assembly=mscorlib"
-             xmlns:models="clr-namespace:BackOnTrack.Resources.Models;assembly=BackOnTrack.Resources"
+             xmlns:models="clr-namespace:BackOnTrack.SharedResources.Models;assembly=BackOnTrack.SharedResources"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="400">
     <UserControl.Resources>

@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using BackOnTrack.Resources.Infrastructure.Helpers;
 using BackOnTrack.Services.UserConfiguration;
+using BackOnTrack.SharedResources.Infrastructure.Helpers;
 
 namespace BackOnTrack.UI.MainView.Pages.Tools
 {

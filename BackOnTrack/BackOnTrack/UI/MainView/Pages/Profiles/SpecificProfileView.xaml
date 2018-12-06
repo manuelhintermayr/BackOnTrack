@@ -7,7 +7,7 @@
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:core="clr-namespace:System;assembly=mscorlib"
              x:Name="SpecificProfileViewControl"
-             xmlns:models="clr-namespace:BackOnTrack.Resources.Models;assembly=BackOnTrack.Resources"
+             xmlns:models="clr-namespace:BackOnTrack.SharedResources.Models;assembly=BackOnTrack.SharedResources"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
     <UserControl.Resources>

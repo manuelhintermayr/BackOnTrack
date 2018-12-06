@@ -1,5 +1,5 @@
 ﻿using System;
-using BackOnTrack.Resources.Infrastructure.Helpers;
+using BackOnTrack.SharedResources.Infrastructure.Helpers;
 
 namespace BackOnTrack.Services.SystemLevelConfiguration
 {

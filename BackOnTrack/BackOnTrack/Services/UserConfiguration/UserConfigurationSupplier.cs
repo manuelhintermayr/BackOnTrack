@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using BackOnTrack.Infrastructure.Helpers;
-using BackOnTrack.Resources.Infrastructure.Helpers;
-using BackOnTrack.Resources.Models;
+using BackOnTrack.SharedResources.Infrastructure.Helpers;
+using BackOnTrack.SharedResources.Models;
 using Newtonsoft.Json;
 
 namespace BackOnTrack.Services.UserConfiguration

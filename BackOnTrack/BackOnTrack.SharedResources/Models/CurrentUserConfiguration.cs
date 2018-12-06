@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 
-namespace BackOnTrack.Resources.Models
+namespace BackOnTrack.SharedResources.Models
 {
     public class CurrentUserConfiguration : INotifyPropertyChanged
     {

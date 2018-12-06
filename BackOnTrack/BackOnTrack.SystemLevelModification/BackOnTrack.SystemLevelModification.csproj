@@ -36,7 +36,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>..\BackOnTrack.Resources\Resources\Icon.ico</ApplicationIcon>
+    <ApplicationIcon>..\BackOnTrack.SharedResources\Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -70,13 +70,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BackOnTrack.Resources\BackOnTrack.Resources.csproj">
-      <Project>{F8C7EB69-BE71-4298-A1E6-C874121664F1}</Project>
-      <Name>BackOnTrack.Resources</Name>
+    <ProjectReference Include="..\BackOnTrack.SharedResources\BackOnTrack.SharedResources.csproj">
+      <Project>{6e622099-4a58-4eab-a660-6c4f3ff6c13a}</Project>
+      <Name>BackOnTrack.SharedResources</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\BackOnTrack.Resources\Resources\Icon.ico">
+    <Content Include="..\BackOnTrack.SharedResources\Resources\Icon.ico">
       <Link>Resources\Icon.ico</Link>
     </Content>
   </ItemGroup>

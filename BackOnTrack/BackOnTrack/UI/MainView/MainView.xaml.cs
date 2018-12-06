@@ -3,8 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using BackOnTrack.Resources.Models;
-using BackOnTrack.Services.UserConfiguration;
+using BackOnTrack.SharedResources.Models;
 using FirstFloor.ModernUI.Windows.Controls;
 
 namespace BackOnTrack.UI.MainView

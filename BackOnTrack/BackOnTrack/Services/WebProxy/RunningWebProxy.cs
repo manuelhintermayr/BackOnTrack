@@ -1,5 +1,4 @@
-﻿using BackOnTrack.Resources.Models;
-using BackOnTrack.Services.UserConfiguration;
+﻿using BackOnTrack.SharedResources.Models;
 using BackOnTrack.WebProxy;
 
 namespace BackOnTrack.Services.WebProxy

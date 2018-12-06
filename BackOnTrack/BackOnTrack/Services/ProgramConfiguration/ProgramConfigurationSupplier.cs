@@ -1,7 +1,7 @@
 ﻿using System;
 using BackOnTrack.Infrastructure.Helpers;
-using BackOnTrack.Resources.Infrastructure.Helpers;
 using BackOnTrack.Services.SystemLevelConfiguration;
+using BackOnTrack.SharedResources.Infrastructure.Helpers;
 using Newtonsoft.Json;
 
 namespace BackOnTrack.Services.ProgramConfiguration

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using BackOnTrack.Infrastructure.Exceptions;
-using BackOnTrack.Resources.Infrastructure.Helpers;
-using BackOnTrack.Resources.Models;
+using BackOnTrack.SharedResources.Infrastructure.Helpers;
+using BackOnTrack.SharedResources.Models;
 
 namespace BackOnTrack.Services.UserConfiguration
 {
