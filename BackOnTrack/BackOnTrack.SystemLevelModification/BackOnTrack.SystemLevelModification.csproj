@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileModification.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -69,7 +68,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\BackOnTrack.Resources\BackOnTrack.Resources.csproj">
+      <Project>{F8C7EB69-BE71-4298-A1E6-C874121664F1}</Project>
+      <Name>BackOnTrack.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="..\BackOnTrack.Resources\Resources\Icon.ico">
       <Link>Resources\Icon.ico</Link>

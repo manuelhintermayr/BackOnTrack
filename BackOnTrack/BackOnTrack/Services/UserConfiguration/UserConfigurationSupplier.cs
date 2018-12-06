@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using BackOnTrack.Infrastructure.Exceptions;
 using BackOnTrack.Infrastructure.Helpers;
+using BackOnTrack.Resources.Infrastructure.Helpers;
 using Newtonsoft.Json;
 
 namespace BackOnTrack.Services.UserConfiguration

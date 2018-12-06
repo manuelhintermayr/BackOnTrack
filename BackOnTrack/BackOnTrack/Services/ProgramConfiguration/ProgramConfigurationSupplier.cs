@@ -1,5 +1,6 @@
 ﻿using System;
 using BackOnTrack.Infrastructure.Helpers;
+using BackOnTrack.Resources.Infrastructure.Helpers;
 using BackOnTrack.UI.MainView.Pages.Settings;
 using Newtonsoft.Json;
 

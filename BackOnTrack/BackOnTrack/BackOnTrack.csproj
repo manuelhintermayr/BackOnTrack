@@ -74,7 +74,6 @@
     <Compile Include="Infrastructure\Exceptions\SystemLevelException.cs" />
     <Compile Include="Infrastructure\Helpers\AutorunHelper.cs" />
     <Compile Include="Infrastructure\Helpers\EncryptingHelper.cs" />
-    <Compile Include="Infrastructure\Helpers\FileModification.cs" />
     <Compile Include="Infrastructure\Helpers\Messages.cs" />
     <Compile Include="Infrastructure\Helpers\ProgramInfo.cs" />
     <Compile Include="Infrastructure\Helpers\SingleInstance.cs" />
@@ -263,6 +262,10 @@
     <Content Include="Assets\WPFToolkit.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BackOnTrack.Resources\BackOnTrack.Resources.csproj">
+      <Project>{F8C7EB69-BE71-4298-A1E6-C874121664F1}</Project>
+      <Name>BackOnTrack.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BackOnTrack.WebProxy\BackOnTrack.WebProxy.csproj">
       <Project>{F1827F00-CE83-4D74-AC52-2287B59305D2}</Project>
       <Name>BackOnTrack.WebProxy</Name>

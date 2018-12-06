@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
-namespace BackOnTrack.Infrastructure.Helpers
+namespace BackOnTrack.Resources.Infrastructure.Helpers
 {
     public static class FileModification
     {
