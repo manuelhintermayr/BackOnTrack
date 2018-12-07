@@ -44,9 +44,9 @@ namespace BackOnTrack.WebProxy
             _currentConfiguration.CreateEmptyProfileConfigurationIfNotExists();
         }
 
-        public void ApplyUserConfigurationOnProxy(CurrentUserConfiguration userConfigurations)
+        public void ApplyUserConfigurationOnProxy(CurrentUserConfiguration userConfigurations, bool saveConfiguration = true)
         {
-            _currentConfiguration.ApplyUserConfiguration(userConfigurations);
+            _currentConfiguration.ApplyUserConfiguration(userConfigurations, saveConfiguration);
         }
 
         public void SetPortNumber(int portNumber)
@@ -182,43 +182,30 @@ namespace BackOnTrack.WebProxy
         private async Task OnRequest(object sender, SessionEventArgs e)
         {
             Console.WriteLine(e.WebSession.Request.Url);
-
-            if (e.WebSession.Request.RequestUri.AbsoluteUri.Contains("google"))
+            if (ProxyIsEnabled)
             {
-                e.Ok("Blocked!");
+                foreach (string blockedSite in _currentConfiguration.GetListOfBlockedSites())
+                {
+                    if (e.WebSession.Request.RequestUri.AbsoluteUri.Contains(blockedSite))
+                    {
+                        e.Ok("<!DOCTYPE html>" +
+                             "<html><body><h1>" +
+                             "Website Blocked" +
+                             "</h1>" +
+                             "<p>Blocked by BackOnTrack.</p>" +
+                             "</body>" +
+                             "</html>", null);
+                    }
+                }
+
+                foreach (RedirectEntry redirectEntry in _currentConfiguration.GetListOfRedirectSites())
+                {
+                    if (e.WebSession.Request.RequestUri.AbsoluteUri.Contains(redirectEntry.AddressRedirectFrom))
+                    {
+                        e.Redirect($"https://{redirectEntry.AddressRedirectTo}");
+                    }
+                }
             }
-
-            //foreach (string blockedSite in ListOfBlockedSites)
-            //{
-            //    if ((e.WebSession.Request.RequestUri.AbsoluteUri.Contains(blockedSite)))
-            //    {
-            //        e.Ok("<!DOCTYPE html>" +
-            //             "<html><body><h1>" +
-            //             "Website Blocked" +
-            //             "</h1>" +
-            //             "<p>Blocked by BackOnTrack.</p>" +
-            //             "</body>" +
-            //             "</html>", null);
-
-            //        //e.Respond(new Response());
-            //    }
-
-            //    if (e.WebSession.Request.RequestUri.AbsoluteUri.Contains("wikipedia.org"))
-            //    {
-            //        e.Redirect("https://www.apple.com");
-            //    }
-
-
-
-            //}
-
-
-            //if (!e.WebSession.Request.RequestUri.AbsoluteUri.Contains("manuelweb.at/test"))
-            //{
-            //    e.Redirect("https://manuelweb.at/test/");
-            //}
-
-
         }
 
         //Modify response
