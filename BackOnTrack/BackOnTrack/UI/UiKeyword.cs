@@ -7,18 +7,21 @@ namespace BackOnTrack.UI
     {
         public LoginWindow Login;
         public MainView.MainView MainView;
-        public Application _application;
+        private RunningApplication _runningApplication;
 
-        public UiKeyword()
+        public UiKeyword(bool openLoginView = true)
         {
-            _application = Application.Instance();
+            _runningApplication = RunningApplication.Instance();
             Login = new LoginWindow();
-            Login.Show();
+            if (openLoginView)
+            {
+                Login.Show();
+            }
         }
 
         public void OpenMainView(string password)
         {
-            var userConfiguration = _application.Services.UserConfiguration.OpenConfiguration(password);
+            var userConfiguration = _runningApplication.Services.UserConfiguration.OpenConfiguration(password);
             if (userConfiguration == null)
             {
                 Messages.CreateMessageBox("User configuration could not be opened.", "Error with user configuration.", true);

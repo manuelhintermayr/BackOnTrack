@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>logo.ico</ApplicationIcon>
+    <ApplicationIcon>..\BackOnTrack.SharedResources\Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FirstFloor.ModernUI, Version=1.0.5.0, Culture=neutral, PublicKeyToken=2d21ec3cd074c59a, processorArchitecture=MSIL">
@@ -71,14 +71,61 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Infrastructure\Helpers\FileModification.cs" />
+    <Compile Include="Infrastructure\Exceptions\SystemLevelException.cs" />
+    <Compile Include="Infrastructure\Helpers\AutorunHelper.cs" />
     <Compile Include="Infrastructure\Helpers\Messages.cs" />
-    <Compile Include="Services\ProgramConfiguration\CurrentProgramConfiguration.cs" />
+    <Compile Include="Infrastructure\Helpers\ProgramInfo.cs" />
+    <Compile Include="Infrastructure\Helpers\SingleInstance.cs" />
+    <Compile Include="Infrastructure\Helpers\WinApi.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\ProgramConfiguration\ProgramConfigurationSupplier.cs" />
-    <Compile Include="Services\UserConfiguration\CurrentUserConfiguration.cs" />
-    <Compile Include="Services\WebProxy\WebProxy.cs" />
+    <Compile Include="Services\SystemLevelConfiguration\CurrentProgramConfiguration.cs" />
+    <Compile Include="Services\SystemLevelConfiguration\SystemLevelConfigurationSupplier.cs" />
+    <Compile Include="Services\UserConfiguration\UserConfigurationOnSystemLevel.cs" />
+    <Compile Include="Services\WebProxy\RunningWebProxy.cs" />
     <Compile Include="Services\UserConfiguration\UserConfigurationSupplier.cs" />
     <Compile Include="Services\ServicesKeyword.cs" />
+    <Compile Include="UI\MainView\Pages\About\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainView\Pages\Profiles\AddProfile.xaml.cs">
+      <DependentUpon>AddProfile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainView\Pages\Profiles\AddressValidationRule.cs" />
+    <Compile Include="UI\MainView\Pages\Profiles\EditEntry.xaml.cs">
+      <DependentUpon>EditEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainView\Pages\Profiles\EmptyView.xaml.cs">
+      <DependentUpon>EmptyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainView\Pages\Profiles\ProfileLoader.cs" />
+    <Compile Include="UI\MainView\Pages\Profiles\SpecificProfileView.xaml.cs">
+      <DependentUpon>SpecificProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainView\Pages\Settings\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainView\Pages\Settings\SettingsExamples.xaml.cs">
+      <DependentUpon>SettingsExamples.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainView\Pages\Settings\SettingsGeneral.xaml.cs">
+      <DependentUpon>SettingsGeneral.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainView\Pages\Settings\SettingsWebProxy.xaml.cs">
+      <DependentUpon>SettingsWebProxy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainView\Pages\Shutdown.xaml.cs">
+      <DependentUpon>Shutdown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\UserConfiguration\HostEntry.cs" />
+    <Compile Include="UI\MainView\Pages\Tools\SystemLevelEditor.xaml.cs">
+      <DependentUpon>SystemLevelEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UiKeyword.cs" />
     <Page Include="Assets\Theme.xaml">
       <SubType>Designer</SubType>
@@ -88,7 +135,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\MainView\Pages\LayoutList.xaml">
+    <Page Include="UI\MainView\Pages\About\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Profiles\AddProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Profiles\EditEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Profiles\EmptyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Profiles\SpecificProfileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Profiles\ViewProfiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -100,11 +167,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\MainView\Pages\ViewProfiles.xaml">
+    <Page Include="UI\MainView\Pages\Settings\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Application.xaml">
+    <Page Include="UI\MainView\Pages\Settings\SettingsExamples.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Settings\SettingsGeneral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Settings\SettingsWebProxy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Shutdown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\About\Introduction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RunningApplication.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -115,8 +202,8 @@
     <Compile Include="UI\Login\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\MainView\Pages\LayoutList.xaml.cs">
-      <DependentUpon>LayoutList.xaml</DependentUpon>
+    <Compile Include="UI\MainView\Pages\Profiles\ViewProfiles.xaml.cs">
+      <DependentUpon>ViewProfiles.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\MainView\Pages\Logout.xaml.cs">
       <DependentUpon>Logout.xaml</DependentUpon>
@@ -124,22 +211,21 @@
     <Compile Include="UI\MainView\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\MainView\Pages\ViewProfiles.xaml.cs">
-      <DependentUpon>ViewProfiles.xaml</DependentUpon>
+    <Compile Include="UI\MainView\Pages\About\Introduction.xaml.cs">
+      <DependentUpon>Introduction.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Application.xaml.cs">
-      <DependentUpon>Application.xaml</DependentUpon>
+    <Compile Include="RunningApplication.xaml.cs">
+      <DependentUpon>RunningApplication.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\MainView\Pages\Tools\SystemLevelEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -148,6 +234,7 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config">
@@ -162,10 +249,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="..\BackOnTrack.SharedResources\Resources\Icon.ico">
+      <Link>Resources\Icon.ico</Link>
+    </Resource>
+    <Resource Include="..\BackOnTrack.SharedResources\Resources\Logo.png">
+      <Link>Resources\Logo.png</Link>
+    </Resource>
     <Content Include="Assets\FirstFloor.ModernUI.dll" />
-    <Resource Include="logo.ico" />
-    <Resource Include="Assets\logo.png" />
     <Content Include="Assets\WPFToolkit.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BackOnTrack.SharedResources\BackOnTrack.SharedResources.csproj">
+      <Project>{6e622099-4a58-4eab-a660-6c4f3ff6c13a}</Project>
+      <Name>BackOnTrack.SharedResources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BackOnTrack.WebProxy\BackOnTrack.WebProxy.csproj">
+      <Project>{F1827F00-CE83-4D74-AC52-2287B59305D2}</Project>
+      <Name>BackOnTrack.WebProxy</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

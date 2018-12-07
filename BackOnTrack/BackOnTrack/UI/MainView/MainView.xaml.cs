@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
-using System.Windows.Media;
-using BackOnTrack.Services.UserConfiguration;
+using System.Windows;
+using System.Windows.Controls;
+using BackOnTrack.SharedResources.Models;
 using FirstFloor.ModernUI.Windows.Controls;
 
 namespace BackOnTrack.UI.MainView
@@ -11,31 +13,84 @@ namespace BackOnTrack.UI.MainView
     /// </summary>
     public partial class MainView : ModernWindow
     {
-        private Application _application;
+        private RunningApplication _runningApplication;
         public CurrentUserConfiguration UserConfiguration;
+        public bool WindowIsShown;
         private string _password;
+        public bool IsInEntryEditingMode { get; set; }
 
         public MainView(CurrentUserConfiguration userConfiguration, string password)
         {
-            _application = Application.Instance();
+            _runningApplication = RunningApplication.Instance();
             InitializeComponent();
+            App.Current.MainWindow = _runningApplication.UI.MainView; //fix for the dialogWindow
             UserConfiguration = userConfiguration;
             _password = password;
-            System.Windows.Application.Current.Resources["AccentColor"] = Colors.Teal;
+            WindowIsShown = true;
+            IsInEntryEditingMode = false;
+        }
+
+        public void SetCurrentUserConfiguration(CurrentUserConfiguration configuration)
+        {
+            UserConfiguration = configuration;
+        }
+
+        public string GetLoggedInPassword()
+        {
+            return _password;
+        }
+
+        private void CloseWindowOperations()
+        {
+            _password = "";
+            WindowIsShown = false;
         }
 
         public void Logout()
         {
             Hide();
+            CloseWindowOperations();
             Thread.Sleep(200);
 
-            Application.Instance().UI.Login.Show();
+            RunningApplication.Instance().UI.Login.Show();
         }
 
         private void ModernWindow_Closed(object sender, EventArgs e)
         {
-            Application.Instance().Shutdown();
+            _runningApplication.MinimizeToTray();
+            CloseWindowOperations();
         }
 
+
+        #region Alerts
+
+        //Alerts
+        public void CreateAlertWindow(string title, string content, bool withOkButton = false, RoutedEventHandler eventHandler = null)
+        {
+            var dlg = new ModernDialog
+            {
+                Title = title,
+                Content = content,
+                Owner = this
+            };
+            if (withOkButton)
+            {
+                dlg.OkButton.Click += new RoutedEventHandler(eventHandler);
+                dlg.Buttons = new Button[] { dlg.OkButton, dlg.CancelButton };
+            }
+            dlg.ShowDialog();
+        }
+
+        public void AlertNoAdminRights()
+        {
+            CreateAlertWindow("No admin rights", "Please make sure you have admin rights and start the application again.");
+        }
+
+        public void AlertErrorWithFile(IOException ioException)
+        {
+            CreateAlertWindow("Error with file", $"The following error occured with a file:{Environment.NewLine}{Environment.NewLine}{ioException.Message}");
+        }
+
+        #endregion
     }
 }

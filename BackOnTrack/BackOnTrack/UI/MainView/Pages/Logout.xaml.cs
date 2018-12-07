@@ -8,16 +8,16 @@ namespace BackOnTrack.UI.MainView.Pages
     /// </summary>
     public partial class Logout : UserControl
     {
-        private Application _application;
+        private RunningApplication _runningApplication;
         public Logout()
         {
-            _application = Application.Instance();
+            _runningApplication = RunningApplication.Instance();
             InitializeComponent();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            _application
+            _runningApplication
                 .UI
                 .MainView
                 .Logout();
