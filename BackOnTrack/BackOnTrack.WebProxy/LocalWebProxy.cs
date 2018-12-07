@@ -16,6 +16,7 @@ namespace BackOnTrack.WebProxy
     public class LocalWebProxy : IDisposable
     {
         private readonly ProxyServer _proxyServer;
+        private readonly string _blockedSiteHtml;
         #region Configuration
         public bool ProxyIsEnabled { get; set; }
         private int _portNumber;
@@ -31,6 +32,7 @@ namespace BackOnTrack.WebProxy
             _isSystemProxy = isSystemProxy;
             _proxyServer = new ProxyServer();
             _currentConfiguration = new ProxyUserConfiguration();
+            _blockedSiteHtml = BackOnTrack.WebProxy.Properties.Resources.BlockedPage;
         }
         #region Set Proxy Configuration
 
@@ -188,13 +190,7 @@ namespace BackOnTrack.WebProxy
                 {
                     if (e.WebSession.Request.RequestUri.AbsoluteUri.Contains(blockedSite))
                     {
-                        e.Ok("<!DOCTYPE html>" +
-                             "<html><body><h1>" +
-                             "Website Blocked" +
-                             "</h1>" +
-                             "<p>Blocked by BackOnTrack.</p>" +
-                             "</body>" +
-                             "</html>", null);
+                        e.Ok(_blockedSiteHtml, null);
                     }
                 }
 
