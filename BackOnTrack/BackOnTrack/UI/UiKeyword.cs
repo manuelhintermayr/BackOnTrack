@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using BackOnTrack.Infrastructure.Helpers;
+﻿using BackOnTrack.Infrastructure.Helpers;
 using BackOnTrack.UI.Login;
 
 namespace BackOnTrack.UI

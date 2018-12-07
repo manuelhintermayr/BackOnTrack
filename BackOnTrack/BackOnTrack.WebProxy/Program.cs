@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BackOnTrack.SharedResources.Models;
 
 namespace BackOnTrack.WebProxy
 {
@@ -11,7 +9,11 @@ namespace BackOnTrack.WebProxy
         static void Main(string[] args)
         {
             var proxy = new LocalWebProxy();
-            proxy.SetList(new List<string>(){"google.com"});
+            CurrentUserConfiguration newConfiguration = new CurrentUserConfiguration();
+            Profile newProfile = Profile.CreateProfile("Google", false, true);
+            newProfile.EntryList.Add(Entry.CreateBlockEntry("google.com", false, true));
+
+            proxy.ApplyUserConfigurationOnProxy(newConfiguration, false);
             proxy.StartProxy();
             Console.Read();
             proxy.QuitProxy();

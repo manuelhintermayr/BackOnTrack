@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
@@ -14,7 +13,7 @@ namespace BackOnTrack
     /// <summary>
     /// Interaction logic for RunningApplication.xaml
     /// </summary>
-    public partial class RunningApplication : Window
+    public partial class RunningApplication : Window, IDisposable
     {
         public UiKeyword UI;
         public ServicesKeyword Services;
@@ -158,6 +157,11 @@ namespace BackOnTrack
 
                 WinApi.ShowToFront(new WindowInteropHelper(showWindowToFront).Handle);
             }
+        }
+
+        public void Dispose()
+        {
+            Shutdown();
         }
     }
 }

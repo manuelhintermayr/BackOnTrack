@@ -1,17 +1,26 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BackOnTrack.Services.UserConfiguration
+namespace BackOnTrack.SharedResources.Models
 {
     public class CurrentUserConfiguration : INotifyPropertyChanged
     {
         private List<Profile> _profileList;
-        public List<Profile> ProfileList { 
+        public List<Profile> ProfileList
+        {
             get { return _profileList; }
             set
             {
                 _profileList = value;
                 OnPropertyChanged("ProfileList");
+            }
+        }
+
+        public CurrentUserConfiguration()
+        {
+            if (ProfileList == null)
+            {
+                ProfileList = new List<Profile>();
             }
         }
 
@@ -38,12 +47,12 @@ namespace BackOnTrack.Services.UserConfiguration
             }
         }
         public List<Entry> EntryList;
-        public bool PreferableBlockingOnSystemLevel;
-        public bool PreferableBlockingOnProxyLevel;
+        public bool PreferableBlockingOnSystemLevel; //this means that new entries over the UI will be created with this value 
+        public bool PreferableBlockingOnProxyLevel; //this means that new entries over the UI will be created with this value
 
-        public static Profile CreateProfile(string profileName, bool blockOnSystemLevel, bool blockOnProxyLevel)
+        public static Profile CreateProfile(string profileName, bool preferableBlockOnSystemLevel, bool preferableBlockOnProxyLevel)
         {
-            return new Profile() { ProfileName = profileName, EntryList = new List<Entry>(), ProfileIsEnabled = true, PreferableBlockingOnSystemLevel = blockOnSystemLevel, PreferableBlockingOnProxyLevel = blockOnProxyLevel};
+            return new Profile() { ProfileName = profileName, EntryList = new List<Entry>(), ProfileIsEnabled = true, PreferableBlockingOnSystemLevel = preferableBlockOnSystemLevel, PreferableBlockingOnProxyLevel = preferableBlockOnProxyLevel };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -65,7 +74,7 @@ namespace BackOnTrack.Services.UserConfiguration
         public bool ProxyBlockingIsEnabled { get; set; }
 
 
-        public static Entry CreateBlockEntry(string url, bool systemLevelBlockingIsEnabled, bool proxyBlockingIsEnabled,  bool isEnabled = true)
+        public static Entry CreateBlockEntry(string url, bool systemLevelBlockingIsEnabled, bool proxyBlockingIsEnabled, bool isEnabled = true)
         {
             return new Entry()
             {
@@ -91,4 +100,5 @@ namespace BackOnTrack.Services.UserConfiguration
     }
 
     public enum EntryType { Block, Redirect };
+
 }

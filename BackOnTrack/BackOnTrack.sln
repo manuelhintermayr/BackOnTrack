@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackOnTrack.WebProxy", "Bac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackOnTrack.SystemLevelModification", "BackOnTrack.SystemLevelModification\BackOnTrack.SystemLevelModification.csproj", "{081BDD0C-2C13-4374-A7ED-7E671DD28089}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackOnTrack.Resources", "BackOnTrack.Resources\BackOnTrack.Resources.csproj", "{F8C7EB69-BE71-4298-A1E6-C874121664F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackOnTrack.SharedResources", "BackOnTrack.SharedResources\BackOnTrack.SharedResources.csproj", "{6E622099-4A58-4EAB-A660-6C4F3FF6C13A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,10 @@ Global
 		{081BDD0C-2C13-4374-A7ED-7E671DD28089}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{081BDD0C-2C13-4374-A7ED-7E671DD28089}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{081BDD0C-2C13-4374-A7ED-7E671DD28089}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8C7EB69-BE71-4298-A1E6-C874121664F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8C7EB69-BE71-4298-A1E6-C874121664F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8C7EB69-BE71-4298-A1E6-C874121664F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8C7EB69-BE71-4298-A1E6-C874121664F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E622099-4A58-4EAB-A660-6C4F3FF6C13A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E622099-4A58-4EAB-A660-6C4F3FF6C13A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E622099-4A58-4EAB-A660-6C4F3FF6C13A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E622099-4A58-4EAB-A660-6C4F3FF6C13A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

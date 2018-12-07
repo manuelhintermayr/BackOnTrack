@@ -1,19 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using FirstFloor.ModernUI.Windows.Controls;
+using BackOnTrack.WebProxy.Exceptions;
 
 namespace BackOnTrack.UI.MainView.Pages.Settings
 {
@@ -89,6 +77,12 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
             catch (System.IO.IOException ex)
             {
                 _runningApplication.UI.MainView.AlertErrorWithFile(ex);
+            }
+            catch (WebProxyPortAlreadyInUseException ex)
+            {
+                string alertTitle = "Shutting down WebProxy";
+                string alertContent = ex.Message;
+                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
             }
         }
 

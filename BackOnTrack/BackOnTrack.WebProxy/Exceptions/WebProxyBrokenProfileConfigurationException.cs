@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BackOnTrack.WebProxy.Exceptions
 {
-    public class WebProxyPortProblemException : Exception
+    public class WebProxyBrokenProfileConfigurationException : Exception
     {
-        public WebProxyPortProblemException(string message) : base(message) { }
+        public WebProxyBrokenProfileConfigurationException(string message) : base(message) { }
     }
 }

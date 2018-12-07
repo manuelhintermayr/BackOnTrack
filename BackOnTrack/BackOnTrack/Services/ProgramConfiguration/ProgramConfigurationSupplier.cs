@@ -1,11 +1,14 @@
 ﻿using System;
 using BackOnTrack.Infrastructure.Helpers;
+using BackOnTrack.Services.SystemLevelConfiguration;
+using BackOnTrack.SharedResources.Infrastructure.Helpers;
 using Newtonsoft.Json;
 
 namespace BackOnTrack.Services.ProgramConfiguration
 {
     public class ProgramConfigurationSupplier
     {
+        public RunningApplication _runningApplication;
         public string ConfigurationPath;
         public CurrentProgramConfiguration Configuration;
         public CurrentProgramConfiguration TempConfiguration;
@@ -13,6 +16,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
 
         public ProgramConfigurationSupplier()
         {
+            _runningApplication = RunningApplication.Instance();
             ConfigurationPath =
                 $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\config.settings";
             //todo: ^ make more configurable for testing 
@@ -75,7 +79,12 @@ namespace BackOnTrack.Services.ProgramConfiguration
 
         private void CreateNewConfiguration()
         {
-            Configuration = new CurrentProgramConfiguration() { ProxyEnabled = false, AutoRunEnabled = true};
+            Configuration = new CurrentProgramConfiguration()
+            {
+                ProxyEnabled = false,
+                ProxyPortNumber = "8000",
+                AutoRunEnabled = true
+            };
             SaveConfiguration(Configuration);
         }
 
@@ -93,6 +102,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
             }
 
             TempConfiguration.ProxyEnabled = Configuration.ProxyEnabled;
+            TempConfiguration.ProxyPortNumber = Configuration.ProxyPortNumber;
             TempConfiguration.AutoRunEnabled = Configuration.AutoRunEnabled;
 
             LoadingConfiguration();
@@ -101,6 +111,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
         private void CopyTempConfigurationToCurrentConfig()
         {
             Configuration.ProxyEnabled = TempConfiguration.ProxyEnabled;
+            Configuration.ProxyPortNumber = TempConfiguration.ProxyPortNumber;
             Configuration.AutoRunEnabled = TempConfiguration.AutoRunEnabled;
         }
 
@@ -122,15 +133,39 @@ namespace BackOnTrack.Services.ProgramConfiguration
                 }
             }
 
-            if (Configuration.ProxyEnabled)
+            if (_runningApplication.Services != null)
             {
-                //turn on
-            }
-            else
-            {
-                //turn off
-            }
+                //only if services are already initialized
+                if (Configuration.ProxyEnabled)
+                {
+                    _runningApplication.Services.WebProxy.CreateEmptyProfileConfigurationIfNotExists();
+                    int newProxyPortNumber = Int32.Parse(Configuration.ProxyPortNumber);
 
+                    if (_runningApplication.Services.WebProxy.ProxyIsRunning)
+                    {
+                        //proxy already running
+                        if (_runningApplication.Services.WebProxy.GetPortNumber() != newProxyPortNumber)
+                        {
+                            _runningApplication.Services.WebProxy.Quit();
+                            _runningApplication.Services.WebProxy.UpdatePortNumber(newProxyPortNumber);
+                            _runningApplication.Services.WebProxy.Start();
+                        }
+                    }
+                    else
+                    {
+                        //must start proxy
+                        _runningApplication.Services.WebProxy.UpdatePortNumber(newProxyPortNumber);
+                        _runningApplication.Services.WebProxy.Start();
+                    }
+                }
+                else
+                {
+                    if (_runningApplication.Services.WebProxy.ProxyIsRunning)
+                    {
+                        _runningApplication.Services.WebProxy.Quit();
+                    }
+                }
+            }
         }
     }
 }

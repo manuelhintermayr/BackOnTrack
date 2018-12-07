@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BackOnTrack.Infrastructure.Exceptions;
-using BackOnTrack.Infrastructure.Helpers;
+using BackOnTrack.SharedResources.Infrastructure.Helpers;
+using BackOnTrack.SharedResources.Models;
 
 namespace BackOnTrack.Services.UserConfiguration
 {

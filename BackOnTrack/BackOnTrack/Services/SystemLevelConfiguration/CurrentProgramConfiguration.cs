@@ -1,22 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using BackOnTrack.Annotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BackOnTrack.Services.ProgramConfiguration
+namespace BackOnTrack.Services.SystemLevelConfiguration
 {
     public class CurrentProgramConfiguration : INotifyPropertyChanged
     {
         private bool _proxyEnabled;
         private bool _autoRunEnabled;
+        private int _proxyPortNumber;
 
         public bool ProxyEnabled
         {
-            get { return _proxyEnabled;}
+            get { return _proxyEnabled; }
             set
             {
                 _proxyEnabled = value;
                 OnPropertyChanged("ProxyEnabled");
+            }
+        }
+        public string ProxyPortNumber
+        {
+            get { return _proxyPortNumber.ToString(); }
+            set
+            {
+                try
+                {
+                    _proxyPortNumber = Int32.Parse(value);
+                }
+                catch (Exception)
+                {
+                    _proxyPortNumber = 0;
+                }
+
+                OnPropertyChanged("ProxyPortNumber");
             }
         }
 

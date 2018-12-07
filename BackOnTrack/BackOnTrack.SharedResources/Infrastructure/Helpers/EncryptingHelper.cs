@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BackOnTrack.Infrastructure.Helpers
+namespace BackOnTrack.SharedResources.Infrastructure.Helpers
 {
     public static class EncryptingHelper
     {
@@ -105,5 +105,4 @@ namespace BackOnTrack.Infrastructure.Helpers
             return randomBytes;
         }
     }
-
 }

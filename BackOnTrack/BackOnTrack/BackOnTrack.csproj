@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>..\BackOnTrack.Resources\Resources\Icon.ico</ApplicationIcon>
+    <ApplicationIcon>..\BackOnTrack.SharedResources\Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FirstFloor.ModernUI, Version=1.0.5.0, Culture=neutral, PublicKeyToken=2d21ec3cd074c59a, processorArchitecture=MSIL">
@@ -73,17 +73,19 @@
     </ApplicationDefinition>
     <Compile Include="Infrastructure\Exceptions\SystemLevelException.cs" />
     <Compile Include="Infrastructure\Helpers\AutorunHelper.cs" />
-    <Compile Include="Infrastructure\Helpers\EncryptingHelper.cs" />
-    <Compile Include="Infrastructure\Helpers\FileModification.cs" />
     <Compile Include="Infrastructure\Helpers\Messages.cs" />
     <Compile Include="Infrastructure\Helpers\ProgramInfo.cs" />
     <Compile Include="Infrastructure\Helpers\SingleInstance.cs" />
     <Compile Include="Infrastructure\Helpers\WinApi.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Services\ProgramConfiguration\CurrentProgramConfiguration.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\ProgramConfiguration\ProgramConfigurationSupplier.cs" />
+    <Compile Include="Services\SystemLevelConfiguration\CurrentProgramConfiguration.cs" />
     <Compile Include="Services\SystemLevelConfiguration\SystemLevelConfigurationSupplier.cs" />
-    <Compile Include="Services\UserConfiguration\CurrentUserConfiguration.cs" />
     <Compile Include="Services\UserConfiguration\UserConfigurationOnSystemLevel.cs" />
     <Compile Include="Services\WebProxy\RunningWebProxy.cs" />
     <Compile Include="Services\UserConfiguration\UserConfigurationSupplier.cs" />
@@ -225,11 +227,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -237,8 +234,8 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -252,17 +249,20 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\BackOnTrack.Resources\Resources\Icon.ico">
+    <Resource Include="..\BackOnTrack.SharedResources\Resources\Icon.ico">
       <Link>Resources\Icon.ico</Link>
     </Resource>
-    <Resource Include="..\BackOnTrack.Resources\Resources\Logo.png">
+    <Resource Include="..\BackOnTrack.SharedResources\Resources\Logo.png">
       <Link>Resources\Logo.png</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Content Include="Assets\FirstFloor.ModernUI.dll" />
     <Content Include="Assets\WPFToolkit.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BackOnTrack.SharedResources\BackOnTrack.SharedResources.csproj">
+      <Project>{6e622099-4a58-4eab-a660-6c4f3ff6c13a}</Project>
+      <Name>BackOnTrack.SharedResources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BackOnTrack.WebProxy\BackOnTrack.WebProxy.csproj">
       <Project>{F1827F00-CE83-4D74-AC52-2287B59305D2}</Project>
       <Name>BackOnTrack.WebProxy</Name>
