@@ -61,6 +61,15 @@ namespace BackOnTrack.Services.WebProxy
                     ProgramStartShuttingDownProxy(errorTitle, errorMessage, servicesKeyword);
                 }
             }
+            else
+            {
+                try
+                {
+                    //still load settings
+                    _webProxy.LoadProxyProfileFromFileSystem();
+                }
+                catch (Exception) { }
+            }
         }
         private void ProgramStartShuttingDownProxy(string errorTitle, string errorMessage, ServicesKeyword servicesKeyword)
         {
