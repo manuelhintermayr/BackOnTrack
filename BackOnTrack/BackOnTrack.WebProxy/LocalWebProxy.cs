@@ -23,7 +23,7 @@ namespace BackOnTrack.WebProxy
         private ProxyUserConfiguration _currentConfiguration;
         public static bool ProxyRunning { get; set; }
         private ExplicitProxyEndPoint explicitEndPoint;
-        private readonly ExplicitProxyEndPoint endPoint = new ExplicitProxyEndPoint(IPAddress.Loopback, 8000, true);
+        private ExplicitProxyEndPoint newEndPoint;
         #endregion
 
         public LocalWebProxy(bool isSystemProxy = true)
@@ -70,21 +70,14 @@ namespace BackOnTrack.WebProxy
         }
 
         #endregion
-        #region Proxy Start Quit and Dispose
+        #region Proxy Start
         public void StartProxy()
         {
-            //todo custom port configuration
+            newEndPoint = new ExplicitProxyEndPoint(IPAddress.Loopback, _portNumber, true);
 
-            SetRequestConfiguration(); //set Configuration
+            SetRequestConfiguration(); //set actual blocking methods
 
-            if (!PortInUse(endPoint.Port))
-            {
-                StartProxyWithEndPoint(); //set end point
-            }
-            else
-            {
-                throw new WebProxyPortAlreadyInUseException($"Cannot create a WebProxy. Port {endPoint.Port} is beeing used.");
-            }
+            StartProxyWithEndPoint();
 
             if (_isSystemProxy)
             {
@@ -97,7 +90,71 @@ namespace BackOnTrack.WebProxy
                     endPoint.GetType().Name, endPoint.IpAddress, endPoint.Port);
 
             ProxyRunning = _proxyServer.ProxyRunning;
+            ProxyIsEnabled = _proxyServer.ProxyRunning;
         }
+        private void SetRequestConfiguration()
+        {
+            _proxyServer.BeforeRequest += OnRequest;
+            _proxyServer.BeforeResponse += OnResponse;
+        }
+
+        private void StartProxyWithEndPoint()
+        {
+            if (!PortInUse(newEndPoint.Port))
+            {
+                SetProxyEndPoint(newEndPoint);
+                _proxyServer.Start();
+                if (!PortInUse(newEndPoint.Port))
+                {
+                    QuitProxy();//port was not used
+                    throw new WebProxyPortAlreadyInUseException($"Cannot create a WebProxy. Port {newEndPoint.Port} cannot be used.");
+                }
+            }
+            else
+            {
+                throw new WebProxyPortAlreadyInUseException($"Cannot create a WebProxy. Port {newEndPoint.Port} is beeing used.");
+            }        
+        }
+
+        private void SetProxyEndPoint(ExplicitProxyEndPoint endPoint)
+        {
+            if (explicitEndPoint != null)
+            {
+                _proxyServer.RemoveEndPoint(explicitEndPoint);
+            }
+
+            explicitEndPoint = endPoint;
+
+            _proxyServer.AddEndPoint(explicitEndPoint);
+        }
+
+        public static bool PortInUse(int portNumber)
+        {
+            bool inUse = false;
+            ExplicitProxyEndPoint endPointToCheck1 = new ExplicitProxyEndPoint(IPAddress.Loopback, portNumber, true);
+            ExplicitProxyEndPoint endPointToCheck2 = new ExplicitProxyEndPoint(IPAddress.Parse("0.0.0.0"), portNumber, true);
+            ExplicitProxyEndPoint endPointToCheck3 = new ExplicitProxyEndPoint(IPAddress.IPv6Loopback, portNumber, true);
+
+            IPGlobalProperties ipProperties = IPGlobalProperties.GetIPGlobalProperties();
+            IPEndPoint[] activeTcpListeners = ipProperties.GetActiveTcpListeners();
+
+            foreach (IPEndPoint endPoint in activeTcpListeners)
+            {
+                if ((endPoint.Address.ToString() == endPointToCheck1.IpAddress.ToString() ||
+                     endPoint.Address.ToString() == endPointToCheck2.IpAddress.ToString() ||
+                     endPoint.Address.ToString() == endPointToCheck3.IpAddress.ToString()
+                    ) && endPoint.Port == endPointToCheck1.Port)
+                {
+                    inUse = true;
+                    break;
+                }
+            }
+
+            return inUse;
+        }
+        #endregion
+        #region Proxy Quit and Dispose
+
         public void QuitProxy()
         {
             //Unsubscribe & Quit
@@ -121,70 +178,15 @@ namespace BackOnTrack.WebProxy
             GC.SuppressFinalize(this);
         }
         #endregion
-        #region ProxyStartOperations
-
-        private void StartProxyWithEndPoint()
-        {
-            SetProxyEndPoint(endPoint);
-            _proxyServer.Start();
-            if (!PortInUse(endPoint.Port))
-            {
-                QuitProxy();//Port cannot be used
-                throw new WebProxyPortAlreadyInUseException($"Cannot create a WebProxy. Port {endPoint.Port} cannot be used.");
-            }
-        }
-
-
-
-        public static bool PortInUse(int portNumber)
-        {
-            bool inUse = false;
-            ExplicitProxyEndPoint endPointToCheck1 = new ExplicitProxyEndPoint(IPAddress.Loopback, portNumber, true);
-            ExplicitProxyEndPoint endPointToCheck2 = new ExplicitProxyEndPoint(IPAddress.Parse("0.0.0.0"), portNumber, true);
-            ExplicitProxyEndPoint endPointToCheck3 = new ExplicitProxyEndPoint(IPAddress.IPv6Loopback, portNumber, true);
-
-            IPGlobalProperties ipProperties = IPGlobalProperties.GetIPGlobalProperties();
-            IPEndPoint[] activeTcpListeners = ipProperties.GetActiveTcpListeners();
-
-            foreach (IPEndPoint endPoint in activeTcpListeners)
-            {
-                if ((endPoint.Address.ToString() == endPointToCheck1.IpAddress.ToString() ||
-                     endPoint.Address.ToString() == endPointToCheck2.IpAddress.ToString() ||
-                     endPoint.Address.ToString() == endPointToCheck3.IpAddress.ToString()
-                     ) && endPoint.Port == endPointToCheck1.Port)
-                {
-                    inUse = true;
-                    break;
-                }
-            }
-
-            return inUse;
-        }
-
-        private void SetProxyEndPoint(ExplicitProxyEndPoint endPoint)
-        {
-            if (explicitEndPoint != null)
-            {
-                _proxyServer.RemoveEndPoint(explicitEndPoint);
-            }
-
-            explicitEndPoint = endPoint;
-
-            _proxyServer.AddEndPoint(explicitEndPoint);
-        }
-
-        private void SetRequestConfiguration()
-        {
-            _proxyServer.BeforeRequest += OnRequest;
-            _proxyServer.BeforeResponse += OnResponse;
-        }
-
-        #endregion
         #region ProxyOperations
-
         private async Task OnRequest(object sender, SessionEventArgs e)
         {
             Console.WriteLine(e.WebSession.Request.Url);
+
+            if (e.WebSession.Request.RequestUri.AbsoluteUri.Contains("google"))
+            {
+                e.Ok("Blocked!");
+            }
 
             //foreach (string blockedSite in ListOfBlockedSites)
             //{

@@ -107,12 +107,12 @@ namespace BackOnTrack.Services.WebProxy
         #region Start Quit and Dispose Proxy
         public void Start()
         {
-            //webProxy.StartProxy();
+            _webProxy.StartProxy();
             ProxyIsRunning = true;
         }
         public void Quit()
         {
-            //webProxy.QuitProxy();
+            _webProxy.QuitProxy();
             ProxyIsRunning = false;
         }
         public void Dispose()
