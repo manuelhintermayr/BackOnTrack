@@ -1,6 +1,6 @@
 # BackOnTrack
 
-<img src="BackOnTrack/BackOnTrack.Resources/Resources/Logo.png" alt="Logo" width="200" height="200" />
+<img src="BackOnTrack/BackOnTrack.SharedResources/Resources/Logo.png" alt="Logo" width="200" height="200" />
 
 This is the repository for the diploma project of Manuel Hintermayr for the University of Central Lancashire.
 
