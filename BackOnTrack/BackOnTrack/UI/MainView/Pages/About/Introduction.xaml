@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="BackOnTrack.UI.MainView.Pages.About.Introduction"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" >
+    <Grid Style="{StaticResource ContentRoot}">
+        <ScrollViewer>
+            <StackPanel >
+                <TextBlock Text="Finally getting Back On Track." Style="{StaticResource Heading1}" Margin="0,0,0,8"/>
+                <Image x:Name="LogoImage" Source="/BackOnTrack;component/Resources/Logo.png" Height="263" Width="134"/>
+                <TextBlock Text="Get back your focus, now!" Style="{StaticResource Heading2}" />
+                <mui:BBCodeBlock Margin="0,0,0,16" xml:space="preserve">Click [url=UI/MainView/Pages/Profiles/ViewProfiles.xaml]here[/url] to see a list of your profiles. Click [url=UI/MainView/Pages/Profiles/AddProfile.xaml]here[/url] to add a new profile.</mui:BBCodeBlock>
+
+                <TextBlock Text="Problem" Style="{StaticResource Heading2}" />
+                <mui:BBCodeBlock Margin="0,0,0,16" xml:space="preserve">Humans tend to automatically pick up every little piece of information and decide afterwards whether it’s important or not. With a constant stream of new information (social networks, twitter, videos...) on the World-Wide-Web, it is no wonder that people get distracted by the ability to access the Internet from their mobile phones at any time. This continuous interruption by information has several disadvantages. The distraction means that the person can no longer focus entirely on a particular task, the work progress is reduced and a lot of time is wasted. In short: The actual work takes longer (like reading a book) and a lot of time is lost.
+
+This is where “Back on Track” comes into play.</mui:BBCodeBlock>
+                <TextBlock Text="Solution" Style="{StaticResource Heading2}" />
+                <mui:BBCodeBlock BBCode="'Back on Track' is a Windows application that helps the involved user blocking certain websites and keeps him staying focused. You can block any website on a system level ([b]hosts file[/b]). Alternatively, there is the possibility of enabling a specific website for a certain amount of time each day, or to redirect to another website (this is will be implemented by a system proxy ([b]proxy level[/b]) or a browser extension ([b]browser level[/b]))." Margin="0,0,0,16" />
+                <mui:BBCodeBlock xml:space="preserve">» [url=UI/MainView/Pages/About/About.xaml]About[/url]</mui:BBCodeBlock>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+
+
+
+</UserControl>
