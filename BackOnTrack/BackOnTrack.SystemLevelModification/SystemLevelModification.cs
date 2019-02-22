@@ -8,41 +8,38 @@ namespace BackOnTrack.SystemLevelModification
 {
     public class SystemLevelModification
     {
+        private string hostFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"system32\drivers\etc\hosts");
         public string GetHostFileLocation()
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"system32\drivers\etc\hosts");
+            return hostFileLocation; 
         }
 
-        public SystemLevelModification()
+        public SystemLevelModification(bool testSetup = false, string newHostFileLocation = "")
         {
-            Console.WriteLine("Starting BackOnTrackSystemLevelModification");
-            Console.WriteLine("Did this window get started by the official BackOnTrack-Application? \"y\"=Yes");
-            string result = Console.ReadLine();
-            if (result == "y")
+            if(newHostFileLocation != "")
             {
-                string[] settings = Environment.GetCommandLineArgs();
-                if (settings.Length == 1)
-                {
-                    StartedWithouOptions();
-                }
-                else if (settings.Contains("-createNewHostFile"))
-                {
-                    CreateNewHostFile();
-                }
-                else if (settings.Contains("-replaceHostFile"))
-                {
-                    ReplaceHostFile(settings);
-                }
-                else
-                {
-                    Environment.Exit(1);
-                }
+                hostFileLocation = newHostFileLocation;
+            }
+
+			string[] settings = Environment.GetCommandLineArgs();
+            if (settings.Length == 1)
+            {
+				StartedWithouOptions();
+            }
+            else if (settings.Contains("-createNewHostFile"))
+            {
+                CreateNewHostFile();
+            }
+            else if (settings.Contains("-replaceHostFile"))
+            {
+                ReplaceHostFile(settings);
             }
             else
             {
-                Console.WriteLine("Closing SystemLevelModification... Please make sure that this tool is only started by the official BackOnTrack application.");
-                Console.ReadKey();
-                Environment.Exit(1);
+                if(!testSetup)
+				{
+                    Environment.Exit(1);						
+				}
             }
         }
 
