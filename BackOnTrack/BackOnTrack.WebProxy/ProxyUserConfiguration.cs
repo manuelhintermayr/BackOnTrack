@@ -14,13 +14,17 @@ namespace BackOnTrack.WebProxy
     {
         private const string _configurationPassword = "BackOnTrackProxy";
         private CurrentUserConfiguration _currentConfiguration;
-        private List<string> _listOfBlockedSites;
+        private List<string> _listOfRegexBlockedSites;
         private List<RedirectEntry> _listOfRedirectSites;
+        private List<string> _listOfBlockedSites;
+        private List<RedirectEntry> _listOfRegexRedirectSites;
 
         public ProxyUserConfiguration()
         {
             _listOfBlockedSites = new List<string>();
+            _listOfRegexBlockedSites = new List<string>();
             _listOfRedirectSites = new List<RedirectEntry>();
+            _listOfRegexRedirectSites = new List<RedirectEntry>();
         }
 
         #region Getter
@@ -30,9 +34,19 @@ namespace BackOnTrack.WebProxy
             return _listOfBlockedSites;
         }
 
+        public List<string> GetListOfRegexBlockedSites()
+        {
+            return _listOfRegexBlockedSites;
+        }
+
         public List<RedirectEntry> GetListOfRedirectSites()
         {
             return _listOfRedirectSites;
+        }
+
+        public List<RedirectEntry> GetListOfRegexRedirectSites()
+        {
+            return _listOfRegexRedirectSites;
         }
 
         public string GetProxyUserConfigurationPath()
@@ -88,8 +102,11 @@ namespace BackOnTrack.WebProxy
         {
             _currentConfiguration = userConfiguration;           
             _listOfRedirectSites.Clear();
+            _listOfRegexRedirectSites.Clear();
             FillListOfBlockedSites();
+            FillListOfRegexBlockedSites();
             FillListOfRedirectSites();
+            FillListOfRegexRedirectSites();
 
             if (saveConfiguration)
             {
@@ -118,6 +135,27 @@ namespace BackOnTrack.WebProxy
             }
         }
 
+        private void FillListOfRegexBlockedSites()
+        {
+            _listOfRegexBlockedSites.Clear();
+
+            var listOfRegexBlockedSites = (
+                from profile in _currentConfiguration.ProfileList
+                from entry in profile.EntryList
+                where
+                    profile.ProfileIsEnabled &&
+                    entry.EntryType == EntryType.RegexBlock &&
+                    entry.IsEnabled &&
+                    entry.ProxyBlockingIsEnabled
+                select entry.Url
+            ).ToList();
+
+            foreach (var item in listOfRegexBlockedSites)
+            {
+                _listOfRegexBlockedSites.Add(item);
+            }
+        }
+
         private void FillListOfRedirectSites()
         {
             _listOfRedirectSites.Clear();
@@ -130,16 +168,41 @@ namespace BackOnTrack.WebProxy
                     entry.EntryType == EntryType.Redirect &&
                     entry.IsEnabled &&
                     entry.ProxyBlockingIsEnabled
-                    select new RedirectEntry()
-                        {
-                            AddressRedirectFrom = entry.Url,
-                            AddressRedirectTo = entry.RedirectUrl
-                        }
+                select new RedirectEntry()
+                {
+                    AddressRedirectFrom = entry.Url,
+                    AddressRedirectTo = entry.RedirectUrl
+                }
             ).ToList();
 
             foreach (var item in listOfRedirectSites)
             {
                 _listOfRedirectSites.Add(item);
+            }
+        }
+
+        private void FillListOfRegexRedirectSites()
+        {
+            _listOfRegexRedirectSites.Clear();
+
+            List<RedirectEntry> listOfRegexRedirectSites = (
+                from profile in _currentConfiguration.ProfileList
+                from entry in profile.EntryList
+                where
+                    profile.ProfileIsEnabled &&
+                    entry.EntryType == EntryType.RegexRedirect &&
+                    entry.IsEnabled &&
+                    entry.ProxyBlockingIsEnabled
+                select new RedirectEntry()
+                {
+                    AddressRedirectFrom = entry.Url,
+                    AddressRedirectTo = entry.RedirectUrl
+                }
+            ).ToList();
+
+            foreach (var item in listOfRegexRedirectSites)
+            {
+                _listOfRegexRedirectSites.Add(item);
             }
         }
 
