@@ -24,13 +24,17 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
         {
             EntryAddressTextBox.Text = _currentEntry.Url;
             EntryBlockingTypeComboBox.SelectedIndex = (int)_currentEntry.EntryType;
-            if (_currentEntry.EntryType == EntryType.Redirect)
+            if (_currentEntry.EntryType == EntryType.Redirect || _currentEntry.EntryType == EntryType.RegexRedirect)
             {
                 EntryRedirectTextBox.Text = _currentEntry.RedirectUrl;
             }
             else
             {
                 RedirectStackPanel.Visibility = Visibility.Hidden;
+            }
+            if(_currentEntry.EntryType == EntryType.RegexBlock || _currentEntry.EntryType == EntryType.RegexRedirect)
+            {
+                EntryRunsOnSystemLevelCheckbox.IsEnabled = false;
             }
             EntryRunsOnSystemLevelCheckbox.IsChecked = _currentEntry.SystemLevelBlockingIsEnabled;
             EntryRunsOnProxyLevelCheckbox.IsChecked = _currentEntry.ProxyBlockingIsEnabled;
@@ -48,7 +52,8 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             listOfAllAlreadyUsedAddresses.Remove(_currentEntry.Url);
 
 
-            if (!AddressValidationRule.IsCorrectAddress(addressToBlock))
+            if (!AddressValidationRule.IsCorrectAddress(addressToBlock) &&
+                (_currentEntry.EntryType != EntryType.RegexBlock && _currentEntry.EntryType != EntryType.RegexRedirect) )
             {
                 MakeInvalidValueAlert("New entered address name is invalid.");
             }
@@ -56,15 +61,20 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             {
                 MakeInvalidValueAlert("New entered address is already used.");
             }
-            else if (_currentEntry.EntryType == EntryType.Redirect &&
+            else if ((_currentEntry.EntryType == EntryType.Redirect || _currentEntry.EntryType == EntryType.RegexRedirect) &&
                      !AddressValidationRule.IsCorrectAddress(addressNameForRedirect))
             {
                 MakeInvalidValueAlert("Address for redirect is invalid.");
             }
+            else if((_currentEntry.EntryType == EntryType.RegexBlock || _currentEntry.EntryType == EntryType.RegexRedirect) &&
+                     !AddressValidationRule.IsCorrectRegex(addressNameForRedirect))
+            {
+                MakeInvalidValueAlert("Enterd regex is invalid.");
+            }
             else
             {
                 _currentEntry.Url = addressToBlock;
-                _currentEntry.RedirectUrl = _currentEntry.EntryType == EntryType.Redirect ? addressNameForRedirect : "";
+                _currentEntry.RedirectUrl = (_currentEntry.EntryType == EntryType.Redirect || _currentEntry.EntryType == EntryType.RegexRedirect) ? addressNameForRedirect : "";
                 _currentEntry.IsEnabled = entryIsEnabled;
                 _currentEntry.SystemLevelBlockingIsEnabled = entrySystemBlockingIsEnabled;
                 _currentEntry.ProxyBlockingIsEnabled = entryProxyBlockingIsEnabled;

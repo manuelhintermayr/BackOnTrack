@@ -94,13 +94,13 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             {
                 EntryType newEntryType = (EntryType) e.AddedItems[0];
               
-                if (newEntryType == EntryType.Block)
+                if (newEntryType == EntryType.Block || newEntryType == EntryType.RegexBlock)
                 {
                     RedirectTo.Text = "";
                     RedirectPanel.Visibility = Visibility.Hidden;
                 }
 
-                if (newEntryType == EntryType.Redirect)
+                if (newEntryType == EntryType.Redirect || newEntryType == EntryType.RegexRedirect)
                 {
                     RedirectPanel.Visibility = Visibility.Visible;
                 }
@@ -114,7 +114,8 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             string addressToBlock = NewAddressToBlockTextbox.Text;
             string addressRedirectTo = RedirectTo.Text;
 
-            if (!AddressValidationRule.IsCorrectAddress(addressToBlock))
+            if (!AddressValidationRule.IsCorrectAddress(addressToBlock) 
+                && (getSelectedEntryType != EntryType.RegexBlock && getSelectedEntryType != EntryType.RegexRedirect))
             {
                 string alertTitle = "Invalid address";
                 string alertContent = "The address you entered to block is invalid.";
@@ -128,7 +129,8 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             }
             else
             {
-                if (getSelectedEntryType == EntryType.Redirect && !AddressValidationRule.IsCorrectAddress(addressRedirectTo))
+                if (( getSelectedEntryType == EntryType.Redirect || getSelectedEntryType == EntryType.RegexRedirect)
+                    && !AddressValidationRule.IsCorrectAddress(addressRedirectTo))
                 {
                     string alertTitle = "Invalid address";
                     string alertContent = "The address you entered for redirecting is invalid.";
@@ -136,35 +138,61 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 }
                 else
                 {
-                    Entry newEntry = null;
-                    if (getSelectedEntryType == EntryType.Block)
+                    if ((getSelectedEntryType == EntryType.RegexBlock || getSelectedEntryType == EntryType.RegexRedirect) &&
+                     !AddressValidationRule.IsCorrectRegex(addressToBlock))
                     {
-                        newEntry = Entry.CreateBlockEntry(
-                            addressToBlock, 
-                            CurrentProfile.PreferableBlockingOnSystemLevel, 
-                            CurrentProfile.PreferableBlockingOnProxyLevel
-                            );
+                        string alertTitle = "Invalid regex";
+                        string alertContent = "The regex you entered for redirecting is invalid.";
+                        _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
                     }
-                    if (getSelectedEntryType == EntryType.Redirect)
+                    else
                     {
-                        newEntry = Entry.CreateRedirectEntry(
-                            addressToBlock, 
-                            addressRedirectTo,
-                            CurrentProfile.PreferableBlockingOnSystemLevel,
-                            CurrentProfile.PreferableBlockingOnProxyLevel
-                            );
+                        Entry newEntry = null;
+                        if (getSelectedEntryType == EntryType.Block)
+                        {
+                            newEntry = Entry.CreateBlockEntry(
+                                addressToBlock,
+                                CurrentProfile.PreferableBlockingOnSystemLevel,
+                                CurrentProfile.PreferableBlockingOnProxyLevel
+                                );
+                        }
+                        if (getSelectedEntryType == EntryType.RegexBlock)
+                        {
+                            newEntry = Entry.CreateRegexBlockEntry(
+                                addressToBlock,
+                                CurrentProfile.PreferableBlockingOnProxyLevel
+                                );
+                        }
+                        if (getSelectedEntryType == EntryType.Redirect)
+                        {
+                            newEntry = Entry.CreateRedirectEntry(
+                                addressToBlock,
+                                addressRedirectTo,
+                                CurrentProfile.PreferableBlockingOnSystemLevel,
+                                CurrentProfile.PreferableBlockingOnProxyLevel
+                                );
+                        }
+                        if (getSelectedEntryType == EntryType.RegexRedirect)
+                        {
+                            newEntry = Entry.CreateRegexRedirectEntry(
+                                addressToBlock,
+                                addressRedirectTo,
+                                CurrentProfile.PreferableBlockingOnProxyLevel
+                                );
+                        }
+
+                        CurrentProfile.EntryList.Add(newEntry);
+
+                        string alertTitle = "Entry successfully created.";
+                        string alertContent = "Entry was successfully created and added.";
+                        _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
+
+                        NewAddressToBlockTextbox.Text = "";
+                        RedirectTo.Text = "";
+                        BlockingTypeComboBox.SelectedIndex = 0;
+                        EntryList.Items.Refresh();
+
                     }
-
-                    CurrentProfile.EntryList.Add(newEntry);
-
-                    string alertTitle = "Entry successfully created.";
-                    string alertContent = "Entry was successfully created and added.";
-                    _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
-
-                    NewAddressToBlockTextbox.Text = "";
-                    RedirectTo.Text = "";
-                    BlockingTypeComboBox.SelectedIndex = 0;
-                    EntryList.Items.Refresh();
                 }
 
             }
