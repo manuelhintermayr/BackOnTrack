@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BackOnTrack.SharedResources.Infrastructure.Helpers;
 using BackOnTrack.SharedResources.Models;
@@ -194,9 +195,29 @@ namespace BackOnTrack.WebProxy
                     }
                 }
 
+                foreach (string blockedSite in _currentConfiguration.GetListOfRegexBlockedSites())
+                {
+                    Match addressIsAMatch = Regex.Match(e.WebSession.Request.RequestUri.AbsoluteUri, blockedSite, RegexOptions.IgnoreCase);
+
+                    if (addressIsAMatch.Success)
+                    {
+                        e.Ok(_blockedSiteHtml, null);
+                    }
+                }
+
                 foreach (RedirectEntry redirectEntry in _currentConfiguration.GetListOfRedirectSites())
                 {
                     if (e.WebSession.Request.RequestUri.AbsoluteUri.Contains(redirectEntry.AddressRedirectFrom))
+                    {
+                        e.Redirect($"https://{redirectEntry.AddressRedirectTo}");
+                    }
+                }
+
+                foreach (RedirectEntry redirectEntry in _currentConfiguration.GetListOfRegexRedirectSites())
+                {
+                    Match addressIsAMatch = Regex.Match(e.WebSession.Request.RequestUri.AbsoluteUri, redirectEntry.AddressRedirectFrom, RegexOptions.IgnoreCase);
+
+                    if (addressIsAMatch.Success)
                     {
                         e.Redirect($"https://{redirectEntry.AddressRedirectTo}");
                     }
