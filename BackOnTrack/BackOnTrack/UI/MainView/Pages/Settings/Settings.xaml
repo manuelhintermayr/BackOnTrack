@@ -21,6 +21,9 @@
             <Grid Height="60"  HorizontalAlignment="Left" Margin="16,0,0,0">
                 <Button x:Name="ResetConfigurationButton" Content="Reset Configuration" Click="ResetConfigurationButton_Click" />
             </Grid>
+            <Grid Height="60" Width="Auto"  HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="30,30,180,0">
+                <mui:BBCodeBlock Margin="0,0,0,16" xml:space="preserve">Changes are only active after the save button has been pressed.</mui:BBCodeBlock>
+            </Grid>
             <Grid Height="60" Width="280" HorizontalAlignment="Right" Margin="0,0,20,0">
                 <Button x:Name="SaveConfigurationButton" Content="Save Configuration" HorizontalAlignment="Left" Click="SaveConfigurationButton_Click" />
                 <Button x:Name="RevertChangesButton" Content="Revert Changes" HorizontalAlignment="Right" Click="RevertChangesButton_Click"/>

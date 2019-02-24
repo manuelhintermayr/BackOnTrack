@@ -11,7 +11,10 @@
         <ScrollViewer>
             <StackPanel x:Name="Panel" MinWidth="150">
                 <TextBlock Text="GENERAL" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
-                <mui:BBCodeBlock BBCode="This is the overall general configuration for the program. Changes here will be made only for the current user." Margin="0,0,0,16"/>
+                <mui:BBCodeBlock xml:space="preserve" BBCode="This is the overall general configuration for the program. Changes here will be made only for the current user.
+                                 
+                                 [b]Changes are only active after the save button has been pressed.[/b]
+                                 " Margin="0,0,0,16"/>
 
                 <Grid HorizontalAlignment="Left">
                     <CheckBox Content="Start application with System start" Margin="0,0,0,4" IsChecked="{Binding Path=AutoRunEnabled}" />
