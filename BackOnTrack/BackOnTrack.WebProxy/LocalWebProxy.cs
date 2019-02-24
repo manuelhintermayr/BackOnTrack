@@ -197,9 +197,7 @@ namespace BackOnTrack.WebProxy
 
                 foreach (string blockedSite in _currentConfiguration.GetListOfRegexBlockedSites())
                 {
-                    Match addressIsAMatch = Regex.Match(e.WebSession.Request.RequestUri.AbsoluteUri, blockedSite, RegexOptions.IgnoreCase);
-
-                    if (addressIsAMatch.Success)
+                    if (AddressIsAMatch(e.WebSession.Request.RequestUri.AbsoluteUri, blockedSite))
                     {
                         e.Ok(_blockedSiteHtml, null);
                     }
@@ -215,14 +213,25 @@ namespace BackOnTrack.WebProxy
 
                 foreach (RedirectEntry redirectEntry in _currentConfiguration.GetListOfRegexRedirectSites())
                 {
-                    Match addressIsAMatch = Regex.Match(e.WebSession.Request.RequestUri.AbsoluteUri, redirectEntry.AddressRedirectFrom, RegexOptions.IgnoreCase);
-
-                    if (addressIsAMatch.Success)
+                    if (AddressIsAMatch(e.WebSession.Request.RequestUri.AbsoluteUri, redirectEntry.AddressRedirectFrom))
                     {
                         e.Redirect($"https://{redirectEntry.AddressRedirectTo}");
                     }
                 }
             }
+        }
+
+        public static bool AddressIsAMatch(string address, string pattern)
+        {
+            Match addressIsAMatch = Regex.Match(address, pattern, RegexOptions.IgnoreCase);
+            return addressIsAMatch.Success;
+        }
+
+        public static string GetValidRedirectUrl(string redirectAddress)
+        {
+            return redirectAddress.StartsWith("https://") || redirectAddress.StartsWith("http://")
+                    ? redirectAddress
+                    : $"https://{redirectAddress}";
         }
 
         //Modify response

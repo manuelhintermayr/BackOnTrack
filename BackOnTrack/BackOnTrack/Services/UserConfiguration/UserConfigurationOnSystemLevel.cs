@@ -55,23 +55,30 @@ namespace BackOnTrack.Services.UserConfiguration
         private void SaveHostFile()
         {
             string hostFileContent = BuildHostFileContent();
-            int result = _runningApplication.Services.SystemLevelConfiguration.UpdateHostFile(hostFileContent);
-            if (result == 1)
+            string oldHostFileContent = GetHostFileContent();
+            if (hostFileContent != oldHostFileContent)
             {
-                throw new SystemLevelException("Updating the system file failed. Information was given in the previous window.");
-            }
-            else if(result != 0)
-            {
-                throw new SystemLevelException("The tool for SystemFileModification was not closed in a correct way.");
+                int result = _runningApplication.Services.SystemLevelConfiguration.UpdateHostFile(hostFileContent);
+                if (result == 1)
+                {
+                    throw new SystemLevelException("Updating the system file failed. Information was given in the previous window.");
+                }
+                else if (result != 0)
+                {
+                    throw new SystemLevelException("The tool for SystemFileModification was not closed in a correct way.");
+                }
             }
         }
 
         #endregion
 
-
+        private string GetHostFileContent()
+        {
+            return FileModification.ReadFile(FileModification.GetHostFileLocation());
+        }
         private void AddAllLinesFromHostFileIntoEntryList()
         {
-            string fileContent = FileModification.ReadFile(FileModification.GetHostFileLocation());
+            string fileContent = GetHostFileContent();
 
             using (StringReader reader = new StringReader(fileContent))
             {
