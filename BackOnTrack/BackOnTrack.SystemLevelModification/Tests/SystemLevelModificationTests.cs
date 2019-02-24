@@ -19,6 +19,7 @@ namespace BackOnTrack.SystemLevelModification.Tests
 
 		}
 
+        [Ignore]
 		[TestMethod]
 		public void CheckCorrectWindowsHostsLocationFile()
 		{
@@ -29,6 +30,7 @@ namespace BackOnTrack.SystemLevelModification.Tests
             systemLevelModification.GetHostFileLocation().Should().EndWith(@"Windows\system32\drivers\etc\hosts");
         }
 
+        [Ignore]
         [TestMethod]
         public void CheckRewriteCorrectWindowsHostsLocationFile()
         {
