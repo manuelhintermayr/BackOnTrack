@@ -67,7 +67,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 MakeInvalidValueAlert("Address for redirect is invalid.");
             }
             else if((_currentEntry.EntryType == EntryType.RegexBlock || _currentEntry.EntryType == EntryType.RegexRedirect) &&
-                     !AddressValidationRule.IsCorrectRegex(addressNameForRedirect))
+                     !AddressValidationRule.IsCorrectRegex(addressToBlock))
             {
                 MakeInvalidValueAlert("Enterd regex is invalid.");
             }

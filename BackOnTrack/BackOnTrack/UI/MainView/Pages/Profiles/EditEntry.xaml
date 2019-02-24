@@ -83,7 +83,6 @@
                         </CheckBox>
                     </StackPanel>
 
-
                     <Button x:Name="UpdateButton" Content="Update" Margin="100,16,0,0" HorizontalAlignment="Left" Click="UpdateButton_Click" />
                 </StackPanel>
             </StackPanel>

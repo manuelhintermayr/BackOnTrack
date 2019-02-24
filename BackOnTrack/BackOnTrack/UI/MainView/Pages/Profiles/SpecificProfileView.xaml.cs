@@ -107,7 +107,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
                 if(newEntryType == EntryType.RegexBlock || newEntryType == EntryType.RegexRedirect)
                 {
-                    NewAddressToBlockText.Content = "Regex to get match";
+                    NewAddressToBlockText.Content = "Regex to match";
                 }
                 else
                 {
@@ -151,7 +151,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                      !AddressValidationRule.IsCorrectRegex(addressToBlock))
                     {
                         string alertTitle = "Invalid regex";
-                        string alertContent = "The regex you entered for redirecting is invalid.";
+                        string alertContent = "The regex you entered to match is invalid.";
                         _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
                     }
                     else

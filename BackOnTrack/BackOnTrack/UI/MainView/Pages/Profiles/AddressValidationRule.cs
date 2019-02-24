@@ -47,6 +47,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
         public static bool IsCorrectRegex(string regexToCheck)
         {
             if (string.IsNullOrEmpty(regexToCheck)) return false;
+            if (regexToCheck == "") return false;
 
             try
             {
