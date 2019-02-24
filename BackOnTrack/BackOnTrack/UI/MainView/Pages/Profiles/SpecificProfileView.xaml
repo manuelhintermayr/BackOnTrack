@@ -55,7 +55,7 @@
                                     </Style>
                                 </StackPanel.Resources>
                                 <StackPanel Orientation="Horizontal">
-                                    <Label Content="Domain/IpAddress" Target="{Binding ElementName=NewAddressToBlockTextbox}"/>
+                                    <Label x:Name="NewAddressToBlockText" Content="Domain/IpAddress" Target="{Binding ElementName=NewAddressToBlockTextbox}"/>
                                     <TextBox x:Name="NewAddressToBlockTextbox" Width="150" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">

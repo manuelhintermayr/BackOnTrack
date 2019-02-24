@@ -104,6 +104,15 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 {
                     RedirectPanel.Visibility = Visibility.Visible;
                 }
+
+                if(newEntryType == EntryType.RegexBlock || newEntryType == EntryType.RegexRedirect)
+                {
+                    NewAddressToBlockText.Content = "Regex to get match";
+                }
+                else
+                {
+                    NewAddressToBlockText.Content = "Domain/IpAddress";
+                }
             }
             catch (Exception) { }
         }
