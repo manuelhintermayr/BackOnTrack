@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using BackOnTrack.SharedResources.Models;
 using FirstFloor.ModernUI.Windows.Controls;
 
@@ -41,7 +42,28 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             EntryIsEnabledCheckbox.IsChecked = _currentEntry.IsEnabled;
         }
 
+        private void EntryAddressTextBox_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return || e.Key == Key.Enter)
+            {
+                ValidateUpdatedEntry();
+            }
+        }
+
+        private void EntryRedirectTextBox_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return || e.Key == Key.Enter)
+            {
+                ValidateUpdatedEntry();
+            }
+        }
+
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            ValidateUpdatedEntry();
+        }
+
+        private void ValidateUpdatedEntry()
         {
             string addressToBlock = EntryAddressTextBox.Text;
             string addressNameForRedirect = EntryRedirectTextBox.Text;
@@ -53,7 +75,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
 
             if (!AddressValidationRule.IsCorrectAddress(addressToBlock) &&
-                (_currentEntry.EntryType != EntryType.RegexBlock && _currentEntry.EntryType != EntryType.RegexRedirect) )
+                (_currentEntry.EntryType != EntryType.RegexBlock && _currentEntry.EntryType != EntryType.RegexRedirect))
             {
                 MakeInvalidValueAlert("New entered address name is invalid.");
             }
@@ -66,7 +88,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             {
                 MakeInvalidValueAlert("Address for redirect is invalid.");
             }
-            else if((_currentEntry.EntryType == EntryType.RegexBlock || _currentEntry.EntryType == EntryType.RegexRedirect) &&
+            else if ((_currentEntry.EntryType == EntryType.RegexBlock || _currentEntry.EntryType == EntryType.RegexRedirect) &&
                      !AddressValidationRule.IsCorrectRegex(addressToBlock))
             {
                 MakeInvalidValueAlert("Enterd regex is invalid.");

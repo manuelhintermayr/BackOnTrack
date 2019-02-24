@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using BackOnTrack.SharedResources.Models;
 
 namespace BackOnTrack.UI.MainView.Pages.Profiles
@@ -21,8 +22,21 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void AddProfileButton_Click(object sender, RoutedEventArgs e)
         {
+            ValidateNewProfile();
+        }
+
+        private void NewProfileName_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Return || e.Key == Key.Enter)
+            {
+                ValidateNewProfile();
+            }
+        }
+
+        private void ValidateNewProfile()
+        {
             string newProfileName = NewProfileName.Text;
-            
+
             if (newProfileName == "" || newProfileName == " " || newProfileName.Length > 48 || CheckIfProfileNameIsAlreadyUsed(newProfileName) || newProfileName.Contains("'"))
             {
                 string alertTitle = "Error with new profile name.";
@@ -39,10 +53,6 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 EnableBlockingOnProxyLevel.IsChecked = true;
                 EnableBlockingOnProxyLevel.UpdateLayout();
                 EnableBlockingOnSystemLevel.IsChecked = true;
-
-                string alertTitle = "Profile created.";
-                string alertContent = "Profile was successfully created!";
-                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
 
                 ((FirstFloor.ModernUI.Windows.Controls.ModernFrame)(this.Parent)).Source = new Uri("/UI/MainView/Pages/Profiles/ViewProfiles.xaml", UriKind.Relative);//todo update to use MainView to set the path
             }

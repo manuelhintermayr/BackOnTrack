@@ -56,7 +56,7 @@
                                 </StackPanel.Resources>
                                 <StackPanel Orientation="Horizontal">
                                     <Label x:Name="NewAddressToBlockText" Content="Domain/IpAddress" Target="{Binding ElementName=NewAddressToBlockTextbox}"/>
-                                    <TextBox x:Name="NewAddressToBlockTextbox" Width="150" />
+                                    <TextBox x:Name="NewAddressToBlockTextbox" Width="150" KeyDown="NewAddressToBlockTextbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="Blocking Type" Target="{Binding ElementName=BlockingTypeComboBox}"/>
@@ -64,7 +64,7 @@
                                 </StackPanel>
                                 <StackPanel x:Name="RedirectPanel" Orientation="Horizontal" Visibility="Hidden">
                                     <Label Content="Redirect to" Target="{Binding ElementName=RedirectToTextbox}"/>
-                                    <TextBox x:Name="RedirectTo" Width="150" />
+                                    <TextBox x:Name="RedirectTo" Width="150" KeyDown="RedirectTo_KeyDown"/>
                                 </StackPanel>
                                 <Button x:Name="AddEntryButton" Content="Add Entry" Margin="100,16,0,0" HorizontalAlignment="Center" Click="AddEntryButton_Click" />
                             </StackPanel>
@@ -76,7 +76,7 @@
                     </TextBlock>
                     <DataGrid Name="EntryList" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CellEditEnding="EntryList_CellEditEnding" BeginningEdit="EntryList_BeginningEdit" RowEditEnding="EntryList_RowEditEnding" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Url">
+                            <DataGridTextColumn Header="Url / Regex">
                                 <DataGridTextColumn.Binding>
                                     <Binding Path="Url" UpdateSourceTrigger="LostFocus">
                                         <Binding.ValidationRules>

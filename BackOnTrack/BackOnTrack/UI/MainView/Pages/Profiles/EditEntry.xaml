@@ -45,7 +45,7 @@
 
                     <StackPanel>
                         <Label Content="Address to block" Target="{Binding ElementName=EntryAddressTextBox}"/>
-                        <TextBox x:Name="EntryAddressTextBox" Width="150" />
+                        <TextBox x:Name="EntryAddressTextBox" Width="150" KeyDown="EntryAddressTextBox_OnKeyDown" />
                     </StackPanel>
 
                     <StackPanel>
@@ -55,7 +55,7 @@
 
                     <StackPanel x:Name="RedirectStackPanel">
                         <Label Content="Redirect address" Target="{Binding ElementName=EntryRedirectTextBox}"/>
-                        <TextBox x:Name="EntryRedirectTextBox" Width="150" />
+                        <TextBox x:Name="EntryRedirectTextBox" Width="150" KeyDown="EntryRedirectTextBox_OnKeyDown" />
                     </StackPanel>
 
                     <StackPanel>
