@@ -1,10 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BackOnTrack.SharedResources.Infrastructure.Helpers;
 using BackOnTrack.SharedResources.Tests;
 
@@ -13,16 +9,16 @@ namespace BackOnTrack.SystemLevelModification.Tests
 	[TestClass]
     public class SystemLevelModificationTests : TestBase
     {
-        private SystemLevelModification systemLevelModification;
+        private SystemLevelModification _systemLevelModification;
 
 		[TestMethod]
 		public void CheckCorrectWindowsHostsLocationFile()
 		{
             //Arrange & Act
-            systemLevelModification = new SystemLevelModification(true);
+            _systemLevelModification = new SystemLevelModification(true);
 
             //Assert
-            systemLevelModification.GetHostFileLocation().Should().EndWith(@"system32\drivers\etc\hosts");
+            _systemLevelModification.GetHostFileLocation().Should().EndWith(@"system32\drivers\etc\hosts");
         }
 
         [TestMethod]
@@ -30,50 +26,46 @@ namespace BackOnTrack.SystemLevelModification.Tests
         {
             //Arrange & Act
             string newHostFileLocation = @"C:\temp\hosts";
-            systemLevelModification = new SystemLevelModification(true, newHostFileLocation);
+            _systemLevelModification = new SystemLevelModification(true, newHostFileLocation);
 
             //Assert
-            systemLevelModification.GetHostFileLocation().Should().Be(newHostFileLocation);
-        }
-
-        [TestMethod]
-        public void CheckHostFileDoesNotExist()
-        {
-            //todo
-            //create temp folder
-            //check for not existing host file
-            //remove temp folder
-        }
-
-        [TestMethod]
-        public void CheckHostFileDoesExist()
-        {
-            //todo
-            //create temp folder
-            //create empty host file
-            //check for existing host file
-            //remove temp folder with file
+            _systemLevelModification.GetHostFileLocation().Should().Be(newHostFileLocation);
         }
 
         [TestMethod]
         public void CheckCorrectHostWasCreated()
         {
-            //todo
-            //creaty temp folder
-            //create with program host file
-            //check if new host file exists
-            //remote temp folder with file
-            string what = "ok";
+            //Arrange
+            string newHostFileLocation = $"{TempFolder.Name}{@"\hosts"}";
+            _systemLevelModification = new SystemLevelModification(true, newHostFileLocation);
+
+            //Act
+            bool hostFileExistsBefore = _systemLevelModification.HostFileExists();
+            _systemLevelModification.CreateNewHostFile();
+            bool hostFileExistsAfter = _systemLevelModification.HostFileExists();
+
+            //Assert
+            hostFileExistsBefore.Should().BeFalse();
+            hostFileExistsAfter.Should().BeTrue();
         }
 
         [TestMethod]
         public void CheckHostFileWasReplaced()
         {
-            string ok = "ok";
-            //todo
-            //create two different host file with different sample content
-            //replace with the program one host file with the other 
-            //check if host file content has changed
+            //Arrange
+            string newHostFileLocation = $"{TempFolder.Name}{@"\hosts"}";
+            _systemLevelModification = new SystemLevelModification(true, newHostFileLocation);
+            string newHostFileTwoLocation = $"{TempFolder.Name}{@"\hosts2"}";
+            FileModification.WriteFile(newHostFileTwoLocation, "#Test");
+
+            //Act
+            _systemLevelModification.CreateNewHostFile();
+            string hostFileContentBefore = FileModification.ReadFile(newHostFileLocation);
+            _systemLevelModification.ReplaceHostFile(new string[]{ $"-newPath={newHostFileTwoLocation.Replace(" ", "%20")}" });
+            string hostFileContentAfter = FileModification.ReadFile(newHostFileLocation);
+
+            //Assert
+            hostFileContentAfter.Should().NotBe(hostFileContentBefore);
         }
     }
 }

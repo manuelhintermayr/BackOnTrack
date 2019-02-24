@@ -8,20 +8,22 @@ namespace BackOnTrack.SystemLevelModification
 {
     public class SystemLevelModification
     {
-        private string hostFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"system32\drivers\etc\hosts");
+        private string _hostFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"system32\drivers\etc\hosts");
+        private bool _unitTestSetup = false;
         public string GetHostFileLocation()
         {
-            return hostFileLocation; 
+            return _hostFileLocation; 
         }
 
         public SystemLevelModification(bool unitTestSetup = false, string newHostFileLocation = "")
         {
+            _unitTestSetup = unitTestSetup;
             if(newHostFileLocation != "")
             {
-                hostFileLocation = newHostFileLocation;
+                _hostFileLocation = newHostFileLocation;
             }
 
-            if (!unitTestSetup)
+            if (!_unitTestSetup)
             {
                 string[] settings = Environment.GetCommandLineArgs();
                 if (settings.Length == 1)
@@ -58,24 +60,33 @@ namespace BackOnTrack.SystemLevelModification
                 try
                 {
                     FileModification.WriteFile(GetHostFileLocation(), "#Host-file created by BackOnTrack");
-                    Environment.Exit(0);
+                    if (!_unitTestSetup)
+                    {
+                        Environment.Exit(0);
+                    }
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine($"The following error occured: [\"{e}\"]{Environment.NewLine}{e.Message}");
-                    Console.ReadKey();
-                    Environment.Exit(1);
+                    if (!_unitTestSetup)
+                    {
+                        Console.ReadKey();
+                        Environment.Exit(1);
+                    }
                 }
             }
             else
             {
                 Console.WriteLine($"System file \"{GetHostFileLocation()}\" exists already");
-                Console.ReadKey();
-                Environment.Exit(1);
+                if (!_unitTestSetup)
+                {
+                    Console.ReadKey();
+                    Environment.Exit(1);
+                }
             }
         }
 
-        private void ReplaceHostFile(string[] args)
+        public void ReplaceHostFile(string[] args)
         {
             string newPath = "";
 
@@ -94,14 +105,19 @@ namespace BackOnTrack.SystemLevelModification
             if(newPath=="")
             {
                 Console.WriteLine("No valid path for new system file was given.");
-                Console.ReadKey();
-                Environment.Exit(1);
+                if (!_unitTestSetup)
+                {
+                    Console.ReadKey();
+                    Environment.Exit(1);
+                }
             }
 
             string hostContent = FileModification.ReadFile(newPath);
             FileModification.WriteFile(GetHostFileLocation(), hostContent);
-            Environment.Exit(0);
-
+            if (!_unitTestSetup)
+            {
+                Environment.Exit(0);
+            }
         }
 
         public bool HostFileExists()

@@ -12,20 +12,19 @@ namespace BackOnTrack.SharedResources.Tests
     public class TestBase
     {
         public TestContext TestContext { get; set; }
-        private TempFolder tempFolder;
+        public TempFolder TempFolder;
 
         [TestInitialize]
         public void TestIntialize()
         {
             string testMethodName = TestContext.TestName;
-            tempFolder = new TempFolder(testMethodName);
+            TempFolder = new TempFolder(testMethodName);
         }
 
         [TestCleanup]
         public void TestCleanUp()
         {
-            tempFolder.Dispose();
-            string testMethodName2 = TestContext.TestName;
+            TempFolder.Dispose();
         }
     }
 }
