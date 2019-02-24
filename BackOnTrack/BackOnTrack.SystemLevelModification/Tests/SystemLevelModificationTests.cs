@@ -15,26 +15,22 @@ namespace BackOnTrack.SystemLevelModification.Tests
     {
         private SystemLevelModification systemLevelModification;
 
-        public SystemLevelModificationTests() { }
-
-        [Ignore]
 		[TestMethod]
 		public void CheckCorrectWindowsHostsLocationFile()
 		{
             //Arrange & Act
-            systemLevelModification = new SystemLevelModification(false);
+            systemLevelModification = new SystemLevelModification(true);
 
             //Assert
-            systemLevelModification.GetHostFileLocation().Should().EndWith(@"Windows\system32\drivers\etc\hosts");
+            systemLevelModification.GetHostFileLocation().Should().EndWith(@"system32\drivers\etc\hosts");
         }
 
-        [Ignore]
         [TestMethod]
         public void CheckRewriteCorrectWindowsHostsLocationFile()
         {
             //Arrange & Act
             string newHostFileLocation = @"C:\temp\hosts";
-            systemLevelModification = new SystemLevelModification(false, newHostFileLocation);
+            systemLevelModification = new SystemLevelModification(true, newHostFileLocation);
 
             //Assert
             systemLevelModification.GetHostFileLocation().Should().Be(newHostFileLocation);
@@ -75,11 +71,9 @@ namespace BackOnTrack.SystemLevelModification.Tests
         {
             string ok = "ok";
             //todo
-            //create temp folder
             //create two different host file with different sample content
             //replace with the program one host file with the other 
             //check if host file content has changed
-            //remote temp folder with files
         }
     }
 }

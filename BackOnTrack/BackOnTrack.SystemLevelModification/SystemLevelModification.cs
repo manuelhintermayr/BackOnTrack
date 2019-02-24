@@ -14,33 +14,34 @@ namespace BackOnTrack.SystemLevelModification
             return hostFileLocation; 
         }
 
-        public SystemLevelModification(bool testSetup = false, string newHostFileLocation = "")
+        public SystemLevelModification(bool unitTestSetup = false, string newHostFileLocation = "")
         {
             if(newHostFileLocation != "")
             {
                 hostFileLocation = newHostFileLocation;
             }
 
-			string[] settings = Environment.GetCommandLineArgs();
-            if (settings.Length == 1)
+            if (!unitTestSetup)
             {
-				StartedWithouOptions();
+                string[] settings = Environment.GetCommandLineArgs();
+                if (settings.Length == 1)
+                {
+                    StartedWithouOptions();
+                }
+                else if (settings.Contains("-createNewHostFile"))
+                {
+                    CreateNewHostFile();
+                }
+                else if (settings.Contains("-replaceHostFile"))
+                {
+                    ReplaceHostFile(settings);
+                }
+                else
+                {
+                    Environment.Exit(1);
+                }
             }
-            else if (settings.Contains("-createNewHostFile"))
-            {
-                CreateNewHostFile();
-            }
-            else if (settings.Contains("-replaceHostFile"))
-            {
-                ReplaceHostFile(settings);
-            }
-            else
-            {
-                if(!testSetup)
-				{
-                    Environment.Exit(1);						
-				}
-            }
+
         }
 
         public void StartedWithouOptions()
