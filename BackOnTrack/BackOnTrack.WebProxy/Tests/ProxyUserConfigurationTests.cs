@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BackOnTrack.SharedResources.Models;
 using BackOnTrack.SharedResources.Tests;
+using BackOnTrack.SharedResources.Tests.Base;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

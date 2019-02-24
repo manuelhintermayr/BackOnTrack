@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BackOnTrack.SharedResources.Tests;
+using BackOnTrack.SharedResources.Tests.Base;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BackOnTrack.Tests
@@ -18,13 +19,40 @@ namespace BackOnTrack.Tests
         }
 
         [TestMethod]
-        public void IsCorrectRegex()
+        public void IsInvalidAddress()
         {
             //
         }
 
         [TestMethod]
-        public void IsAddressAlreadyUsed()
+        public void IsCorrectRegex()
+        {
+            //
+
+            //[DataTestMethod]
+            //    [DataRow("\\b(google)\\b")]
+            //public void IsCorrectRegex(string pattern)
+            //{
+            //    //Arrange & Act
+            //    bool result =
+            //    //Assert
+            //}
+
+            //[TestMethod]
+            //public void IsIncorrectRegex()
+            //{
+            //    //
+            //}
+        }
+
+        [TestMethod]
+        public void IsInvalidRegex()
+        {
+            //
+        }
+
+        [TestMethod]
+        public void FailToAddTheSameAddressTwice()
         {
             //
         }

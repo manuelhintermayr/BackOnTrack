@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BackOnTrack.SharedResources.Infrastructure.Helpers;
+﻿using BackOnTrack.SharedResources.Infrastructure.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BackOnTrack.SharedResources.Tests
+namespace BackOnTrack.SharedResources.Tests.Base
 {
     [TestClass]
     public class TestBase

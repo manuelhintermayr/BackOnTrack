@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using BackOnTrack.SharedResources.Infrastructure.Helpers;
 using BackOnTrack.SharedResources.Tests;
+using BackOnTrack.SharedResources.Tests.Base;
 
 namespace BackOnTrack.SystemLevelModification.Tests
 {

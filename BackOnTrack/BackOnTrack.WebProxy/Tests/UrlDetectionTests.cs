@@ -1,4 +1,5 @@
 ﻿using BackOnTrack.SharedResources.Tests;
+using BackOnTrack.SharedResources.Tests.Base;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

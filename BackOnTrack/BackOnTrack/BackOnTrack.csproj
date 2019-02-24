@@ -110,7 +110,13 @@
     <Compile Include="Services\WebProxy\RunningWebProxy.cs" />
     <Compile Include="Services\UserConfiguration\UserConfigurationSupplier.cs" />
     <Compile Include="Services\ServicesKeyword.cs" />
+    <Compile Include="Tests\AddProfileTests.cs" />
     <Compile Include="Tests\AddressValidationTests.cs" />
+    <Compile Include="Tests\SettingsWebProxyTests.cs" />
+    <Compile Include="Tests\SystemLevelEditorTests.cs" />
+    <Compile Include="Tests\UserConfigurationOnSystemLevelTests.cs" />
+    <Compile Include="Tests\UserConfigurationSupplierTests.cs" />
+    <Compile Include="Tests\ViewProfilesTests.cs" />
     <Compile Include="UI\MainView\Pages\About\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
