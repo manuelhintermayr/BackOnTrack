@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BackOnTrack.SharedResources.Models;
+using BackOnTrack.SharedResources.Tests;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BackOnTrack.WebProxy.Tests
 {
     [TestClass]
-    public class ProxyUserConfigurationTests
+    public class ProxyUserConfigurationTests : TestBase
     {
         private ProxyUserConfiguration proxyUserConfiguration;
         private CurrentUserConfiguration userConfiguration;

@@ -1,23 +1,21 @@
-﻿using BackOnTrack.SystemLevelModification.Tests.Service;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BackOnTrack.SharedResources.Infrastructure.Helpers;
+using BackOnTrack.SharedResources.Tests;
 
 namespace BackOnTrack.SystemLevelModification.Tests
 {
 	[TestClass]
-    public class SystemLevelModificationTests
+    public class SystemLevelModificationTests : TestBase
     {
         private SystemLevelModification systemLevelModification;
 
-        public SystemLevelModificationTests()
-		{
-
-		}
+        public SystemLevelModificationTests() { }
 
         [Ignore]
 		[TestMethod]
@@ -64,11 +62,6 @@ namespace BackOnTrack.SystemLevelModification.Tests
         [TestMethod]
         public void CheckCorrectHostWasCreated()
         {
-            using (var tmp = TempFolder.Create())
-            {
-                string asdf= tmp.Name;
-            }
-
             //todo
             //creaty temp folder
             //create with program host file
@@ -80,6 +73,7 @@ namespace BackOnTrack.SystemLevelModification.Tests
         [TestMethod]
         public void CheckHostFileWasReplaced()
         {
+            string ok = "ok";
             //todo
             //create temp folder
             //create two different host file with different sample content

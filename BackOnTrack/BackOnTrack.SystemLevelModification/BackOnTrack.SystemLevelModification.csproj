@@ -78,7 +78,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SystemLevelModification.cs" />
-    <Compile Include="Tests\Service\TempFolder.cs" />
     <Compile Include="Tests\SystemLevelModificationTests.cs" />
   </ItemGroup>
   <ItemGroup>

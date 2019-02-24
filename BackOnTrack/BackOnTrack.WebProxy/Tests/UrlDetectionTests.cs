@@ -1,10 +1,11 @@
-﻿using FluentAssertions;
+﻿using BackOnTrack.SharedResources.Tests;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BackOnTrack.WebProxy.Tests
 {
     [TestClass]
-    public class UrlDetectionTests
+    public class UrlDetectionTests : TestBase
     {
         [DataTestMethod]
         [DataRow("\\b(demo)\\b", "https://financeviewer.manuelweb.at/demo/")]

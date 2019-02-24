@@ -7,10 +7,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BackOnTrack.SystemLevelModification.Tests.Service
+namespace BackOnTrack.SharedResources.Infrastructure.Helpers
 {
-
-
     public class TempFolder : IDisposable
     {
         public string Name
