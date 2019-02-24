@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="ProxyUserConfiguration.cs" />
     <Compile Include="Tests\ProxyUserConfigurationTests.cs" />
+    <Compile Include="Tests\UrlDetectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -227,13 +227,6 @@ namespace BackOnTrack.WebProxy
             return addressIsAMatch.Success;
         }
 
-        public static string GetValidRedirectUrl(string redirectAddress)
-        {
-            return redirectAddress.StartsWith("https://") || redirectAddress.StartsWith("http://")
-                    ? redirectAddress
-                    : $"https://{redirectAddress}";
-        }
-
         //Modify response
         private async Task OnResponse(object sender, SessionEventArgs e)
         {
