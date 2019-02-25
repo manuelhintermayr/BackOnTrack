@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BackOnTrack.SharedResources.Infrastructure.Helpers;
+using BackOnTrack.SharedResources.Tests.Base;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace BackOnTrack.Tests.Base
+{
+    [TestClass]
+    public class RunningApplicationTestBase : TestBase
+    {
+        public RunningApplication runningApplication;
+
+        public void SetupUnlockedRunningApplication()
+        {
+            string password = "admin";
+            runningApplication = new RunningApplication(true, TempFolder.Name);
+            runningApplication.Services.UserConfiguration.CreateNewConfiguration(password);
+            runningApplication.UI.LoginInMainViewWithoutShowing(password);
+        }
+    }
+}

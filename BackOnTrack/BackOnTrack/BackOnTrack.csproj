@@ -113,6 +113,7 @@
     <Compile Include="Services\ServicesKeyword.cs" />
     <Compile Include="Tests\AddProfileTests.cs" />
     <Compile Include="Tests\AddressValidationTests.cs" />
+    <Compile Include="Tests\Base\RunningApplicationTestBase.cs" />
     <Compile Include="Tests\SettingsWebProxyTests.cs" />
     <Compile Include="Tests\SystemLevelEditorTests.cs" />
     <Compile Include="Tests\UserConfigurationOnSystemLevelTests.cs" />

@@ -4,6 +4,7 @@ using System.Xaml.Schema;
 using BackOnTrack.Infrastructure.Exceptions;
 using BackOnTrack.SharedResources.Models;
 using BackOnTrack.SharedResources.Tests.Base;
+using BackOnTrack.Tests.Base;
 using BackOnTrack.UI.MainView.Pages.Profiles;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,7 +12,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace BackOnTrack.Tests
 {
     [TestClass]
-    public class AddressValidationTests : TestBase
+    public class AddressValidationTests : RunningApplicationTestBase
+
     {
         [DataTestMethod]
         [DataRow("manuelweb")]
@@ -67,31 +69,34 @@ namespace BackOnTrack.Tests
         }
 
         [TestMethod]
-        public void FailToAddTheSameAddressTwice()
+        public void ProgramWrapperFailToAddTheSameAddressTwice()
         {
             //Arrange
-            string addressOne = "manuelweb.at";
-            string addressTwo = "www.manuelweb.at";
-            string addressThree = "www.manuelweb.at";
-            string password = "admin";
-            RunningApplication runningApplication = new RunningApplication(true, TempFolder.Name);
-            runningApplication.Services.UserConfiguration.CreateNewConfiguration(password);
-            runningApplication.UI.LoginInMainViewWithoutShowing(password);
+            Entry entryOne = new Entry() { Url = "manuelweb.at" };
+            Entry entryTwo = new Entry() { Url = "www.manuelweb.at" };
+            Entry entryThree = new Entry() { Url = "www.manuelweb.at" };
 
-            Profile profile = new Profile() { ProfileName = "Manuelweb", EntryList = new List<Entry>() };
-            runningApplication.UI.MainView.UserConfiguration.ProfileList.Add(profile);
-
-            SpecificProfileView profileView = new SpecificProfileView("Manuelweb");
+            SetupUnlockedRunningApplication();
+            SpecificProfileView profileView = CreateTestableProfileView();
 
             //Act
-            Action firstAdd = () => { profileView.AddNewEntry(new Entry(){Url = addressOne}); };
-            Action secondAdd = () => { profileView.AddNewEntry(new Entry() { Url = addressTwo }); };
-            Action thirdAdd = () => { profileView.AddNewEntry(new Entry() { Url = addressThree }); };
+            Action firstAdd = () => { profileView.AddNewEntry(entryOne); };
+            Action secondAdd = () => { profileView.AddNewEntry(entryTwo); };
+            Action thirdAdd = () => { profileView.AddNewEntry(entryThree); };
 
             //Assert
             firstAdd.Should().NotThrow<NewEntryException>();
             secondAdd.Should().NotThrow<NewEntryException>();
             thirdAdd.Should().Throw<NewEntryException>();
+        }
+
+        private SpecificProfileView CreateTestableProfileView()
+        {
+            Profile profile = new Profile() { ProfileName = "Manuelweb", EntryList = new List<Entry>() };
+            runningApplication.UI.MainView.UserConfiguration.ProfileList.Add(profile);
+
+            SpecificProfileView profileView = new SpecificProfileView("Manuelweb");
+            return profileView;
         }
     }
 }
