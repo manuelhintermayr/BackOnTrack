@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BackOnTrack.SharedResources.Tests;
-using BackOnTrack.SharedResources.Tests.Base;
+﻿using BackOnTrack.SharedResources.Tests.Base;
+using BackOnTrack.UI.MainView.Pages.Profiles;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BackOnTrack.Tests
@@ -12,43 +8,57 @@ namespace BackOnTrack.Tests
     [TestClass]
     public class AddressValidationTests : TestBase
     {
-        [TestMethod]
-        public void IsCorrectAddress()
+        [DataTestMethod]
+        [DataRow("manuelweb")]
+        [DataRow("www.manuelweb")]
+        [DataRow("manuelweb.at")]
+        [DataRow("google.com")]
+        [DataRow("1.2.3.4")]
+        public void IsCorrectAddress(string address)
         {
-            //
+            //Arrange & Act
+            bool result = AddressValidationRule.IsCorrectAddress(address);
+            
+            //Assert
+            result.Should().BeTrue();
         }
 
-        [TestMethod]
-        public void IsInvalidAddress()
+        [DataTestMethod]
+        [DataRow("")]
+        [DataRow("https://www.manuelweb")]
+        [DataRow("+#")]
+        [DataRow("go/ogle.com")]
+        public void IsInvalidAddress(string address)
         {
-            //
+            //Arrange & Act
+            bool result = AddressValidationRule.IsCorrectAddress(address);
+
+            //Assert
+            result.Should().BeFalse();
         }
 
-        [TestMethod]
-        public void IsCorrectRegex()
+        [DataTestMethod]
+        [DataRow("\\b(demo)\\b")]
+        [DataRow("http\\b")]
+        public void IsCorrectRegex(string pattern)
         {
-            //
+            //Arrange & Act
+            bool result = AddressValidationRule.IsCorrectRegex(pattern);
 
-            //[DataTestMethod]
-            //    [DataRow("\\b(google)\\b")]
-            //public void IsCorrectRegex(string pattern)
-            //{
-            //    //Arrange & Act
-            //    bool result =
-            //    //Assert
-            //}
-
-            //[TestMethod]
-            //public void IsIncorrectRegex()
-            //{
-            //    //
-            //}
+            //Assert
+            result.Should().BeTrue();
         }
 
-        [TestMethod]
-        public void IsInvalidRegex()
+        [DataTestMethod]
+        [DataRow("\\(demo)\\b")]
+        [DataRow("\\b(x]")]
+        public void IsInvalidRegex(string pattern)
         {
-            //
+            //Arrange & Act
+            bool result = AddressValidationRule.IsCorrectRegex(pattern);
+
+            //Assert
+            result.Should().BeFalse();
         }
 
         [TestMethod]
