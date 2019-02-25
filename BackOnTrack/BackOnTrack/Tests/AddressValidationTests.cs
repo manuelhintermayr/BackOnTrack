@@ -69,7 +69,7 @@ namespace BackOnTrack.Tests
         }
 
         [TestMethod]
-        public void ProgramWrapperFailToAddTheSameAddressTwice()
+        public void FailToAddTheSameAddressTwice()
         {
             //Arrange
             Entry entryOne = new Entry() { Url = "manuelweb.at" };
@@ -88,15 +88,6 @@ namespace BackOnTrack.Tests
             firstAdd.Should().NotThrow<NewEntryException>();
             secondAdd.Should().NotThrow<NewEntryException>();
             thirdAdd.Should().Throw<NewEntryException>();
-        }
-
-        private SpecificProfileView CreateTestableProfileView()
-        {
-            Profile profile = new Profile() { ProfileName = "Manuelweb", EntryList = new List<Entry>() };
-            runningApplication.UI.MainView.UserConfiguration.ProfileList.Add(profile);
-
-            SpecificProfileView profileView = new SpecificProfileView("Manuelweb");
-            return profileView;
         }
     }
 }
