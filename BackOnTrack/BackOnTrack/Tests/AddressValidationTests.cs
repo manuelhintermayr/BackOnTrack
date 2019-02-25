@@ -1,4 +1,9 @@
-﻿using BackOnTrack.SharedResources.Tests.Base;
+﻿using System;
+using System.Collections.Generic;
+using System.Xaml.Schema;
+using BackOnTrack.Infrastructure.Exceptions;
+using BackOnTrack.SharedResources.Models;
+using BackOnTrack.SharedResources.Tests.Base;
 using BackOnTrack.UI.MainView.Pages.Profiles;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -64,7 +69,29 @@ namespace BackOnTrack.Tests
         [TestMethod]
         public void FailToAddTheSameAddressTwice()
         {
-            //
+            //Arrange
+            string addressOne = "manuelweb.at";
+            string addressTwo = "www.manuelweb.at";
+            string addressThree = "www.manuelweb.at";
+            string password = "admin";
+            RunningApplication runningApplication = new RunningApplication(true, TempFolder.Name);
+            runningApplication.Services.UserConfiguration.CreateNewConfiguration(password);
+            runningApplication.UI.LoginInMainViewWithoutShowing(password);
+
+            Profile profile = new Profile() { ProfileName = "Manuelweb", EntryList = new List<Entry>() };
+            runningApplication.UI.MainView.UserConfiguration.ProfileList.Add(profile);
+
+            SpecificProfileView profileView = new SpecificProfileView("Manuelweb");
+
+            //Act
+            Action firstAdd = () => { profileView.AddNewEntry(new Entry(){Url = addressOne}); };
+            Action secondAdd = () => { profileView.AddNewEntry(new Entry() { Url = addressTwo }); };
+            Action thirdAdd = () => { profileView.AddNewEntry(new Entry() { Url = addressThree }); };
+
+            //Assert
+            firstAdd.Should().NotThrow<NewEntryException>();
+            secondAdd.Should().NotThrow<NewEntryException>();
+            thirdAdd.Should().Throw<NewEntryException>();
         }
     }
 }

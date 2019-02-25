@@ -18,9 +18,11 @@ namespace BackOnTrack.WebProxy
         private List<RedirectEntry> _listOfRedirectSites;
         private List<string> _listOfBlockedSites;
         private List<RedirectEntry> _listOfRegexRedirectSites;
+        private string _programSettingsPath;
 
-        public ProxyUserConfiguration()
+        public ProxyUserConfiguration(string programSettingsPath)
         {
+            _programSettingsPath = programSettingsPath;
             _listOfBlockedSites = new List<string>();
             _listOfRegexBlockedSites = new List<string>();
             _listOfRedirectSites = new List<RedirectEntry>();
@@ -51,7 +53,7 @@ namespace BackOnTrack.WebProxy
 
         public string GetProxyUserConfigurationPath()
         {
-            return $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\proxy.profiles";
+            return $"{_programSettingsPath}\\.backOnTrack\\proxy.profiles";
         }
 
         #endregion

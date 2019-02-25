@@ -91,6 +91,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Infrastructure\Exceptions\NewEntryException.cs" />
     <Compile Include="Infrastructure\Exceptions\SystemLevelException.cs" />
     <Compile Include="Infrastructure\Helpers\AutorunHelper.cs" />
     <Compile Include="Infrastructure\Helpers\Messages.cs" />

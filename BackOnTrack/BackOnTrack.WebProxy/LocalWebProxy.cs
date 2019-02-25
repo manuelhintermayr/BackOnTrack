@@ -28,11 +28,15 @@ namespace BackOnTrack.WebProxy
         private ExplicitProxyEndPoint newEndPoint;
         #endregion
 
-        public LocalWebProxy(bool isSystemProxy = true)
+        public LocalWebProxy(bool isSystemProxy = true, string programSettingsPath = "")
         {
+            programSettingsPath = programSettingsPath == ""
+                ? Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+                : programSettingsPath;
+
             _isSystemProxy = isSystemProxy;
             _proxyServer = new ProxyServer();
-            _currentConfiguration = new ProxyUserConfiguration();
+            _currentConfiguration = new ProxyUserConfiguration(programSettingsPath);
             _blockedSiteHtml = BackOnTrack.WebProxy.Properties.Resources.BlockedPage;
         }
         #region Set Proxy Configuration

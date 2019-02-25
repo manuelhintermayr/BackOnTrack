@@ -9,8 +9,7 @@ namespace BackOnTrack.Services.SystemLevelConfiguration
         public SystemLevelConfigurationSupplier()
         {
             ConfigurationPath =
-                $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack";
-            //^todo: make configurable
+                $"{RunningApplication.ProgramSettingsPath()}\\.backOnTrack";
         }
 
         public int CreateNewHostFile()

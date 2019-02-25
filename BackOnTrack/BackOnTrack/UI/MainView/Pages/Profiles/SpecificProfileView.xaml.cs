@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using BackOnTrack.Infrastructure.Exceptions;
 using BackOnTrack.SharedResources.Models;
 using FirstFloor.ModernUI.Windows.Controls;
 
@@ -29,7 +30,12 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
         public SpecificProfileView(string profileName)
         {
             _runningApplication = RunningApplication.Instance();
-            InitializeComponent();
+
+            if (!_runningApplication.UnitTestSetup)
+            {
+                InitializeComponent();
+            }
+
             this.DataContext = this;
             _profileName = profileName;
             Setup(_profileName);
@@ -61,7 +67,10 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
                 }
             }
 
-            EntryList.DataContext = CurrentProfile.EntryList;
+            if (!_runningApplication.UnitTestSetup)
+            {
+                EntryList.DataContext = CurrentProfile.EntryList;
+            }
         }
 
         private void DeleteCurrentProfile_Click(object sender, RoutedEventArgs e)
@@ -120,13 +129,13 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void AddEntryButton_Click(object sender, RoutedEventArgs e)
         {
-            ValidateNewEntry();
+            AddNewEntryFromUi();
         }
         private void NewAddressToBlockTextbox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Return || e.Key == Key.Enter)
             {
-                ValidateNewEntry();
+                AddNewEntryFromUi();
             }
         }
 
@@ -134,86 +143,104 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
         {
             if (e.Key == Key.Return || e.Key == Key.Enter)
             {
-                ValidateNewEntry();
+                AddNewEntryFromUi();
             }
         }
 
-        private void ValidateNewEntry()
+        private void AddNewEntryFromUi()
         {
-            EntryType getSelectedEntryType = (EntryType)BlockingTypeComboBox.SelectedItem;
-            string addressToBlock = NewAddressToBlockTextbox.Text;
-            string addressRedirectTo = RedirectTo.Text;
+            Entry newEntry = GetNewEntryFromInput();
 
-            if (!AddressValidationRule.IsCorrectAddress(addressToBlock)
-                && (getSelectedEntryType != EntryType.RegexBlock && getSelectedEntryType != EntryType.RegexRedirect))
+            try
             {
-                string alertTitle = "Invalid address";
-                string alertContent = "The address you entered to block is invalid.";
-                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
-            }
-            else if ((getSelectedEntryType == EntryType.RegexBlock || getSelectedEntryType == EntryType.RegexRedirect) &&
-                !AddressValidationRule.IsCorrectRegex(addressToBlock))
-            {
-                string alertTitle = "Invalid regex";
-                string alertContent = "The regex you entered to match is invalid.";
-                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
-            }
-            else if (AddressValidationRule.IsAddressAlreadyUsed(addressToBlock))
-            {
-                string alertTitle = "Address already used";
-                string alertContent = "The address you entered to block is already used in this or another profile.";
-                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
-            }
-            else if ((getSelectedEntryType == EntryType.Redirect || getSelectedEntryType == EntryType.RegexRedirect)
-                    && !AddressValidationRule.IsCorrectAddress(addressRedirectTo))
-            {
-                string alertTitle = "Invalid address";
-                string alertContent = "The address you entered for redirecting is invalid.";
-                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
-            }
-            else
-            {
-                Entry newEntry = null;
-                if (getSelectedEntryType == EntryType.Block)
-                {
-                    newEntry = Entry.CreateBlockEntry(
-                        addressToBlock,
-                        CurrentProfile.PreferableBlockingOnSystemLevel,
-                        CurrentProfile.PreferableBlockingOnProxyLevel
-                    );
-                }
-                if (getSelectedEntryType == EntryType.RegexBlock)
-                {
-                    newEntry = Entry.CreateRegexBlockEntry(
-                        addressToBlock,
-                        CurrentProfile.PreferableBlockingOnProxyLevel
-                    );
-                }
-                if (getSelectedEntryType == EntryType.Redirect)
-                {
-                    newEntry = Entry.CreateRedirectEntry(
-                        addressToBlock,
-                        addressRedirectTo,
-                        CurrentProfile.PreferableBlockingOnSystemLevel,
-                        CurrentProfile.PreferableBlockingOnProxyLevel
-                    );
-                }
-                if (getSelectedEntryType == EntryType.RegexRedirect)
-                {
-                    newEntry = Entry.CreateRegexRedirectEntry(
-                        addressToBlock,
-                        addressRedirectTo,
-                        CurrentProfile.PreferableBlockingOnProxyLevel
-                    );
-                }
-
-                CurrentProfile.EntryList.Add(newEntry);
+                AddNewEntry(newEntry);
 
                 NewAddressToBlockTextbox.Text = "";
                 RedirectTo.Text = "";
                 BlockingTypeComboBox.SelectedIndex = 0;
                 EntryList.Items.Refresh();
             }
+            catch (Exception e)
+            {
+                _runningApplication.UI.MainView.CreateAlertWindow("Invalid value", e.Message);
+            }
+        }
+
+        public void AddNewEntry(Entry newEntry)
+        {
+            CheckIfEntryIsValid(newEntry);
+            CurrentProfile.EntryList.Add(newEntry);
+        }
+
+        private void CheckIfEntryIsValid(Entry newEntry)
+        {
+            EntryType getSelectedEntryType = newEntry.EntryType;
+            string addressToBlock = newEntry.Url;
+            string addressRedirectTo = newEntry.RedirectUrl;
+
+            if (!AddressValidationRule.IsCorrectAddress(addressToBlock)
+                && (getSelectedEntryType != EntryType.RegexBlock && getSelectedEntryType != EntryType.RegexRedirect))
+            {
+                throw new NewEntryException("The address you entered to block is invalid.");
+            }
+            else if ((getSelectedEntryType == EntryType.RegexBlock || getSelectedEntryType == EntryType.RegexRedirect) &&
+                     !AddressValidationRule.IsCorrectRegex(addressToBlock))
+            {
+                throw new NewEntryException("The regex you entered to match is invalid.");
+            }
+            else if (AddressValidationRule.IsAddressAlreadyUsed(addressToBlock))
+            {
+                throw new NewEntryException(
+                    "The address you entered to block is already used in this or another profile.");
+            }
+            else if ((getSelectedEntryType == EntryType.Redirect || getSelectedEntryType == EntryType.RegexRedirect)
+                     && !AddressValidationRule.IsCorrectAddress(addressRedirectTo))
+            {
+                throw new NewEntryException("The address you entered for redirecting is invalid.");
+            }
+        }
+
+        private Entry GetNewEntryFromInput()
+        {
+            EntryType getSelectedEntryType = (EntryType)BlockingTypeComboBox.SelectedItem;
+            string addressToBlock = NewAddressToBlockTextbox.Text;
+            string addressRedirectTo = RedirectTo.Text;
+
+            Entry newEntry = null;
+            if (getSelectedEntryType == EntryType.Block)
+            {
+                newEntry = Entry.CreateBlockEntry(
+                    addressToBlock,
+                    CurrentProfile.PreferableBlockingOnSystemLevel,
+                    CurrentProfile.PreferableBlockingOnProxyLevel
+                );
+            }
+            if (getSelectedEntryType == EntryType.RegexBlock)
+            {
+                newEntry = Entry.CreateRegexBlockEntry(
+                    addressToBlock,
+                    CurrentProfile.PreferableBlockingOnProxyLevel
+                );
+            }
+            if (getSelectedEntryType == EntryType.Redirect)
+            {
+                newEntry = Entry.CreateRedirectEntry(
+                    addressToBlock,
+                    addressRedirectTo,
+                    CurrentProfile.PreferableBlockingOnSystemLevel,
+                    CurrentProfile.PreferableBlockingOnProxyLevel
+                );
+            }
+            if (getSelectedEntryType == EntryType.RegexRedirect)
+            {
+                newEntry = Entry.CreateRegexRedirectEntry(
+                    addressToBlock,
+                    addressRedirectTo,
+                    CurrentProfile.PreferableBlockingOnProxyLevel
+                );
+            }
+
+            return newEntry;
         }
 
         #endregion

@@ -22,11 +22,25 @@ namespace BackOnTrack.UI.MainView
         public MainView(CurrentUserConfiguration userConfiguration, string password)
         {
             _runningApplication = RunningApplication.Instance();
-            InitializeComponent();
-            App.Current.MainWindow = _runningApplication.UI.MainView; //fix for the dialogWindow
+            
+            if (!_runningApplication.UnitTestSetup)
+            {
+                InitializeComponent();
+                App.Current.MainWindow = _runningApplication.UI.MainView; //fix for the dialogWindow
+            }
+
             UserConfiguration = userConfiguration;
             _password = password;
-            WindowIsShown = true;
+
+            if (!_runningApplication.UnitTestSetup)
+            {
+                WindowIsShown = true;
+            }
+            else
+            {
+                WindowIsShown = false;
+            }
+
             IsInEntryEditingMode = false;
         }
 

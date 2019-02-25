@@ -18,8 +18,7 @@ namespace BackOnTrack.Services.ProgramConfiguration
         {
             _runningApplication = RunningApplication.Instance();
             ConfigurationPath =
-                $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\config.settings";
-            //todo: ^ make more configurable for testing 
+                $"{RunningApplication.ProgramSettingsPath()}\\.backOnTrack\\config.settings";
             Autorun = new AutorunHelper();
 
             SetCurrentConfigurationFromConfig();

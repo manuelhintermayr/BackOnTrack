@@ -16,8 +16,7 @@ namespace BackOnTrack.Services.UserConfiguration
         {
             _runningApplication = RunningApplication.Instance();
             ConfigurationPath = 
-                $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\profiles.settings";
-            //todo: ^make configurable for testing
+                $"{RunningApplication.ProgramSettingsPath()}\\.backOnTrack\\profiles.settings";
             systemLevel = new UserConfigurationOnSystemLevel();
         }
 

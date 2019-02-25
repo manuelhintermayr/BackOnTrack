@@ -20,7 +20,7 @@ namespace BackOnTrack.WebProxy.Tests
 
         public ProxyUserConfigurationTests()
         {
-            proxyUserConfiguration = new ProxyUserConfiguration();
+            proxyUserConfiguration = new ProxyUserConfiguration(TempFolder.Name);
             userConfiguration = new CurrentUserConfiguration();
             newProfile = Profile.CreateProfile("Google", false, true);
         }
@@ -29,7 +29,7 @@ namespace BackOnTrack.WebProxy.Tests
         public void ListsShouldBeEmptyAfterInitialisation()
         {
             //Arrange & Act
-            proxyUserConfiguration = new ProxyUserConfiguration();
+            proxyUserConfiguration = new ProxyUserConfiguration(TempFolder.Name);
 
             //Assert
             proxyUserConfiguration.GetListOfBlockedSites().Count.Should().Be(0);
