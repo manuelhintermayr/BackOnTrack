@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xaml.Schema;
 using BackOnTrack.Infrastructure.Exceptions;
 using BackOnTrack.SharedResources.Models;
-using BackOnTrack.SharedResources.Tests.Base;
 using BackOnTrack.Tests.Base;
 using BackOnTrack.UI.MainView.Pages.Profiles;
 using FluentAssertions;
@@ -88,6 +86,15 @@ namespace BackOnTrack.Tests
             firstAdd.Should().NotThrow<NewEntryException>();
             secondAdd.Should().NotThrow<NewEntryException>();
             thirdAdd.Should().Throw<NewEntryException>();
+        }
+
+        public SpecificProfileView CreateTestableProfileView()
+        {
+            Profile profile = new Profile() { ProfileName = "Manuelweb", EntryList = new List<Entry>() };
+            runningApplication.UI.MainView.UserConfiguration.ProfileList.Add(profile);
+
+            SpecificProfileView profileView = new SpecificProfileView("Manuelweb");
+            return profileView;
         }
     }
 }

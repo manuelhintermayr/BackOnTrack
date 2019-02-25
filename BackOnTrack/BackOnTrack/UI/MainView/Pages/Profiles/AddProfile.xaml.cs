@@ -58,9 +58,9 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             }
         }
 
-        private bool CheckIfProfileNameIsAlreadyUsed(string profileName)
+        public static bool CheckIfProfileNameIsAlreadyUsed(string profileName)
         {
-            return _runningApplication.UI.MainView.UserConfiguration.ProfileList.Select(x => x.ProfileName.ToUpper()).ToList()
+            return RunningApplication.Instance().UI.MainView.UserConfiguration.ProfileList.Select(x => x.ProfileName.ToUpper()).ToList()
                 .Contains(profileName.ToUpper());
         }
     }

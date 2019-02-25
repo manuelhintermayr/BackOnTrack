@@ -23,14 +23,5 @@ namespace BackOnTrack.Tests.Base
             runningApplication.Services.UserConfiguration.CreateNewConfiguration(password);
             runningApplication.UI.LoginInMainViewWithoutShowing(password);
         }
-
-        public SpecificProfileView CreateTestableProfileView()
-        {
-            Profile profile = new Profile() { ProfileName = "Manuelweb", EntryList = new List<Entry>() };
-            runningApplication.UI.MainView.UserConfiguration.ProfileList.Add(profile);
-
-            SpecificProfileView profileView = new SpecificProfileView("Manuelweb");
-            return profileView;
-        }
     }
 }
