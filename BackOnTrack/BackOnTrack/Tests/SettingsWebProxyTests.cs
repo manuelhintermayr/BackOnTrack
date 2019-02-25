@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BackOnTrack.SharedResources.Tests.Base;
+using BackOnTrack.UI.MainView.Pages.Settings;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BackOnTrack.Tests
@@ -11,16 +13,34 @@ namespace BackOnTrack.Tests
     [TestClass]
     public class SettingsWebProxyTests : TestBase
     {
-        [TestMethod]
-        public void IsValidPortNumber()
+        [DataTestMethod]
+        [DataRow("0")]
+        [DataRow("1")]
+        [DataRow("65535")]
+        public void IsValidPortNumber(string portValue)
         {
-            //extract and check regex (from ProxyPortAddress_TextChanged)
+            //Arrange & Act
+            bool result = SettingsWebProxy.IsValidPortNumber(portValue);
+
+            //Assert
+            result.Should().BeTrue();
         }
 
-        [TestMethod]
-        public void IsInvalidPortNumber()
+        [DataTestMethod]
+        [DataRow("-0")]
+        [DataRow("-1")]
+        [DataRow("65536")]
+        [DataRow("65x35")]
+        [DataRow("01")]
+        [DataRow("")]
+        [DataRow("x")]
+        public void IsInvalidPortNumber(string portValue)
         {
-            //
+            //Arrange & Act
+            bool result = SettingsWebProxy.IsValidPortNumber(portValue);
+
+            //Assert
+            result.Should().BeFalse();
         }
     }
 }
