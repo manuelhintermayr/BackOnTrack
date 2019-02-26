@@ -214,6 +214,7 @@ namespace BackOnTrack.WebProxy
         {
             var jsonConfiguration = JsonConvert.SerializeObject(userConfiguration);
             string encryptedConfiguration = EncryptingHelper.Encrypt(jsonConfiguration, _configurationPassword);
+            FileModification.CreateFolderIfNotExists($"{_programSettingsPath}\\.backOnTrack");
 
             FileModification.WriteFile(GetProxyUserConfigurationPath(), encryptedConfiguration);
         }
