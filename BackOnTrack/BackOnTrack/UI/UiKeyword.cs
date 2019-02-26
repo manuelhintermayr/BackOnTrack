@@ -1,4 +1,6 @@
-﻿using BackOnTrack.Infrastructure.Helpers;
+﻿using System;
+using System.Windows.Forms.VisualStyles;
+using BackOnTrack.Infrastructure.Helpers;
 using BackOnTrack.UI.Login;
 
 namespace BackOnTrack.UI
@@ -13,25 +15,50 @@ namespace BackOnTrack.UI
         {
             _runningApplication = RunningApplication.Instance();
             Login = new LoginWindow();
-            if (openLoginView)
+            if (!_runningApplication.UnitTestSetup)
             {
-                Login.Show();
+                if (openLoginView)
+                {
+                    Login.Show();
+                }
             }
         }
 
-        public void OpenMainView(string password)
+        public void OpenMainView(string password, bool showUi = true)
         {
             var userConfiguration = _runningApplication.Services.UserConfiguration.OpenConfiguration(password);
             if (userConfiguration == null)
             {
-                Messages.CreateMessageBox("User configuration could not be opened.", "Error with user configuration.", true);
+                string errorMessage = "User configuration could not be opened.";
+                string errorTitle = "Error with user configuration.";
+                if (showUi)
+                {
+                    Messages.CreateMessageBox(errorMessage, errorTitle, true);
+                }
+                else
+                {
+                    throw new UnauthorizedAccessException(errorMessage);
+                }
             }
             else
             {
-                Login.Hide();
+                if (showUi)
+                {
+                    Login.Hide();
+                }
+
                 MainView = new MainView.MainView(userConfiguration, password);
-                MainView.Show();
+
+                if (showUi)
+                {
+                    MainView.Show();
+                }
             }
+        }
+
+        public void LoginInMainViewWithoutShowing(string password)
+        {
+            OpenMainView(password, false);
         }
     }
 }

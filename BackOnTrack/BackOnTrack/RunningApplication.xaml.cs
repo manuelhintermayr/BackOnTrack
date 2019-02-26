@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using System.Windows.Interop;
 using System.Windows.Media;
 using BackOnTrack.Infrastructure.Helpers;
@@ -18,18 +19,39 @@ namespace BackOnTrack
         public UiKeyword UI;
         public ServicesKeyword Services;
         private static RunningApplication _instance;
+        private static string _programSettingsPath;
         bool _minimizedToTray;
         private NotifyIcon TrayIcon;
+        public bool UnitTestSetup = false;
 
         public RunningApplication()
         {
-            CheckAndCloseIfApplicationIsAlreadyRunning();
+            ProgramStart(false, "");
+        }
 
-            InitializeComponent();
+        public RunningApplication(bool unitTestSetup = false, string programSettingsPath = "")
+        {
+            ProgramStart(unitTestSetup, programSettingsPath);
+        }
+
+        private void ProgramStart(bool unitTestSetup = false, string programSettingsPath = "")
+        {
+            UnitTestSetup = unitTestSetup;
+            _programSettingsPath = programSettingsPath;
+            if (!UnitTestSetup)
+            {
+                CheckAndCloseIfApplicationIsAlreadyRunning();
+
+                InitializeComponent();
+            }
+
             _instance = this;
             Setup();
 
-            SingleInstance.Stop();
+            if (!UnitTestSetup)
+            {
+                SingleInstance.Stop();
+            }
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -55,20 +77,29 @@ namespace BackOnTrack
 
         private void Setup()
         {
-            Show();//used for onSourceInitialized
-            Hide();
-            System.Windows.Application.Current.Resources["AccentColor"] = Colors.Teal;
-
-            string[] settings = Environment.GetCommandLineArgs();
+            string[] settings = new string[]{};
+            if (!UnitTestSetup)
+            {
+                Show();//used for onSourceInitialized
+                Hide();
+                System.Windows.Application.Current.Resources["AccentColor"] = Colors.Teal;
+                settings = Environment.GetCommandLineArgs();
+                _programSettingsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            }            
 
             try
             {
+                //todo: set _programSettingsPath based on argument
+                //todo: set hostFileLocation programically
                 Services = new ServicesKeyword();
                 UI = new UiKeyword(!settings.Contains("-startWithoutUi"));
 
-                if(settings.Contains("-startWithoutUi"))
+                if (!UnitTestSetup)
                 {
-                    MinimizeToTray();
+                    if (settings.Contains("-startWithoutUi"))
+                    {
+                        MinimizeToTray();
+                    }
                 }
             }
             catch (UnauthorizedAccessException e)
@@ -97,6 +128,11 @@ namespace BackOnTrack
         public static RunningApplication Instance()
         {
             return _instance;
+        }
+
+        public static string ProgramSettingsPath()
+        {
+            return _programSettingsPath;
         }
 
         public void Shutdown()

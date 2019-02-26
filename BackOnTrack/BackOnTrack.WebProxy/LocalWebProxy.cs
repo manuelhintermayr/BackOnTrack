@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BackOnTrack.SharedResources.Infrastructure.Helpers;
 using BackOnTrack.SharedResources.Models;
@@ -27,11 +28,15 @@ namespace BackOnTrack.WebProxy
         private ExplicitProxyEndPoint newEndPoint;
         #endregion
 
-        public LocalWebProxy(bool isSystemProxy = true)
+        public LocalWebProxy(bool isSystemProxy = true, string programSettingsPath = "")
         {
+            programSettingsPath = programSettingsPath == ""
+                ? Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+                : programSettingsPath;
+
             _isSystemProxy = isSystemProxy;
             _proxyServer = new ProxyServer();
-            _currentConfiguration = new ProxyUserConfiguration();
+            _currentConfiguration = new ProxyUserConfiguration(programSettingsPath);
             _blockedSiteHtml = BackOnTrack.WebProxy.Properties.Resources.BlockedPage;
         }
         #region Set Proxy Configuration
@@ -194,6 +199,14 @@ namespace BackOnTrack.WebProxy
                     }
                 }
 
+                foreach (string blockedSite in _currentConfiguration.GetListOfRegexBlockedSites())
+                {
+                    if (AddressIsAMatch(e.WebSession.Request.RequestUri.AbsoluteUri, blockedSite))
+                    {
+                        e.Ok(_blockedSiteHtml, null);
+                    }
+                }
+
                 foreach (RedirectEntry redirectEntry in _currentConfiguration.GetListOfRedirectSites())
                 {
                     if (e.WebSession.Request.RequestUri.AbsoluteUri.Contains(redirectEntry.AddressRedirectFrom))
@@ -201,7 +214,21 @@ namespace BackOnTrack.WebProxy
                         e.Redirect($"https://{redirectEntry.AddressRedirectTo}");
                     }
                 }
+
+                foreach (RedirectEntry redirectEntry in _currentConfiguration.GetListOfRegexRedirectSites())
+                {
+                    if (AddressIsAMatch(e.WebSession.Request.RequestUri.AbsoluteUri, redirectEntry.AddressRedirectFrom))
+                    {
+                        e.Redirect($"https://{redirectEntry.AddressRedirectTo}");
+                    }
+                }
             }
+        }
+
+        public static bool AddressIsAMatch(string address, string pattern)
+        {
+            Match addressIsAMatch = Regex.Match(address, pattern, RegexOptions.IgnoreCase);
+            return addressIsAMatch.Success;
         }
 
         //Modify response

@@ -32,7 +32,7 @@
 
                     <StackPanel>
                         <Label Content="New profile name" Target="{Binding ElementName=NewProfileName}"/>
-                        <TextBox x:Name="NewProfileName" Width="150" />
+                        <TextBox x:Name="NewProfileName" Width="150" KeyDown="NewProfileName_KeyDown"/>
                     </StackPanel>
 
                     <StackPanel>
