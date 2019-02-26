@@ -7,6 +7,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using BackOnTrack.Infrastructure.Helpers;
 using BackOnTrack.Services;
+using BackOnTrack.SharedResources.Infrastructure.Helpers;
 using BackOnTrack.UI;
 
 namespace BackOnTrack
@@ -23,6 +24,7 @@ namespace BackOnTrack
         bool _minimizedToTray;
         private NotifyIcon TrayIcon;
         public bool UnitTestSetup = false;
+        public bool UiTestSetup = false;
 
         public RunningApplication()
         {
@@ -89,8 +91,8 @@ namespace BackOnTrack
 
             try
             {
-                //todo: set _programSettingsPath based on argument
-                //todo: set hostFileLocation programically
+                DoUiTestsSetup(settings);
+
                 Services = new ServicesKeyword();
                 UI = new UiKeyword(!settings.Contains("-startWithoutUi"));
 
@@ -113,6 +115,32 @@ namespace BackOnTrack
             {
                 Messages.CreateMessageBox($"The following error occured with a file:{Environment.NewLine}{Environment.NewLine}{e.Message}", "Error with file", true);
                 Shutdown();
+            }
+        }
+
+        private void DoUiTestsSetup(string[] settings)
+        {
+            //todo: set _programSettingsPath based on argument
+            //todo: set hostFileLocation programically
+
+            if (!UnitTestSetup)
+            {
+                if (settings.Contains("-uiTesting"))
+                {
+                    UiTestSetup = true;
+
+                    foreach (var argument in settings)
+                    {
+                        if (argument.Contains("-programPath"))
+                        {
+                            _programSettingsPath = argument.Substring(14, (argument.Length - 15)).Replace("%20", " ");
+                            if (!FileModification.FileExists(_programSettingsPath))
+                            {
+                                _programSettingsPath = "";
+                            }
+                        }
+                    }
+                }
             }
         }
 

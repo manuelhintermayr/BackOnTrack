@@ -45,7 +45,7 @@ namespace BackOnTrack.SharedResources.Infrastructure.Helpers
 
             if (Name.Length < 10)
             {
-                throw new InvalidOperationException(String.Format("Directory name seesm to be invalid. Do not delete recursively your hard disc.", Name));
+                throw new InvalidOperationException(String.Format("Directory name seems to be invalid. Do not delete recursively your hard disc.", Name));
             }
 
             // delete all files in temp directory
