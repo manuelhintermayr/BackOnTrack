@@ -36,8 +36,8 @@
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Foreground="White" Margin="0,3,-0.4,105" Text="Password:" FontFamily="Microsoft New Tai Lue"/>
             <TextBlock HorizontalAlignment="Left" Margin="0,71,-0.2,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White"><Run x:Name="ConfigurationText" Text=""/></TextBlock>
             <Grid HorizontalAlignment="Left" Height="38" Margin="-36,121,-33.2,0" VerticalAlignment="Top" Width="282" Background="LightGray">
-                <PasswordBox x:Name="PasswordBox" Margin="0,0,33,0" FontSize="24" Padding="2,2,0,0" PasswordChanged="PassworBox_PasswordChanged" KeyDown="PassworBox_KeyDown" />
-                <TextBlock x:Name="Login_Button" HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Top" Text="" Height="38" FontFamily="Segoe MDL2 Assets" FontSize="24" Padding="6,6,3,0" PreviewMouseLeftButtonDown="Login_Button_PreviewMouseLeftButtonDown">
+                <PasswordBox Name="PasswordBox" Margin="0,0,33,0" FontSize="24" Padding="2,2,0,0" PasswordChanged="PassworBox_PasswordChanged" KeyDown="PassworBox_KeyDown" />
+                <TextBlock x:Name="LoginButton" HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Top" Text="" Height="38" FontFamily="Segoe MDL2 Assets" FontSize="24" Padding="6,6,3,0" PreviewMouseLeftButtonDown="Login_Button_PreviewMouseLeftButtonDown">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Style.Triggers>
