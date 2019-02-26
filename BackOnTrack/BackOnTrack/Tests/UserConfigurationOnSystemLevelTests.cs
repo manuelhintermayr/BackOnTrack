@@ -17,50 +17,63 @@ namespace BackOnTrack.Tests
     [TestClass]
     public class UserConfigurationOnSystemLevelTests : RunningApplicationTestBase
     {
-        private UserConfigurationOnSystemLevel ucosl;
-        public void DoSetupWithUnlockingAndBasicHostFileWithUCOSL()
+        private UserConfigurationOnSystemLevel _ucosl;
+        private SpecificProfileView _profileView;
+        private Entry _activatedEntry;
+        private Entry _disabledEntry;
+        private void DoSetupWithUnlockingAndBasicHostFileWithUcosl()
         {
             DoSetupWithUnlockingAndBasicHostFile();
-            ucosl = new UserConfigurationOnSystemLevel();
+            _ucosl = new UserConfigurationOnSystemLevel();
         }
+
+        private void CreateProfileViewWithAddedEnAndDisabledEntry()
+        {
+            _profileView = CreateTestableProfileView();
+            _activatedEntry = Entry.CreateBlockEntry("manuelweb.at", true, true);
+            _disabledEntry = Entry.CreateBlockEntry("www.manuelweb.at", true, true, false);
+            _profileView.AddNewEntry(_activatedEntry);
+            _profileView.AddNewEntry(_disabledEntry);
+        }
+
 
         [TestMethod]
         public void LoadingEntriesFromNoExistingHostFileShouldPutZeroEntriesIntoTheHostEntryList()
         {
             //Arrange
-            DoSetupWithUnlockingAndBasicHostFileWithUCOSL();
+            DoSetupWithUnlockingAndBasicHostFileWithUcosl();
 
             //Act
-            ucosl.AddAllLinesFromHostFileIntoEntryList();
+            _ucosl.AddAllLinesFromHostFileIntoEntryList();
 
             //Arrange
-            ucosl.GetHostEntries().Count.Should().Be(0);
+            _ucosl.GetHostEntries().Count.Should().Be(0);
         }
 
         [TestMethod]
         public void LoadingEntriesFromEmptyHostFileShouldPutZeroEntriesIntoTheHostEntryList()
         {
             //Arrange
-            DoSetupWithUnlockingAndBasicHostFileWithUCOSL();
+            DoSetupWithUnlockingAndBasicHostFileWithUcosl();
             FileModification.WriteFile(NewHostFileTwoLocation, "");
 
             //Act
-            ucosl.AddAllLinesFromHostFileIntoEntryList();
+            _ucosl.AddAllLinesFromHostFileIntoEntryList();
 
             //Arrange
-            ucosl.GetHostEntries().Count.Should().Be(0);
+            _ucosl.GetHostEntries().Count.Should().Be(0);
         }
 
         [TestMethod]
         public void EntryFromHostFileShouldHaveBeenPutCorrectlyIntoTheHostEntryList()
         {
             //Arrange
-            DoSetupWithUnlockingAndBasicHostFileWithUCOSL();
+            DoSetupWithUnlockingAndBasicHostFileWithUcosl();
             CreateHostFileWithSampleContent();
 
             //Act
-            ucosl.AddAllLinesFromHostFileIntoEntryList();
-            var resultList = ucosl.GetHostEntries();
+            _ucosl.AddAllLinesFromHostFileIntoEntryList();
+            var resultList = _ucosl.GetHostEntries();
 
             //Arrange
             resultList.Count.Should().Be(2);
@@ -72,18 +85,14 @@ namespace BackOnTrack.Tests
         public void EntryFromProfileWhereAddedCorrectlyToHostEntryList()
         {
             //Arrange
-            DoSetupWithUnlockingAndBasicHostFileWithUCOSL();
+            DoSetupWithUnlockingAndBasicHostFileWithUcosl();
             CreateHostFileWithSampleContent();
-            ucosl.AddAllLinesFromHostFileIntoEntryList();
-            SpecificProfileView profileView = CreateTestableProfileView();
-            Entry activatedEntry = Entry.CreateBlockEntry("manuelweb.at",true,true);
-            Entry disabledEntry = Entry.CreateBlockEntry("www.manuelweb.at", true, true, false);
+            _ucosl.AddAllLinesFromHostFileIntoEntryList();
+            CreateProfileViewWithAddedEnAndDisabledEntry();
 
             //Act
-            profileView.AddNewEntry(activatedEntry);
-            profileView.AddNewEntry(disabledEntry);
-            ucosl.AddMissingEntriesIntoEntryList(Application.UI.MainView.UserConfiguration);
-            var resultList = ucosl.GetHostEntries();
+            _ucosl.AddMissingEntriesIntoEntryList(Application.UI.MainView.UserConfiguration);
+            var resultList = _ucosl.GetHostEntries();
 
             //Assert
             resultList.Count.Should().Be(3);
@@ -94,18 +103,16 @@ namespace BackOnTrack.Tests
         public void EntriesFromDisabledProfileShouldNotBeAddedToHostEntryList()
         {
             //Arrange
-            DoSetupWithUnlockingAndBasicHostFileWithUCOSL();
+            DoSetupWithUnlockingAndBasicHostFileWithUcosl();
             CreateHostFileWithSampleContent();
-            ucosl.AddAllLinesFromHostFileIntoEntryList();
-            SpecificProfileView profileView = CreateTestableProfileView();
-            Entry activatedEntry = Entry.CreateBlockEntry("manuelweb.at", true, true);            
-            profileView.AddNewEntry(activatedEntry);
+            _ucosl.AddAllLinesFromHostFileIntoEntryList();
+            CreateProfileViewWithAddedEnAndDisabledEntry();
             var userConfiguration = Application.UI.MainView.UserConfiguration;
 
             //Act
             userConfiguration.ProfileList[0].ProfileIsEnabled = false;
-            ucosl.AddMissingEntriesIntoEntryList(Application.UI.MainView.UserConfiguration);
-            var resultList = ucosl.GetHostEntries();
+            _ucosl.AddMissingEntriesIntoEntryList(Application.UI.MainView.UserConfiguration);
+            var resultList = _ucosl.GetHostEntries();
 
             //Assert
             resultList.Count.Should().Be(2);
@@ -115,15 +122,15 @@ namespace BackOnTrack.Tests
         public void NotActiveBackOnTrackEntriesShouldGetRemovedFromHostEntryList()
         {
             //Arrange
-            DoSetupWithUnlockingAndBasicHostFileWithUCOSL();
+            DoSetupWithUnlockingAndBasicHostFileWithUcosl();
             FileModification.WriteFile(NewHostFileTwoLocation, "#Test" + Environment.NewLine + "127.0.0.1  manuelweb.at #BackOnTrackEntry");
-            var hostEntries = ucosl.GetHostEntries();
-            ucosl.AddAllLinesFromHostFileIntoEntryList();
-            ucosl.AddMissingEntriesIntoEntryList(Application.UI.MainView.UserConfiguration);
+            var hostEntries = _ucosl.GetHostEntries();
+            _ucosl.AddAllLinesFromHostFileIntoEntryList();
+            _ucosl.AddMissingEntriesIntoEntryList(Application.UI.MainView.UserConfiguration);
 
             //Act
             int hostEntriesBeforeRemovingNotActiveOnes = hostEntries.Count;
-            ucosl.RemoveNotActiveEntriesFromEntryList(Application.UI.MainView.UserConfiguration);
+            _ucosl.RemoveNotActiveEntriesFromEntryList(Application.UI.MainView.UserConfiguration);
             int hostEntriesAfterRemovingNotActiveOnes = hostEntries.Count;
 
             //Assert
@@ -135,18 +142,16 @@ namespace BackOnTrack.Tests
         public void AlreadyExistingAndStillActiveEntriesShouldNodGetRemovedFromHostEntryList()
         {
             //Arrange
-            DoSetupWithUnlockingAndBasicHostFileWithUCOSL();
+            DoSetupWithUnlockingAndBasicHostFileWithUcosl();
             FileModification.WriteFile(NewHostFileTwoLocation, "#Test" + Environment.NewLine + "127.0.0.1  manuelweb.at #BackOnTrackEntry");
-            var hostEntries = ucosl.GetHostEntries();
-            ucosl.AddAllLinesFromHostFileIntoEntryList();
-            SpecificProfileView profileView = CreateTestableProfileView();
-            Entry activatedEntry = Entry.CreateBlockEntry("manuelweb.at", true, true);
-            profileView.AddNewEntry(activatedEntry);
-            ucosl.AddMissingEntriesIntoEntryList(Application.UI.MainView.UserConfiguration);
+            var hostEntries = _ucosl.GetHostEntries();
+            _ucosl.AddAllLinesFromHostFileIntoEntryList();
+            CreateProfileViewWithAddedEnAndDisabledEntry();
+            _ucosl.AddMissingEntriesIntoEntryList(Application.UI.MainView.UserConfiguration);
 
             //Act
             int hostEntriesBeforeRemovingNotActiveOnes = hostEntries.Count;
-            ucosl.RemoveNotActiveEntriesFromEntryList(Application.UI.MainView.UserConfiguration);
+            _ucosl.RemoveNotActiveEntriesFromEntryList(Application.UI.MainView.UserConfiguration);
             int hostEntriesAfterRemovingNotActiveOnes = hostEntries.Count;
 
             //Assert
@@ -159,12 +164,10 @@ namespace BackOnTrack.Tests
         public void GetCorrectListOfActiveBlockEntries()
         {
             //Arrange
-            DoSetupWithUnlockingAndBasicHostFileWithUCOSL();
+            DoSetupWithUnlockingAndBasicHostFileWithUcosl();
             CreateHostFileWithSampleContent();
-            ucosl.AddAllLinesFromHostFileIntoEntryList();
-            SpecificProfileView profileView = CreateTestableProfileView();
-            Entry activatedEntry = Entry.CreateBlockEntry("manuelweb.at", true, true);
-            profileView.AddNewEntry(activatedEntry);
+            _ucosl.AddAllLinesFromHostFileIntoEntryList();
+            CreateProfileViewWithAddedEnAndDisabledEntry();
             var userConfiguration = Application.UI.MainView.UserConfiguration;
 
             //Act
@@ -172,19 +175,17 @@ namespace BackOnTrack.Tests
 
             //Assert
             result.Count.Should().Be(1);
-            result[0].Should().Be(activatedEntry.Url);
+            result[0].Should().Be(_activatedEntry.Url);
         }
 
         [TestMethod]
         public void ListOfActiveBlockEntriesDoesNotShowEntriesWithDisabledProfiles()
         {
             //Arrange
-            DoSetupWithUnlockingAndBasicHostFileWithUCOSL();
+            DoSetupWithUnlockingAndBasicHostFileWithUcosl();
             CreateHostFileWithSampleContent();
-            ucosl.AddAllLinesFromHostFileIntoEntryList();
-            SpecificProfileView profileView = CreateTestableProfileView();
-            Entry activatedEntry = Entry.CreateBlockEntry("manuelweb.at", true, true);
-            profileView.AddNewEntry(activatedEntry);
+            _ucosl.AddAllLinesFromHostFileIntoEntryList();
+            CreateProfileViewWithAddedEnAndDisabledEntry();         
             var userConfiguration = Application.UI.MainView.UserConfiguration;
 
             //Act
