@@ -56,6 +56,11 @@ namespace BackOnTrack.Services.UserConfiguration
         public CurrentUserConfiguration OpenConfiguration(string password)
         {
             string encryptedConfigurationContent = FileModification.ReadFile(ConfigurationPath);
+            return DecryptConfiguration(encryptedConfigurationContent, password);
+        }
+
+        public static CurrentUserConfiguration DecryptConfiguration(string encryptedConfigurationContent, string password)
+        {
             if (encryptedConfigurationContent != "")
             {
                 string configurationContent = EncryptingHelper.Decrypt(encryptedConfigurationContent, password);

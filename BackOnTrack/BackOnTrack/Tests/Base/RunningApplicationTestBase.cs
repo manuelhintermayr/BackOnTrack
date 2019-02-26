@@ -27,7 +27,6 @@ namespace BackOnTrack.Tests.Base
 
         public SpecificProfileView CreateTestableProfileView()
         {
-
             Profile profile = Profile.CreateProfile("Manuelweb", true, true);
             Application.UI.MainView.UserConfiguration.ProfileList.Add(profile);
 

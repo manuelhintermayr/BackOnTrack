@@ -118,7 +118,6 @@
     <Compile Include="Tests\SystemLevelEditorTests.cs" />
     <Compile Include="Tests\UserConfigurationOnSystemLevelTests.cs" />
     <Compile Include="Tests\UserConfigurationSupplierTests.cs" />
-    <Compile Include="Tests\ViewProfilesTests.cs" />
     <Compile Include="UI\MainView\Pages\About\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>

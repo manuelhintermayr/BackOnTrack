@@ -18,7 +18,8 @@ namespace BackOnTrack.WebProxy.Tests
         private CurrentUserConfiguration userConfiguration;
         private Profile newProfile;
 
-        public ProxyUserConfigurationTests()
+        [TestInitialize]
+        public void SpecificSetup()
         {
             proxyUserConfiguration = new ProxyUserConfiguration(TempFolder.Name);
             userConfiguration = new CurrentUserConfiguration();
