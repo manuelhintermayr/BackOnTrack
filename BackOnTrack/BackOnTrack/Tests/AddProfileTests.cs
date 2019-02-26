@@ -26,9 +26,9 @@ namespace BackOnTrack.Tests
 
             //Act
             bool firstProfileNameIsAlreadyUsed = AddProfile.CheckIfProfileNameIsAlreadyUsed(profile1.ProfileName);
-            runningApplication.UI.MainView.UserConfiguration.ProfileList.Add(profile1);
+            Application.UI.MainView.UserConfiguration.ProfileList.Add(profile1);
             bool secondProfileNameIsAlreadyUsed = AddProfile.CheckIfProfileNameIsAlreadyUsed(profile2.ProfileName);
-            runningApplication.UI.MainView.UserConfiguration.ProfileList.Add(profile2);
+            Application.UI.MainView.UserConfiguration.ProfileList.Add(profile2);
             bool thirdProfileNameIsAlreadyUsed = AddProfile.CheckIfProfileNameIsAlreadyUsed(profile3.ProfileName);
 
             //Assert

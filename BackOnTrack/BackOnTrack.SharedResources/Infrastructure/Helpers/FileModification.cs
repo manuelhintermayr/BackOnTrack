@@ -5,9 +5,19 @@ namespace BackOnTrack.SharedResources.Infrastructure.Helpers
 {
     public static class FileModification
     {
+        public static string HostFileLocation = "";
+
         public static string GetHostFileLocation()
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"system32\drivers\etc\hosts");
+            if (HostFileLocation == "")
+            {
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"system32\drivers\etc\hosts");
+            }
+            else
+            {
+                return HostFileLocation;
+            }
+
         }
 
         public static string ReadFile(string filename)

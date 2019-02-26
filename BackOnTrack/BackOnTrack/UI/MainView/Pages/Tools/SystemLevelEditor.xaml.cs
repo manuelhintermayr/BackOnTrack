@@ -22,7 +22,15 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
         public SystemLevelEditor()
         {
             _runningApplication = RunningApplication.Instance();
-            InitializeComponent();
+            if (!_runningApplication.UnitTestSetup)
+            {
+                InitializeComponent();
+            }
+        }
+
+        public List<HostEntry> GetListOfHostEntries()
+        {
+            return HostEntries;
         }
 
         private void LoadSystemSettings_Click(object sender, RoutedEventArgs e)
@@ -129,13 +137,16 @@ namespace BackOnTrack.UI.MainView.Pages.Tools
             EntryList.Columns.FirstOrDefault(x => x.Header.ToString() == "LineNumber").DisplayIndex = 0;
         }
 
-        private void FillList()
+        public void FillList()
         {
             HostEntries.Clear();
             CurrentLineNumber = 0;
             AddAllLinesFromHostFileIntoEntryList();
             TransformAllLinesInEntryList();
-            EntryList.Items.Refresh();
+            if (!_runningApplication.UnitTestSetup)
+            {
+                EntryList.Items.Refresh();
+            }
         }
 
         private void TransformAllLinesInEntryList()

@@ -87,14 +87,5 @@ namespace BackOnTrack.Tests
             secondAdd.Should().NotThrow<NewEntryException>();
             thirdAdd.Should().Throw<NewEntryException>();
         }
-
-        public SpecificProfileView CreateTestableProfileView()
-        {
-            Profile profile = new Profile() { ProfileName = "Manuelweb", EntryList = new List<Entry>() };
-            runningApplication.UI.MainView.UserConfiguration.ProfileList.Add(profile);
-
-            SpecificProfileView profileView = new SpecificProfileView("Manuelweb");
-            return profileView;
-        }
     }
 }

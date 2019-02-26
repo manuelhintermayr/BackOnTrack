@@ -14,14 +14,37 @@ namespace BackOnTrack.Tests.Base
     [TestClass]
     public class RunningApplicationTestBase : TestBase
     {
-        public RunningApplication runningApplication;
+        public RunningApplication Application;
+        public string NewHostFileTwoLocation;
 
         public void SetupUnlockedRunningApplication()
         {
             string password = "admin";
-            runningApplication = new RunningApplication(true, TempFolder.Name);
-            runningApplication.Services.UserConfiguration.CreateNewConfiguration(password);
-            runningApplication.UI.LoginInMainViewWithoutShowing(password);
+            Application = new RunningApplication(true, TempFolder.Name);
+            Application.Services.UserConfiguration.CreateNewConfiguration(password);
+            Application.UI.LoginInMainViewWithoutShowing(password);
+        }
+
+        public SpecificProfileView CreateTestableProfileView()
+        {
+
+            Profile profile = Profile.CreateProfile("Manuelweb", true, true);
+            Application.UI.MainView.UserConfiguration.ProfileList.Add(profile);
+
+            SpecificProfileView profileView = new SpecificProfileView("Manuelweb");
+            return profileView;
+        }
+
+        public void DoSetupWithUnlockingAndBasicHostFile()
+        {
+            SetupUnlockedRunningApplication();
+            NewHostFileTwoLocation = $"{TempFolder.Name}{@"\hosts"}";
+            FileModification.HostFileLocation = NewHostFileTwoLocation;
+        }
+
+        public void CreateHostFileWithSampleContent()
+        {
+            FileModification.WriteFile(NewHostFileTwoLocation, "#Test" + Environment.NewLine + "127.0.0.1 facebook.com");
         }
     }
 }

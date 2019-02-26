@@ -10,13 +10,19 @@ namespace BackOnTrack.Services.UserConfiguration
 {
     public class UserConfigurationOnSystemLevel
     {
-        private List<HostEntry> HostEntries = new List<HostEntry>();
+        private List<HostEntry> _hostEntries = new List<HostEntry>();
         private RunningApplication _runningApplication;
 
         public UserConfigurationOnSystemLevel()
         {
             _runningApplication = RunningApplication.Instance();
         }
+
+        public List<HostEntry> GetHostEntries()
+        {
+            return _hostEntries;
+        }
+
         public void ApplyingConfiguration(CurrentUserConfiguration newConfiguration)
         {
             if (!HostFileExists())
@@ -29,7 +35,7 @@ namespace BackOnTrack.Services.UserConfiguration
             RemoveNotActiveEntriesFromEntryList(newConfiguration);
 
             SaveHostFile();
-            HostEntries.Clear();
+            _hostEntries.Clear();
         }
 
         #region HostFile manipulation
@@ -76,7 +82,7 @@ namespace BackOnTrack.Services.UserConfiguration
         {
             return FileModification.ReadFile(FileModification.GetHostFileLocation());
         }
-        private void AddAllLinesFromHostFileIntoEntryList()
+        public void AddAllLinesFromHostFileIntoEntryList()
         {
             string fileContent = GetHostFileContent();
 
@@ -86,17 +92,17 @@ namespace BackOnTrack.Services.UserConfiguration
                 while ((line = reader.ReadLine()) != null)
                 {
                     HostEntry newEntry = new HostEntry() { Content = line };
-                    HostEntries.Add(newEntry);
+                    _hostEntries.Add(newEntry);
                 }
             }
 
         }
 
-        private void AddMissingEntriesIntoEntryList(CurrentUserConfiguration newConfiguration)
+        public void AddMissingEntriesIntoEntryList(CurrentUserConfiguration newConfiguration)
         {
             List<string> listOfActiveBlockEntries = GetListOfActiveBlockEntries(newConfiguration);
 
-            List<string> stringListOfEntries = HostEntries.Select(x => x.Content).ToList();
+            List<string> stringListOfEntries = _hostEntries.Select(x => x.Content).ToList();
 
             if (listOfActiveBlockEntries.Count != 0)
             {
@@ -105,26 +111,26 @@ namespace BackOnTrack.Services.UserConfiguration
                     string entryLine = $"127.0.0.1  {blockedAddress} #BackOnTrackEntry";
                     if (!stringListOfEntries.Contains(entryLine))
                     {
-                        HostEntries.Add(new HostEntry() { Content = entryLine });
+                        _hostEntries.Add(new HostEntry() { Content = entryLine });
                     }
                 }
             }
         }
 
-        private void RemoveNotActiveEntriesFromEntryList(CurrentUserConfiguration newConfiguration)
+        public void RemoveNotActiveEntriesFromEntryList(CurrentUserConfiguration newConfiguration)
         {
             List<string> listOfActiveBlockEntries = GetListOfActiveBlockEntries(newConfiguration).Select(x=> $"127.0.0.1  {x} #BackOnTrackEntry").ToList();
 
-            for (int i = HostEntries.Count - 1; i >= 0; i--)
+            for (int i = _hostEntries.Count - 1; i >= 0; i--)
             {
-                var currentHostEntry = HostEntries[i];
+                var currentHostEntry = _hostEntries[i];
                 if (currentHostEntry.Content.Contains("#BackOnTrackEntry"))
                 {
                     //this is a #BackOnTrackEntry
                     if (!listOfActiveBlockEntries.Contains(currentHostEntry.Content))
                     {
                         //old entry
-                        HostEntries.RemoveAt(i);
+                        _hostEntries.RemoveAt(i);
                     }
                 }
             }
@@ -133,11 +139,11 @@ namespace BackOnTrack.Services.UserConfiguration
         private string BuildHostFileContent()
         {
             string hostFileContent = "";
-            for (int i = 0; i < HostEntries.Count; i++)
+            for (int i = 0; i < _hostEntries.Count; i++)
             {
-                var hostEntry = HostEntries[i];
+                var hostEntry = _hostEntries[i];
                 hostFileContent = $"{hostFileContent}{hostEntry.Content}";
-                if ((i + 1) != HostEntries.Count) //checking for last entry 
+                if ((i + 1) != _hostEntries.Count) //checking for last entry 
                 {
                     hostFileContent = $"{hostFileContent}{Environment.NewLine}";
                 }
@@ -146,7 +152,7 @@ namespace BackOnTrack.Services.UserConfiguration
             return hostFileContent;
         }
 
-        private List<string> GetListOfActiveBlockEntries(CurrentUserConfiguration usedConfiguration)
+        public static List<string> GetListOfActiveBlockEntries(CurrentUserConfiguration usedConfiguration)
         {
             return (
                 from profile in usedConfiguration.ProfileList

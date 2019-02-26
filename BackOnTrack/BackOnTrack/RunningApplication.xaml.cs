@@ -90,6 +90,7 @@ namespace BackOnTrack
             try
             {
                 //todo: set _programSettingsPath based on argument
+                //todo: set hostFileLocation programically
                 Services = new ServicesKeyword();
                 UI = new UiKeyword(!settings.Contains("-startWithoutUi"));
 
