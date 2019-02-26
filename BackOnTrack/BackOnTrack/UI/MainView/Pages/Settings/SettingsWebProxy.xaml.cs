@@ -28,14 +28,8 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
 
         private void ProxyPortAddress_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Regex regex = new Regex("^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
             string newValue = ProxyPortAddress.Text;
-            bool newValueIsCorrect = regex.IsMatch(newValue);
-
-            if (newValue.StartsWith("0") && newValue.Length > 1)
-            {
-                newValueIsCorrect = false;
-            }
+            bool newValueIsCorrect = IsValidPortNumber(newValue);
 
             if (newValue == "")
             {
@@ -46,6 +40,20 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
                 //reset
                 _runningApplication.Services.ProgramConfiguration.TempConfiguration.ProxyPortNumber = _oldWebProxyPortNumber;
             }
+        }
+
+        public static bool IsValidPortNumber(string portValue)
+        {
+            Regex regex = new Regex("^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
+            
+            bool newValueIsCorrect = regex.IsMatch(portValue);
+
+            if (portValue.StartsWith("0") && portValue.Length > 1)
+            {
+                newValueIsCorrect = false;
+            }
+
+            return newValueIsCorrect;
         }
     }
 }

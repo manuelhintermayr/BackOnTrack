@@ -16,8 +16,7 @@ namespace BackOnTrack.Services.UserConfiguration
         {
             _runningApplication = RunningApplication.Instance();
             ConfigurationPath = 
-                $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.backOnTrack\\profiles.settings";
-            //todo: ^make configurable for testing
+                $"{RunningApplication.ProgramSettingsPath()}\\.backOnTrack\\profiles.settings";
             systemLevel = new UserConfigurationOnSystemLevel();
         }
 
@@ -57,6 +56,11 @@ namespace BackOnTrack.Services.UserConfiguration
         public CurrentUserConfiguration OpenConfiguration(string password)
         {
             string encryptedConfigurationContent = FileModification.ReadFile(ConfigurationPath);
+            return DecryptConfiguration(encryptedConfigurationContent, password);
+        }
+
+        public static CurrentUserConfiguration DecryptConfiguration(string encryptedConfigurationContent, string password)
+        {
             if (encryptedConfigurationContent != "")
             {
                 string configurationContent = EncryptingHelper.Decrypt(encryptedConfigurationContent, password);

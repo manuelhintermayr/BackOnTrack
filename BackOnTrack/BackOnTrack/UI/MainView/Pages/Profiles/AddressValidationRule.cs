@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
@@ -41,6 +42,23 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             Match correctAddress = Regex.Match(addressToCheck, correctAddressPattern, RegexOptions.IgnoreCase);
 
             return correctAddress.Success;
+        }
+
+        public static bool IsCorrectRegex(string regexToCheck)
+        {
+            if (string.IsNullOrEmpty(regexToCheck)) return false;
+            if (regexToCheck == "") return false;
+
+            try
+            {
+                Regex.Match("", regexToCheck);
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public static bool IsAddressAlreadyUsed(string addressToCheck)

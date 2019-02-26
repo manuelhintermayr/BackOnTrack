@@ -147,7 +147,5 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
         }
 
         #endregion
-
-
     }
 }

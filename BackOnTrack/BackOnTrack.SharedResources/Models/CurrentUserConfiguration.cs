@@ -85,6 +85,17 @@ namespace BackOnTrack.SharedResources.Models
                 EntryType = EntryType.Block
             };
         }
+        public static Entry CreateRegexBlockEntry(string url, bool proxyBlockingIsEnabled, bool isEnabled = true)
+        {
+            return new Entry()
+            {
+                Url = url,
+                IsEnabled = isEnabled,
+                SystemLevelBlockingIsEnabled = false,
+                ProxyBlockingIsEnabled = proxyBlockingIsEnabled,
+                EntryType = EntryType.RegexBlock
+            };
+        }
         public static Entry CreateRedirectEntry(string url, string redirectUrl, bool systemLevelBlockingIsEnabled, bool proxyBlockingIsEnabled, bool isEnabled = true)
         {
             return new Entry()
@@ -97,8 +108,20 @@ namespace BackOnTrack.SharedResources.Models
                 EntryType = EntryType.Redirect
             };
         }
+        public static Entry CreateRegexRedirectEntry(string url, string redirectUrl, bool proxyBlockingIsEnabled, bool isEnabled = true)
+        {
+            return new Entry()
+            {
+                Url = url,
+                RedirectUrl = redirectUrl,
+                IsEnabled = isEnabled,
+                SystemLevelBlockingIsEnabled = false,
+                ProxyBlockingIsEnabled = proxyBlockingIsEnabled,
+                EntryType = EntryType.RegexRedirect
+            };
+        }
     }
 
-    public enum EntryType { Block, Redirect };
+    public enum EntryType { Block, Redirect, RegexBlock, RegexRedirect };
 
 }
