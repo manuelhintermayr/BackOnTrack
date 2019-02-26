@@ -140,7 +140,7 @@ namespace BackOnTrack
                             }
                             catch (Exception e)
                             {
-                                Messages.CreateMessageBox(e.Message, "-", true);
+                                Messages.CreateMessageBox(_programSettingsPath+"="+e.Message, "Error", true);
                             }   
                             FileModification.HostFileLocation = _programSettingsPath + "\\hosts";
                         }
