@@ -133,11 +133,16 @@ namespace BackOnTrack
                     {
                         if (argument.Contains("-programPath"))
                         {
-                            _programSettingsPath = argument.Substring(14, (argument.Length - 15)).Replace("%20", " ");
-                            if (!FileModification.FileExists(_programSettingsPath))
+                            _programSettingsPath = argument.Substring(13, (argument.Length - 13)).Replace("%20", " ");
+                            try
                             {
-                                _programSettingsPath = "";
+                                FileModification.CreateFolderIfNotExists(_programSettingsPath);
                             }
+                            catch (Exception e)
+                            {
+                                Messages.CreateMessageBox(e.Message, "-", true);
+                            }   
+                            FileModification.HostFileLocation = _programSettingsPath + "\\hosts";
                         }
                     }
                 }

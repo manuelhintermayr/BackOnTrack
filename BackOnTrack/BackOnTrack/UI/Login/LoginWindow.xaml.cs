@@ -90,7 +90,7 @@ namespace BackOnTrack.UI.Login
         {
             EnableBlur();
             MouseLeftButtonDown += delegate { DragMove(); };
-            PassworBox.Background = _correctLoginColor;
+            PasswordBox.Background = _correctLoginColor;
         }
 
         private void EnableBlur()
@@ -135,9 +135,9 @@ namespace BackOnTrack.UI.Login
 
         private void PassworBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (PassworBox.Background == _wrongLoginColor)
+            if (PasswordBox.Background == _wrongLoginColor)
             {
-                PassworBox.Background = _correctLoginColor;
+                PasswordBox.Background = _correctLoginColor;
             }
         }
 
@@ -150,7 +150,7 @@ namespace BackOnTrack.UI.Login
 
         public void ValidateLogin()
         {
-            string password = PassworBox.Password;
+            string password = PasswordBox.Password;
             bool configurationExists = _runningApplication
                 .Services
                 .UserConfiguration
@@ -165,13 +165,13 @@ namespace BackOnTrack.UI.Login
 
                 if (passwordCorrect)
                 {
-                    PassworBox.Password = "";
-                    PassworBox.Background = _correctLoginColor;
+                    PasswordBox.Password = "";
+                    PasswordBox.Background = _correctLoginColor;
                     _runningApplication.UI.OpenMainView(password);
                 }
                 else
                 {
-                    PassworBox.Background = _wrongLoginColor;
+                    PasswordBox.Background = _wrongLoginColor;
                 }
                 
             }
@@ -182,8 +182,8 @@ namespace BackOnTrack.UI.Login
                     .UserConfiguration
                     .CreateNewConfiguration(password);
                 Messages.CreateMessageBox("Created new profile!", "Profile was successfully created.", false);
-                PassworBox.Password = "";
-                PassworBox.Background = _correctLoginColor;
+                PasswordBox.Password = "";
+                PasswordBox.Background = _correctLoginColor;
                 _runningApplication.UI.OpenMainView(password);
             }
         }
