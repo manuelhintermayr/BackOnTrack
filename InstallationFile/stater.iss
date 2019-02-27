@@ -5,7 +5,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{06911980-D088-4A1A-90E4-698249508343}
+AppId={{1C936F13-8A8D-4D98-A42F-99FB392BF58F}
 AppName=Back On Track
 AppVersion=1.0
 AppPublisher=Manuelweb
@@ -121,7 +121,7 @@ end;
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 var
-  programRunning: bool;
+  foundProgramData: Boolean;
   userDirPath: String;
 
 begin
@@ -131,11 +131,10 @@ begin
         userDirPath := ExpandConstant('{userdocs}\..\.backOnTrack'); 
         if DirExists(userDirPath) then
         begin
-              MsgBox('CurUninstallStepChanged:' #13#13 'Found Back On Track Settings, do you wish them to delete?', mbInformation, MB_OK)         
+          foundProgramData := MsgBox('Found Back On Track Settings, do you wish them to delete?', mbConfirmation, MB_YESNO) = idYes;
+            if foundProgramData = True then
+              MsgBox('InitializeUninstall:' #13#13 'Ok deleting.', mbInformation, MB_OK);
         end;
-
-        MsgBox('CurUninstallStepChanged:' #13#13 'Uninstall just finished.'+userDirPath, mbInformation, MB_OK);
-        // ...insert code to perform post-uninstall tasks here...
       end;
   end;
 end;
