@@ -120,9 +120,6 @@ namespace BackOnTrack
 
         private void DoUiTestsSetup(string[] settings)
         {
-            //todo: set _programSettingsPath based on argument
-            //todo: set hostFileLocation programically
-
             if (!UnitTestSetup)
             {
                 if (settings.Contains("-uiTesting"))
