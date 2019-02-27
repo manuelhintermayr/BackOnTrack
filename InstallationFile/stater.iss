@@ -133,7 +133,10 @@ begin
         begin
           foundProgramData := MsgBox('Found Back On Track Settings, do you wish them to delete?', mbConfirmation, MB_YESNO) = idYes;
             if foundProgramData = True then
-              MsgBox('InitializeUninstall:' #13#13 'Ok deleting.', mbInformation, MB_OK);
+              begin 
+                DelTree(userDirPath, True, True, True);
+                MsgBox('Back on Track Settings deleted!', mbInformation, MB_OK);
+              end;
         end;
       end;
   end;
