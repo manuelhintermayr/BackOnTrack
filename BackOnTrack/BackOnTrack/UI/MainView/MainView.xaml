@@ -8,6 +8,7 @@ LogoData="F1 M 54.8392,24.4749C 55.3507,24.2457 55.8111,24.1311 56.2202,24.1311C
 ContentSource="UI/MainView/Pages/About/Introduction.xaml"
 WindowStartupLocation="CenterScreen"
 Width="730" Height="700" Closed="ModernWindow_Closed">
+    <!-- Used code from https://github.com/firstfloorsoftware/mui -->
 
     <mui:ModernWindow.TitleLinks>
     <mui:Link DisplayName="Settings" Source="/UI/MainView/Pages/Settings/Settings.xaml" />

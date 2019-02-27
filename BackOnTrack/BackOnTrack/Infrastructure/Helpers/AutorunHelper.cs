@@ -2,6 +2,7 @@
 {
     public class AutorunHelper
     {
+        //got class partly from https://dotnet-snippets.de/snippet/add-remove-registry-entries-for-windows-startup/438
         string runKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
         private string AppName = "BackOnTrack";
         private Microsoft.Win32.RegistryKey startupKey;

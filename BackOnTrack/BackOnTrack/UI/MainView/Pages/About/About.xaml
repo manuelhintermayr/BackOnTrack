@@ -14,7 +14,6 @@
                 <mui:BBCodeBlock Margin="0,0,0,32" xml:space="preserve">Back On Track was developed by [url=https://manuelweb.at/]Manuel Hintermayr[/url] in 2018/2019 as the diploma project for the [url=https://www.uclan.ac.uk/]University of Central Lancashire[/url]. Click here to see the project site.
                     
 Current Version is: [b]1.0.0[/b]</mui:BBCodeBlock>
-                <!--TODO: bind program version, add "here"-projectPage -->
 
                 <TextBlock Text="USED FRAMEWORKS / CODES" Style="{StaticResource Heading2}" />
                 <mui:BBCodeBlock xml:space="preserve">» Blur-effect from [url=https://github.com/riverar/sample-win10-aeroglass]here[/url]
