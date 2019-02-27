@@ -55,7 +55,6 @@ Source: "Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Inte
 Source: "Microsoft.VisualStudio.TestPlatform.TestFramework.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "rootCert.pfx"; DestDir: "{app}"; Flags: ignoreversion
 Source: "StreamExtended.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "System.ValueTuple.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "System.Windows.Controls.DataVisualization.Toolkit.dll"; DestDir: "{app}"; Flags: ignoreversion
