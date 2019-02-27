@@ -69,3 +69,60 @@ Name: "{commondesktop}\Back On Track"; Filename: "{app}\BackOnTrack.exe"; Tasks:
 [Run]
 Filename: "{app}\BackOnTrack.exe"; Description: "{cm:LaunchProgram,Back On Track}"; Flags: nowait postinstall skipifsilent
 
+[Code]
+function IsAppRunning(const FileName : string): Boolean;
+//got code from https://stackoverflow.com/questions/9941293/how-to-check-with-inno-setup-if-a-process-is-running-at-a-windows-2008-r2-64bit
+var
+    FSWbemLocator: Variant;
+    FWMIService   : Variant;
+    FWbemObjectSet: Variant;
+begin
+    Result := false;
+    FSWbemLocator := CreateOleObject('WBEMScripting.SWBEMLocator');
+    FWMIService := FSWbemLocator.ConnectServer('', 'root\CIMV2', '', '');
+    FWbemObjectSet :=
+      FWMIService.ExecQuery(
+        Format('SELECT Name FROM Win32_Process Where Name="%s"', [FileName]));
+    Result := (FWbemObjectSet.Count > 0);
+    FWbemObjectSet := Unassigned;
+    FWMIService := Unassigned;
+    FSWbemLocator := Unassigned;
+end;
+
+
+function InitializeUninstall(): Boolean;
+begin
+  
+  if(IsAppRunning( 'BackOnTrack.exe' )) then
+    begin
+      Result := MsgBox('Back On Track is still running. Should the uninstaller close the process?' #13#13 'Please make sure that the WebProxy is not enabled before you press ok.', mbConfirmation, MB_YESNO) = idYes;
+      if Result = False then
+        MsgBox('Uninstall aborted.', mbInformation, MB_OK);
+    end
+  else
+    begin
+      Result := true
+    end;
+
+end;
+
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+var
+  programRunning: bool;
+  userDirPath: String;
+
+begin
+  case CurUninstallStep of
+    usPostUninstall:
+      begin
+        userDirPath := ExpandConstant('{userdocs}\..\.backOnTrack'); 
+        if DirExists(userDirPath) then
+        begin
+              MsgBox('CurUninstallStepChanged:' #13#13 'Found Back On Track Settings, do you wish them to delete?', mbInformation, MB_OK)         
+        end;
+
+        MsgBox('CurUninstallStepChanged:' #13#13 'Uninstall just finished.'+userDirPath, mbInformation, MB_OK);
+        // ...insert code to perform post-uninstall tasks here...
+      end;
+  end;
+end;
