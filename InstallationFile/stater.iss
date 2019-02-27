@@ -18,6 +18,7 @@ SetupIconFile=logo.ico
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
+CloseApplications=force
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -89,13 +90,25 @@ begin
     FSWbemLocator := Unassigned;
 end;
 
+procedure TaskKill(FileName: String);
+//got code from https://stackoverflow.com/questions/33776405/kill-process-before-reinstall-using-taskkill-f-im-in-inno-setup
+var
+  ResultCode: Integer;
+begin
+    Exec(ExpandConstant('taskkill.exe'), '/f /im ' + '"' + FileName + '"', '', SW_HIDE,
+     ewWaitUntilTerminated, ResultCode);
+end;
 
 function InitializeUninstall(): Boolean;
 begin
   
-  if(IsAppRunning( 'BackOnTrack.exe' )) then
+  if(IsAppRunning('BackOnTrack.exe')) then
     begin
       Result := MsgBox('Back On Track is still running. Should the uninstaller close the process?' #13#13 'Please make sure that the WebProxy is not enabled before you press ok.', mbConfirmation, MB_YESNO) = idYes;
+      if Result = True then
+        begin
+          TaskKill('BackOnTrack.exe')
+        end;
       if Result = False then
         MsgBox('Uninstall aborted.', mbInformation, MB_OK);
     end
