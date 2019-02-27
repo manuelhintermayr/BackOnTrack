@@ -69,6 +69,7 @@ namespace BackOnTrack
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
+            //got part from https://www.codeproject.com/Articles/32908/C-Single-Instance-App-With-the-Ability-To-Restore
             if (msg == SingleInstance.WM_SHOWFIRSTINSTANCE)
             {
                 ShowWindow();
