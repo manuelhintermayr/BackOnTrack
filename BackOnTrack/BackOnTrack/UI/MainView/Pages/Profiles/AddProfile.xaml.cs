@@ -45,8 +45,8 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
             }
             else
             {
-                Profile newProfile = Profile.CreateProfile(newProfileName, EnableBlockingOnProxyLevel.IsChecked.Value,
-                    EnableBlockingOnSystemLevel.IsChecked.Value);
+                Profile newProfile = Profile.CreateProfile(newProfileName, EnableBlockingOnSystemLevel.IsChecked.Value,
+                    EnableBlockingOnProxyLevel.IsChecked.Value);
                 _runningApplication.UI.MainView.UserConfiguration.ProfileList.Add(newProfile);
 
                 NewProfileName.Text = "";
