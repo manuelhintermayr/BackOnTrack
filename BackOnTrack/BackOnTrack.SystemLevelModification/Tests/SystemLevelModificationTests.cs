@@ -13,7 +13,9 @@ namespace BackOnTrack.SystemLevelModification.Tests
         private SystemLevelModification _systemLevelModification;
 
 		[TestMethod]
-		public void CheckCorrectWindowsHostsLocationFile()
+        [TestProperty("Number", "44")]
+        [TestProperty("Type", "Integration")]
+        public void CheckCorrectWindowsHostsLocationFile()
 		{
             //Arrange & Act
             _systemLevelModification = new SystemLevelModification(true);
@@ -23,6 +25,8 @@ namespace BackOnTrack.SystemLevelModification.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "3")]
+        [TestProperty("Type", "Unit")]
         public void CheckRewriteCorrectWindowsHostsLocationFile()
         {
             //Arrange & Act
@@ -34,7 +38,9 @@ namespace BackOnTrack.SystemLevelModification.Tests
         }
 
         [TestMethod]
-        public void CheckCorrectHostWasCreated()
+        [TestProperty("Number", "10")]
+        [TestProperty("Type", "Integration")]
+        public void CheckCorrectHostFileWasCreated()
         {
             //Arrange
             string newHostFileLocation = $"{TempFolder.Name}{@"\hosts"}";
@@ -51,6 +57,8 @@ namespace BackOnTrack.SystemLevelModification.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "38")]
+        [TestProperty("Type", "Integration")]
         public void CheckHostFileWasReplaced()
         {
             //Arrange

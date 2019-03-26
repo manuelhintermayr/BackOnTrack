@@ -22,6 +22,8 @@ namespace BackOnTrack.SharedResources.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "17")]
+        [TestProperty("Type", "Unit")]
         public void EntryTypeIsCorrectTypeBasedOnDifferentCreateMethod()
         {
             //Arrange & Act
@@ -35,6 +37,8 @@ namespace BackOnTrack.SharedResources.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "37")]
+        [TestProperty("Type", "Unit")]
         public void ProfileContainsExactlyAmountOfEntriesThatWereAdded()
         {
             //Arrange

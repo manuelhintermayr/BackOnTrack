@@ -15,6 +15,8 @@ namespace BackOnTrack.Tests
     public class UserConfigurationSupplierTests : TestBase
     {
         [TestMethod]
+        [TestProperty("Number", "13")]
+        [TestProperty("Type", "Unit")]
         public void ConfigurationWasSuccessfullyLoadedFromEnryptedText()
         {
             //Arrange

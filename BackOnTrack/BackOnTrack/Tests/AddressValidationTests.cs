@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using BackOnTrack.Infrastructure.Exceptions;
 using BackOnTrack.SharedResources.Models;
 using BackOnTrack.Tests.Base;
@@ -19,6 +20,8 @@ namespace BackOnTrack.Tests
         [DataRow("manuelweb.at")]
         [DataRow("google.com")]
         [DataRow("1.2.3.4")]
+        [TestProperty("Number", "22")]
+        [TestProperty("Type", "Unit")]
         public void IsCorrectAddress(string address)
         {
             //Arrange & Act
@@ -33,6 +36,8 @@ namespace BackOnTrack.Tests
         [DataRow("https://www.manuelweb")]
         [DataRow("+#")]
         [DataRow("go/ogle.com")]
+        [TestProperty("Number", "42")]
+        [TestProperty("Type", "Unit")]
         public void IsInvalidAddress(string address)
         {
             //Arrange & Act
@@ -45,6 +50,8 @@ namespace BackOnTrack.Tests
         [DataTestMethod]
         [DataRow("\\b(demo)\\b")]
         [DataRow("http\\b")]
+        [TestProperty("Number", "4")]
+        [TestProperty("Type", "Unit")]
         public void IsCorrectRegex(string pattern)
         {
             //Arrange & Act
@@ -57,6 +64,8 @@ namespace BackOnTrack.Tests
         [DataTestMethod]
         [DataRow("\\(demo)\\b")]
         [DataRow("\\b(x]")]
+        [TestProperty("Number", "32")]
+        [TestProperty("Type", "Unit")]
         public void IsInvalidRegex(string pattern)
         {
             //Arrange & Act
@@ -67,6 +76,8 @@ namespace BackOnTrack.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "11")]
+        [TestProperty("Type", "Integration")]
         public void FailToAddTheSameAddressTwice()
         {
             //Arrange

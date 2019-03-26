@@ -38,6 +38,8 @@ namespace BackOnTrack.Tests
 
 
         [TestMethod]
+        [TestProperty("Number", "28")]
+        [TestProperty("Type", "Integration")]
         public void LoadingEntriesFromNoExistingHostFileShouldPutZeroEntriesIntoTheHostEntryList()
         {
             //Arrange
@@ -51,6 +53,8 @@ namespace BackOnTrack.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "6")]
+        [TestProperty("Type", "Integration")]
         public void LoadingEntriesFromEmptyHostFileShouldPutZeroEntriesIntoTheHostEntryList()
         {
             //Arrange
@@ -65,6 +69,8 @@ namespace BackOnTrack.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "39")]
+        [TestProperty("Type", "Integration")]
         public void EntryFromHostFileShouldHaveBeenPutCorrectlyIntoTheHostEntryList()
         {
             //Arrange
@@ -82,6 +88,8 @@ namespace BackOnTrack.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "9")]
+        [TestProperty("Type", "Integration")]
         public void EntryFromProfileWhereAddedCorrectlyToHostEntryList()
         {
             //Arrange
@@ -100,6 +108,8 @@ namespace BackOnTrack.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "35")]
+        [TestProperty("Type", "Integration")]
         public void EntriesFromDisabledProfileShouldNotBeAddedToHostEntryList()
         {
             //Arrange
@@ -119,6 +129,8 @@ namespace BackOnTrack.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "34")]
+        [TestProperty("Type", "Integration")]
         public void NotActiveBackOnTrackEntriesShouldGetRemovedFromHostEntryList()
         {
             //Arrange
@@ -139,7 +151,9 @@ namespace BackOnTrack.Tests
         }
 
         [TestMethod]
-        public void AlreadyExistingAndStillActiveEntriesShouldNodGetRemovedFromHostEntryList()
+        [TestProperty("Number", "26")]
+        [TestProperty("Type", "Integration")]
+        public void AlreadyExistingAndStillActiveEntriesShouldNotGetRemovedFromHostEntryList()
         {
             //Arrange
             DoSetupWithUnlockingAndBasicHostFileWithUcosl();
@@ -161,6 +175,8 @@ namespace BackOnTrack.Tests
 
 
         [TestMethod]
+        [TestProperty("Number", "36")]
+        [TestProperty("Type", "Integration")]
         public void GetCorrectListOfActiveBlockEntries()
         {
             //Arrange
@@ -179,6 +195,8 @@ namespace BackOnTrack.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "40")]
+        [TestProperty("Type", "Integration")]
         public void ListOfActiveBlockEntriesDoesNotShowEntriesWithDisabledProfiles()
         {
             //Arrange
