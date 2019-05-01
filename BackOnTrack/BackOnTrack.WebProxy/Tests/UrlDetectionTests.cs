@@ -12,6 +12,8 @@ namespace BackOnTrack.WebProxy.Tests
         [DataRow("\\b(demo)\\b", "https://financeviewer.manuelweb.at/demo/")]
         [DataRow("\\b(demo)\\b", "https://www.google.at/search?client=opera&q=demo&sourceid=opera&ie=UTF-8&oe=UTF-8")]
         [DataRow("http\\b", "http://www.helloworld.com")]
+        [TestProperty("Number", "19")]
+        [TestProperty("Type", "Unit")]
         public void UrlIsMatchWithPattern(string pattern, string address)
         {
             //Arrange & Act
@@ -24,6 +26,8 @@ namespace BackOnTrack.WebProxy.Tests
         [DataTestMethod]
         [DataRow("\\b(demo)\\b", "https://financeviewer.manuelweb.at/demostration/")]
         [DataRow("http\\b", "https://www.helloworld.com")]
+        [TestProperty("Number", "16")]
+        [TestProperty("Type", "Unit")]
         public void UrlIsNotAMatchWithPattern(string pattern, string address)
         {
             //Arrange & Act

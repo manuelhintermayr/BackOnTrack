@@ -27,6 +27,8 @@ namespace BackOnTrack.WebProxy.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "41")]
+        [TestProperty("Type", "Unit")]
         public void ListsShouldBeEmptyAfterInitialisation()
         {
             //Arrange & Act
@@ -40,6 +42,8 @@ namespace BackOnTrack.WebProxy.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "33")]
+        [TestProperty("Type", "Unit")]
         public void ListsShouldBeEmptyAfterInsertingEmptyUserConfiguration()
         {
             //Arrange
@@ -56,6 +60,8 @@ namespace BackOnTrack.WebProxy.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "30")]
+        [TestProperty("Type", "Unit")]
         public void BlockedSitesInProfileShouldBeInNormalBlockList()
         {
             //Arrange
@@ -81,7 +87,9 @@ namespace BackOnTrack.WebProxy.Tests
         }
 
         [TestMethod]
-        public void BlockedSitesInProfileShouldBeInRegexBlockList()
+        [TestProperty("Number", "31")]
+        [TestProperty("Type", "Unit")]
+        public void RegexBlockedSitesInProfileShouldBeInRegexBlockList()
         {
             //Arrange
             var blockEntry1 = Entry.CreateRegexBlockEntry("google.com", true);
@@ -106,6 +114,8 @@ namespace BackOnTrack.WebProxy.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "8")]
+        [TestProperty("Type", "Unit")]
         public void RedirectSitesInProfileShouldBeInNormalRedirectList()
         {
             //Arrange
@@ -129,7 +139,9 @@ namespace BackOnTrack.WebProxy.Tests
         }
 
         [TestMethod]
-        public void RedirectSitesInProfileShouldBeInRegexRedirectList()
+        [TestProperty("Number", "5")]
+        [TestProperty("Type", "Unit")]
+        public void RegexRedirectSitesInProfileShouldBeInRegexRedirectList()
         {
             //Arrange
             var redirectEntry1 = Entry.CreateRegexRedirectEntry("google.com", "wikipedia.org", true, true);
@@ -152,6 +164,8 @@ namespace BackOnTrack.WebProxy.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "43")]
+        [TestProperty("Type", "Unit")]
         public void DoNotAddDisabledBlockEntries()
         {
             //Arrange
@@ -169,6 +183,8 @@ namespace BackOnTrack.WebProxy.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "24")]
+        [TestProperty("Type", "Unit")]
         public void DoNotAddDisabledRegexBlockEntries()
         {
             //Arrange
@@ -187,6 +203,8 @@ namespace BackOnTrack.WebProxy.Tests
 
 
         [TestMethod]
+        [TestProperty("Number", "12")]
+        [TestProperty("Type", "Unit")]
         public void DoNotAddDisabledRedirectEntries()
         {
             //Arrange
@@ -204,6 +222,8 @@ namespace BackOnTrack.WebProxy.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "14")]
+        [TestProperty("Type", "Unit")]
         public void DoNotAddDisabledRegexRedirectEntries()
         {
             //Arrange
@@ -221,6 +241,8 @@ namespace BackOnTrack.WebProxy.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "23")]
+        [TestProperty("Type", "Unit")]
         public void ThereShouldBeNoEntriesForDisabledProfile()
         {
             //Arrange
@@ -251,7 +273,7 @@ namespace BackOnTrack.WebProxy.Tests
         private void AddProfileAndApplyConfiguration()
         {
             userConfiguration.ProfileList.Add(newProfile);
-            proxyUserConfiguration.ApplyUserConfiguration(userConfiguration);
+            proxyUserConfiguration.ApplyUserConfiguration(userConfiguration, false);
         }
     }
 }

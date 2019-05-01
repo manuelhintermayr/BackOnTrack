@@ -17,6 +17,8 @@ namespace BackOnTrack.Tests
         [DataRow("0")]
         [DataRow("1")]
         [DataRow("65535")]
+        [TestProperty("Number", "25")]
+        [TestProperty("Type", "Unit")]
         public void IsValidPortNumber(string portValue)
         {
             //Arrange & Act
@@ -34,6 +36,8 @@ namespace BackOnTrack.Tests
         [DataRow("01")]
         [DataRow("")]
         [DataRow("x")]
+        [TestProperty("Number", "29")]
+        [TestProperty("Type", "Unit")]
         public void IsInvalidPortNumber(string portValue)
         {
             //Arrange & Act

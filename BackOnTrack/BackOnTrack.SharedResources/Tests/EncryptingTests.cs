@@ -20,6 +20,8 @@ namespace BackOnTrack.SharedResources.Tests
             "4/OV20hCRXzpKDchcistKntgHVqPTwbCdbtM88dDma91emA4b1kCH72Z+z/diWb/U0w6BwfqrFblSijdpoq4s4FzDynZ8GLYXNyX3OWxLmZ1zlNuuzkDGv72lt4eJvFm";
 
         [TestMethod]
+        [TestProperty("Number", "20")]
+        [TestProperty("Type", "Unit")]
         public void DecryptTextCorrectly()
         {
             //Arrange & Act
@@ -30,6 +32,8 @@ namespace BackOnTrack.SharedResources.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "15")]
+        [TestProperty("Type", "Unit")]
         public void EverytimeADifferentOutputForTheSamePassPhrase()
         {
             //Arrange & Act
@@ -56,6 +60,8 @@ namespace BackOnTrack.SharedResources.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "7")]
+        [TestProperty("Type", "Unit")]
         public void ExceptionIsThrownOnInvalidPassphrase()
         {
             //Arrange & Act
