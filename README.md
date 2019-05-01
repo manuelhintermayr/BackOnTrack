@@ -16,4 +16,25 @@ This is where “Back on Track” comes into play.
 
 ### Solution
 
-“Back on Track” is a Windows application that helps the involved user blocking certain websites and keeps him staying focused. You can block any website on a system level (**hosts file**). Alternatively, there is the possibility of enabling a specific website for a certain amount of time each day, or to redirect to another website (this is will be implemented by a system proxy [**proxy level**] or a browser extension [**browser level**]).
+“Back on Track” is a Windows application that helps the involved user blocking certain websites and keeps him staying focused. You can block any website on a system level (**hosts file**). Alternatively, there is the possibility of enabling a specific website for a certain amount of time each day, or to redirect to another website (this is will be implemented by a system proxy [**proxy level**].
+
+## License
+BackOnTrack uses the Microsoft Public License. See [LICENSE](https://github.com/manuelhintermayr/BackOnTrack/blob/master/LICENSE.MD) for details.
+
+## Demo
+### Video
+[![Back On Track Introduction](https://github.com/manuelhintermayr/BackOnTrack/blob/master/screenshots/video.gif)](https://youtu.be/iotXJcCK0BY)
+
+### Screenshots
+<p align="center">
+    <img src="https://github.com/manuelhintermayr/BackOnTrack/blob/master/screenshots/mainWindow_welcome.jpg" width="250">
+    <img src="https://github.com/manuelhintermayr/BackOnTrack/blob/master/screenshots/mainWindow_hostsEditor.jpg" width="250">
+</p>
+<p align="center">
+    <img src="https://github.com/manuelhintermayr/BackOnTrack/blob/master/screenshots/mainWindow_addNewProfile.jpg" width="250">
+    <img src="https://github.com/manuelhintermayr/BackOnTrack/blob/master/screenshots/mainWindow_LookAtSampleProfile.jpg" width="250">
+</p>
+<p align="center">
+    <img src="https://github.com/manuelhintermayr/BackOnTrack/blob/master/screenshots/mainWindow_editEntry.jpg" width="250">
+</p>
+
