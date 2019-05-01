@@ -25,6 +25,8 @@ namespace BackOnTrack.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "27")]
+        [TestProperty("Type", "Integration")]
         public void CheckIfMissingHostFileIsRecognized()
         {
             //Arrange
@@ -38,6 +40,8 @@ namespace BackOnTrack.Tests
         }
 
         [TestMethod]
+        [TestProperty("Number", "21")]
+        [TestProperty("Type", "Integration")]
         public void HostFileWasLoadedCorrect()
         {
             //Arrange

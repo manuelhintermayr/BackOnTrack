@@ -16,6 +16,8 @@ namespace BackOnTrack.Tests
     public class AddProfileTests : RunningApplicationTestBase
     {
         [TestMethod]
+        [TestProperty("Number", "18")]
+        [TestProperty("Type", "Integration")]
         public void CheckIfProfileNameIsAlreadyUsed() 
         {
             //Arrange
