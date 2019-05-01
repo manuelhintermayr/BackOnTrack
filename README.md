@@ -18,6 +18,8 @@ This is where “Back on Track” comes into play.
 
 “Back on Track” is a Windows application that helps the involved user blocking certain websites and keeps him staying focused. You can block any website on a system level (**hosts file**). Alternatively, there is the possibility of enabling a specific website for a certain amount of time each day, or to redirect to another website (this is will be implemented by a system proxy [**proxy level**].
 
+## License
+BackOnTrack uses the Microsoft Public License. See [LICENSE](https://github.com/manuelhintermayr/BackOnTrack/blob/master/LICENSE.MD) for details.
 
 ## Demo
 ### Video
