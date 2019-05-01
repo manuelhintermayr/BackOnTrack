@@ -21,18 +21,18 @@ This is where “Back on Track” comes into play.
 
 ## Demo
 ### Video
-[![Back On Track Introduction](https://raw.githubusercontent.com/manuelhintermayr/BackOnTrack/feature/screenshots/screenshots/video.gif)](https://youtu.be/iotXJcCK0BY)
+[![Back On Track Introduction](https://github.com/manuelhintermayr/BackOnTrack/blob/master/screenshots/video.gif)](https://youtu.be/iotXJcCK0BY)
 
 ### Screenshots
 <p align="center">
-    <img src="https://raw.githubusercontent.com/manuelhintermayr/BackOnTrack/feature/screenshots/screenshots/mainWindow_welcome.jpg" width="250">
-    <img src="https://raw.githubusercontent.com/manuelhintermayr/BackOnTrack/feature/screenshots/screenshots/mainWindow_hostsEditor.jpg" width="250">
+    <img src="https://github.com/manuelhintermayr/BackOnTrack/blob/master/screenshots/mainWindow_welcome.jpg" width="250">
+    <img src="https://github.com/manuelhintermayr/BackOnTrack/blob/master/screenshots/mainWindow_hostsEditor.jpg" width="250">
 </p>
 <p align="center">
-    <img src="https://raw.githubusercontent.com/manuelhintermayr/BackOnTrack/feature/screenshots/screenshots/mainWindow_addNewProfile.jpg" width="250">
-    <img src="https://raw.githubusercontent.com/manuelhintermayr/BackOnTrack/feature/screenshots/screenshots/mainWindow_LookAtSampleProfile.jpg" width="250">
+    <img src="https://github.com/manuelhintermayr/BackOnTrack/blob/master/screenshots/mainWindow_addNewProfile.jpg" width="250">
+    <img src="https://github.com/manuelhintermayr/BackOnTrack/blob/master/screenshots/mainWindow_LookAtSampleProfile.jpg" width="250">
 </p>
 <p align="center">
-    <img src="https://raw.githubusercontent.com/manuelhintermayr/BackOnTrack/feature/screenshots/screenshots/mainWindow_editEntry.jpg" width="250">
+    <img src="https://github.com/manuelhintermayr/BackOnTrack/blob/master/screenshots/mainWindow_editEntry.jpg" width="250">
 </p>
 
