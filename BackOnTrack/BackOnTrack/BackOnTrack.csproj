@@ -143,6 +143,9 @@
     <Compile Include="UI\MainView\Pages\Settings\SettingsGeneral.xaml.cs">
       <DependentUpon>SettingsGeneral.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\MainView\Pages\Settings\SettingsImageReminder.xaml.cs">
+      <DependentUpon>SettingsImageReminder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainView\Pages\Settings\SettingsWebProxy.xaml.cs">
       <DependentUpon>SettingsWebProxy.xaml</DependentUpon>
     </Compile>
@@ -199,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MainView\Pages\Settings\SettingsGeneral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Settings\SettingsImageReminder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

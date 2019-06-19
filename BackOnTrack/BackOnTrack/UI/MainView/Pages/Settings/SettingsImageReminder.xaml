@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="BackOnTrack.UI.MainView.Pages.Settings.SettingsImageReminder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BackOnTrack.UI.MainView.Pages.Settings"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <ScrollViewer>
+            <StackPanel x:Name="Panel" MinWidth="150">
+                <TextBlock Text="IMAGE REMINDER" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
+                <mui:BBCodeBlock xml:space="preserve" BBCode="This is the overall general configuration for the program. Changes here will be made only for the current user.
+                                 
+                                 [b]Changes are only active after the save button has been pressed.[/b]
+                                 " Margin="0,0,0,16"/>
+
+                <Grid HorizontalAlignment="Left">
+                    <CheckBox Content="Enabled" Margin="0,0,0,4" IsChecked="{Binding Path=AutoRunEnabled}" />
+                </Grid>
+                <StackPanel x:Name="Form" Orientation="Vertical">
+                    <StackPanel.Resources>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Orientation" Value="Horizontal" />
+                            <Setter Property="Margin" Value="0,10,0,5" />
+                        </Style>
+                        <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                            <Setter Property="Width" Value="130" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                        <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                            <Setter Property="Padding" Value="0,3" />
+                        </Style>
+                        <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
+                            <Setter Property="Padding" Value="0,3" />
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <StackPanel>
+                        <Label Content="Window Width" Target="{Binding ElementName=ProxyPortAddress}"/>
+                        <TextBox x:Name="WindowWidth" Width="150" Text="{Binding Path=ProxyPortNumber}" /> <!--PreviewTextInput="ProxyPortAddress_PreviewTextInput" TextChanged="ProxyPortAddress_TextChanged" />-->
+                    </StackPanel>
+
+                    <StackPanel>
+                        <Label Content="Window Height" Target="{Binding ElementName=ProxyPortAddress}"/>
+                        <TextBox x:Name="WindowHeight" Width="150" Text="{Binding Path=ProxyPortNumber}" /> <!--PreviewTextInput="ProxyPortAddress_PreviewTextInput" TextChanged="ProxyPortAddress_TextChanged" />-->
+                    </StackPanel>
+
+                    <StackPanel>
+                        <Label Content="Image" Target="{Binding ElementName=ProxyPortAddress}"/>
+                        <Button x:Name="SelectImageButton" Width="150">Select Image</Button>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <Label Content="Preview:" Target="{Binding ElementName=ProxyPortAddress}"/>
+                        <Image x:Name="Image" Width="150"></Image>
+                        
+                    </StackPanel>
+
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
