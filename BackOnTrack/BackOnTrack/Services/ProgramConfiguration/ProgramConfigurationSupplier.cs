@@ -82,7 +82,10 @@ namespace BackOnTrack.Services.ProgramConfiguration
             {
                 ProxyEnabled = false,
                 ProxyPortNumber = "8000",
-                AutoRunEnabled = true
+                AutoRunEnabled = true,
+                ImageReminderEnabled = false,
+                ImageReminderImageWidth = "200",
+                ImageReminderImageHeight = "400"
             };
             SaveConfiguration(Configuration);
         }

@@ -20,9 +20,13 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
     /// </summary>
     public partial class SettingsImageReminder : UserControl
     {
+        private RunningApplication _runningApplication;
+
         public SettingsImageReminder()
         {
+            _runningApplication = RunningApplication.Instance();
             InitializeComponent();
+            DataContext = _runningApplication.Services.ProgramConfiguration.TempConfiguration;
         }
     }
 }
