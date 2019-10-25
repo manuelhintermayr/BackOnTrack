@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace BackOnTrack.UI.MainView.Pages.Settings
 {
@@ -28,5 +29,22 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
             InitializeComponent();
             DataContext = _runningApplication.Services.ProgramConfiguration.TempConfiguration;
         }
+
+        private void SelectImageButton_OnClick(object sender, RoutedEventArgs e)
+        {
+			// open file dialog   
+			OpenFileDialog open = new OpenFileDialog();
+			open.Multiselect = false;
+			// image filters  
+			open.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
+			if (open.ShowDialog() == true)
+			{
+				String ok = open.SafeFileName;
+				//// display image in picture box  
+				//pictureBox1.Image = new Bitmap(open.FileName);
+				//// image file path  
+				//textBox1.Text = open.FileName;
+			}
+		}
     }
 }

@@ -49,7 +49,7 @@
 
                     <StackPanel>
                         <Label Content="Image" Target="{Binding ElementName=ProxyPortAddress}"/>
-                        <Button x:Name="SelectImageButton" Width="150">Select Image</Button>
+                        <Button x:Name="SelectImageButton" Width="150" Click="SelectImageButton_OnClick">Select Image</Button>
                     </StackPanel>
 
                     <StackPanel>
