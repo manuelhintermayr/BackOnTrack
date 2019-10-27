@@ -33,10 +33,20 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 		{
 			SaveButton1.IsEnabled = false;
 			SaveButton2.IsEnabled = false;
-			SaveButton3.IsEnabled = false;
+			//SaveButton3.IsEnabled = false;
 			SaveButton4.IsEnabled = false;
 			SaveButton5.IsEnabled = false;
 			SaveButton6.IsEnabled = false;
+		}
+
+		private void SaveButton_OnClick(object sender, RoutedEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
+
+		private void CancelButton_OnClick(object sender, RoutedEventArgs e)
+		{
+			_window.Close();
 		}
 	}
 }
