@@ -22,10 +22,12 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 	public partial class ImageReminderView : UserControl
 	{
 		private ModernWindow _window;
-		public ImageReminderView(ModernWindow wnd)
+		private ViewProfiles _baseView;
+		public ImageReminderView(ModernWindow wnd, ViewProfiles viewProfiles)
 		{
 			InitializeComponent();
 			_window = wnd;
+			_baseView = viewProfiles;
 			Setup();
 		}
 
@@ -41,7 +43,8 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
 		private void SaveButton_OnClick(object sender, RoutedEventArgs e)
 		{
-			throw new NotImplementedException();
+			_window.Close();
+			_baseView.SaveProfiles();
 		}
 
 		private void CancelButton_OnClick(object sender, RoutedEventArgs e)

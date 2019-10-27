@@ -85,7 +85,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 		        Width = 410,
 		        Height = 400
 	        };
-	        wnd.Content = new ImageReminderView(wnd);
+	        wnd.Content = new ImageReminderView(wnd, this);
 	        wnd.ResizeMode = ResizeMode.CanResize;
 	        wnd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 	        wnd.Closing += OnImageReminderWindowClosing;
