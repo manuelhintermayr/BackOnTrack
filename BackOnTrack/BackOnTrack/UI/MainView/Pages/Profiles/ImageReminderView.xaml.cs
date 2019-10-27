@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FirstFloor.ModernUI.Windows.Controls;
 
 namespace BackOnTrack.UI.MainView.Pages.Profiles
 {
@@ -20,9 +21,22 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 	/// </summary>
 	public partial class ImageReminderView : UserControl
 	{
-		public ImageReminderView()
+		private ModernWindow _window;
+		public ImageReminderView(ModernWindow wnd)
 		{
 			InitializeComponent();
+			_window = wnd;
+			Setup();
+		}
+
+		private void Setup()
+		{
+			SaveButton1.IsEnabled = false;
+			SaveButton2.IsEnabled = false;
+			SaveButton3.IsEnabled = false;
+			SaveButton4.IsEnabled = false;
+			SaveButton5.IsEnabled = false;
+			SaveButton6.IsEnabled = false;
 		}
 	}
 }
