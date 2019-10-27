@@ -51,5 +51,18 @@ namespace BackOnTrack.SharedResources.Infrastructure.Helpers
         {
             File.WriteAllText(filename, content);
         }
+
+        public static void DelteFileIfExists(string filePath)
+        {
+	        if (FileExists(filePath))
+	        {
+				File.Delete(filePath);
+	        }
+        }
+
+        public static void CopyFileFromOnPathToAnother(string oldFilePath, string newFilePath)
+        {
+	        File.Copy(oldFilePath, newFilePath);
+        }
     }
 }
