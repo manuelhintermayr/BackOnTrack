@@ -32,18 +32,22 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
 
         private void SelectImageButton_OnClick(object sender, RoutedEventArgs e)
         {
-			// open file dialog   
-			OpenFileDialog open = new OpenFileDialog();
+	        OpenFileDialog open = new OpenFileDialog();
 			open.Multiselect = false;
-			// image filters  
-			open.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
+			open.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
 			if (open.ShowDialog() == true)
 			{
-				String ok = open.SafeFileName;
-				//// display image in picture box  
-				//pictureBox1.Image = new Bitmap(open.FileName);
-				//// image file path  
-				//textBox1.Text = open.FileName;
+				String imageFile = open.FileName;
+				try
+				{
+					System.Drawing.Image img = System.Drawing.Image.FromFile(imageFile);
+					MessageBox.Show("Width: " + img.Width + ", Height: " + img.Height);
+				}
+				catch (Exception)
+				{
+					_runningApplication.UI.MainView.CreateAlertWindow("Error with image", $"There was a problem with the image file: " +
+					                                                                      $"{Environment.NewLine}{imageFile}");
+				}
 			}
 		}
     }

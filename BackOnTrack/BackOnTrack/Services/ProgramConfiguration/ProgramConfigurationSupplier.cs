@@ -106,6 +106,9 @@ namespace BackOnTrack.Services.ProgramConfiguration
             TempConfiguration.ProxyEnabled = Configuration.ProxyEnabled;
             TempConfiguration.ProxyPortNumber = Configuration.ProxyPortNumber;
             TempConfiguration.AutoRunEnabled = Configuration.AutoRunEnabled;
+            TempConfiguration.ImageReminderEnabled = Configuration.ImageReminderEnabled;
+            TempConfiguration.ImageReminderImageHeight = Configuration.ImageReminderImageHeight;
+            TempConfiguration.ImageReminderImageWidth = Configuration.ImageReminderImageWidth;
 
             LoadingConfiguration();
         }
@@ -115,6 +118,9 @@ namespace BackOnTrack.Services.ProgramConfiguration
             Configuration.ProxyEnabled = TempConfiguration.ProxyEnabled;
             Configuration.ProxyPortNumber = TempConfiguration.ProxyPortNumber;
             Configuration.AutoRunEnabled = TempConfiguration.AutoRunEnabled;
+            Configuration.ImageReminderEnabled = TempConfiguration.ImageReminderEnabled;
+            Configuration.ImageReminderImageHeight = TempConfiguration.ImageReminderImageHeight;
+            Configuration.ImageReminderImageWidth = TempConfiguration.ImageReminderImageWidth;
         }
 
 

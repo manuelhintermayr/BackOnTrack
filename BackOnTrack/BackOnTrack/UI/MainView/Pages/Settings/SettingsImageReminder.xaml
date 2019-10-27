@@ -11,13 +11,10 @@
         <ScrollViewer>
             <StackPanel x:Name="Panel" MinWidth="150">
                 <TextBlock Text="IMAGE REMINDER" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
-                <mui:BBCodeBlock xml:space="preserve" BBCode="This is the overall general configuration for the program. Changes here will be made only for the current user.
-                                 
-                                 [b]Changes are only active after the save button has been pressed.[/b]
-                                 " Margin="0,0,0,16"/>
+                <mui:BBCodeBlock xml:space="preserve" BBCode="This feature forces the user to see a certain image before being able to save the current enabled/disabled pages. This image can be used as a motivation in the times of need (e.g. when the user should study but automatically tries to disable the configuration ==> he/she will be reminded of the goal). The user will have to wait 10 seconds before being able to confirm the new configuration, this way he/she will be forced to really take a look at the image.                                 " Margin="0,0,0,16"/>
 
                 <Grid HorizontalAlignment="Left">
-                    <CheckBox Content="Enabled" Margin="0,0,0,4" IsChecked="{Binding Path=AutoRunEnabled}" />
+                    <CheckBox Content="Enabled" Margin="0,0,0,4" IsChecked="{Binding Path=ImageReminderEnabled}" />
                 </Grid>
                 <StackPanel x:Name="Form" Orientation="Vertical">
                     <StackPanel.Resources>
@@ -38,22 +35,22 @@
                     </StackPanel.Resources>
 
                     <StackPanel>
-                        <Label Content="Window Width" Target="{Binding ElementName=ProxyPortAddress}"/>
-                        <TextBox x:Name="WindowWidth" Width="150" Text="{Binding Path=ProxyPortNumber}" /> <!--PreviewTextInput="ProxyPortAddress_PreviewTextInput" TextChanged="ProxyPortAddress_TextChanged" />-->
+                        <Label Content="Window Width" Target="{Binding ElementName=ImageReminderImageWidth}"/>
+                        <TextBox x:Name="WindowWidth" Width="150" Text="{Binding Path=ImageReminderImageWidth}" /> 
                     </StackPanel>
 
                     <StackPanel>
-                        <Label Content="Window Height" Target="{Binding ElementName=ProxyPortAddress}"/>
-                        <TextBox x:Name="WindowHeight" Width="150" Text="{Binding Path=ProxyPortNumber}" /> <!--PreviewTextInput="ProxyPortAddress_PreviewTextInput" TextChanged="ProxyPortAddress_TextChanged" />-->
+                        <Label Content="Window Height" Target="{Binding ElementName=ImageReminderImageHeight}"/>
+                        <TextBox x:Name="WindowHeight" Width="150" Text="{Binding Path=ImageReminderImageHeight}" /> 
                     </StackPanel>
 
                     <StackPanel>
-                        <Label Content="Image" Target="{Binding ElementName=ProxyPortAddress}"/>
+                        <Label Content="Image"/>
                         <Button x:Name="SelectImageButton" Width="150" Click="SelectImageButton_OnClick">Select Image</Button>
                     </StackPanel>
 
                     <StackPanel>
-                        <Label Content="Preview:" Target="{Binding ElementName=ProxyPortAddress}"/>
+                        <Label Content="Preview:"/>
                         <Image x:Name="Image" Width="150"></Image>
                         
                     </StackPanel>
