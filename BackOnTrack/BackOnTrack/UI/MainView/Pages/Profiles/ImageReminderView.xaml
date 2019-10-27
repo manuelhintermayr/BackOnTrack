@@ -48,7 +48,7 @@
             <Grid Height="60" Width="Auto"  HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="130,30,147,0">
                 <mui:BBCodeBlock Margin="0,0,0,16" xml:space="preserve" x:Name="ActiveText">You still have to wait for 10 seconds.</mui:BBCodeBlock>
             </Grid>
-            <Grid Height="60" Width="280" HorizontalAlignment="Right" Margin="0,0,20,0">
+            <Grid Height="60" Width="80" HorizontalAlignment="Right" Margin="0,0,20,0">
                 <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" Click="CancelButton_OnClick" />
             </Grid>
         </Grid>

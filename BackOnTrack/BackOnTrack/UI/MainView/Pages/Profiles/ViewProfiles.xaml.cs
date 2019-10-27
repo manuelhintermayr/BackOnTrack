@@ -77,22 +77,29 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void SaveProfilesOkClick(object sender, RoutedEventArgs e)
         {
-	        var wnd = new ModernWindow
+	        if (_runningApplication.Services.ProgramConfiguration.TempConfiguration.ImageReminderEnabled)
 	        {
-		        Style = (Style)App.Current.Resources["BlankWindow"],
-		        Title = $"Just a little reminder...",
-		        IsTitleVisible = true,
-		        Width = 410,
-		        Height = 400
-	        };
-	        wnd.Content = new ImageReminderView(wnd, this);
-	        wnd.ResizeMode = ResizeMode.CanResize;
-	        wnd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-	        wnd.Closing += OnImageReminderWindowClosing;
-	        wnd.Show();
+		        var wnd = new ModernWindow
+		        {
+			        Style = (Style)App.Current.Resources["BlankWindow"],
+			        Title = $"Just a little reminder...",
+			        IsTitleVisible = true,
+			        Width = 410,
+			        Height = 400
+		        };
+		        wnd.Content = new ImageReminderView(wnd, this);
+		        wnd.ResizeMode = ResizeMode.CanResize;
+		        wnd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+		        wnd.Closing += OnImageReminderWindowClosing;
+		        wnd.Show();
 
-	        _runningApplication.UI.MainView.IsInEntryEditingMode = true;
-	        _runningApplication.UI.MainView.Hide();
+		        _runningApplication.UI.MainView.IsInEntryEditingMode = true;
+		        _runningApplication.UI.MainView.Hide();
+			}
+	        else
+	        {
+		        SaveProfiles();
+	        }
         }
 
         public void SaveProfiles()
