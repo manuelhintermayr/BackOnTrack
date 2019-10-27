@@ -133,6 +133,9 @@
     <Compile Include="UI\MainView\Pages\Profiles\EmptyView.xaml.cs">
       <DependentUpon>EmptyView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\MainView\Pages\Profiles\ImageReminderView.xaml.cs">
+      <DependentUpon>ImageReminderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainView\Pages\Profiles\ProfileLoader.cs" />
     <Compile Include="UI\MainView\Pages\Profiles\SpecificProfileView.xaml.cs">
       <DependentUpon>SpecificProfileView.xaml</DependentUpon>
@@ -178,6 +181,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MainView\Pages\Profiles\EmptyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MainView\Pages\Profiles\ImageReminderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
