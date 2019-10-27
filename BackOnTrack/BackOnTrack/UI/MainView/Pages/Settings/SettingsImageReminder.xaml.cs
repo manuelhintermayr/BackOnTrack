@@ -36,6 +36,7 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
             InitializeComponent();
             _configuration = _runningApplication.Services.ProgramConfiguration.TempConfiguration;
             DataContext = _configuration;
+            SetNewestImagePath();
         }
 
         private void SelectImageButton_OnClick(object sender, RoutedEventArgs e)
@@ -53,6 +54,7 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
 					_configuration.ImageReminderImageWidth = img.Width.ToString();
 					DeleteOldPictures();
 					CopyNewPicture();
+					SetNewestImagePath();
 				}
 				catch (Exception)
 				{
@@ -61,6 +63,56 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
 				}
 			}
 		}
+
+        private void SetNewestImagePath()
+        {
+	        string imagePath = "";
+	        if (FileModification.FileExists($"{_oldImagePath}.jpg"))
+	        {
+		        imagePath = $"{_oldImagePath}.jpg";
+	        } else if (FileModification.FileExists($"{_oldImagePath}.jpeg"))
+	        {
+		        imagePath = $"{_oldImagePath}.jpeg";
+			} else if (FileModification.FileExists($"{_oldImagePath}.gif"))
+	        {
+		        imagePath = $"{_oldImagePath}.gif";
+			} else if (FileModification.FileExists($"{_oldImagePath}.bmp"))
+	        {
+		        imagePath = $"{_oldImagePath}.bmp";
+			} else if (FileModification.FileExists($"{_oldImagePath}.png"))
+	        {
+		        imagePath = $"{_oldImagePath}.png";
+			}
+
+	        if (imagePath != "")
+	        {
+		        try
+		        {
+			        System.Drawing.Image img = System.Drawing.Image.FromFile(imagePath);
+			        var bmp = new BitmapImage();
+			        bmp.BeginInit();
+			        bmp.UriSource = new Uri(imagePath);
+			        bmp.EndInit();
+
+			        Image.Source = bmp;
+
+		        }
+		        catch (Exception)
+		        {
+					//image is broken
+			        Image.Source = null;
+			        _configuration.ImageReminderImageHeight = "0";
+			        _configuration.ImageReminderImageWidth = "0";
+		        }
+	        }
+	        else
+	        {
+				//image is not in folder
+		        Image.Source = null;
+		        _configuration.ImageReminderImageHeight = "0";
+		        _configuration.ImageReminderImageWidth = "0";
+			}
+        }
 
         private void DeleteOldPictures()
         {
