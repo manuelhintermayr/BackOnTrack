@@ -36,5 +36,6 @@ BackOnTrack uses the Microsoft Public License. See [LICENSE](https://github.com/
 </p>
 <p align="center">
     <img src="https://github.com/manuelhintermayr/BackOnTrack/blob/master/screenshots/mainWindow_editEntry.jpg" width="250">
+	<img src="https://github.com/manuelhintermayr/BackOnTrack/blob/master/screenshots/mainWindow_imageReminder.jpg" width="250">
 </p>
 
