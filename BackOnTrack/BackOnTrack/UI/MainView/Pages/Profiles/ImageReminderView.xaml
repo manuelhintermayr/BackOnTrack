@@ -19,8 +19,8 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        <Grid Height="120" VerticalAlignment="Bottom">
-            <StackPanel Orientation="Vertical" Margin="0,15,567,15">
+        <DockPanel Height="120" VerticalAlignment="Bottom">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="250" Margin="0,15,0,15">
                 <StackPanel Orientation="Horizontal">
                     <Grid Height="30" HorizontalAlignment="Left" Margin="16,0,0,0">
                         <Button x:Name="SaveButton1" Content="Save" Click="SaveButton_OnClick" />
@@ -44,13 +44,13 @@
                     </Grid>
                 </StackPanel>
             </StackPanel>
-            
-            <Grid Height="60" Width="Auto"  HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="130,30,147,0">
-                <mui:BBCodeBlock Margin="0,0,0,16" xml:space="preserve" x:Name="ActiveText">You still have to wait for 10 seconds.</mui:BBCodeBlock>
+
+            <Grid Height="60" Width="Auto" HorizontalAlignment="Center">
+                <mui:BBCodeBlock Margin="0,15,0,0" x:Name="ActiveText">You still have to wait for 10 seconds.</mui:BBCodeBlock>
             </Grid>
             <Grid Height="60" Width="80" HorizontalAlignment="Right" Margin="0,0,20,0">
                 <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" Click="CancelButton_OnClick" />
             </Grid>
-        </Grid>
+        </DockPanel>
     </Grid>
 </UserControl>
