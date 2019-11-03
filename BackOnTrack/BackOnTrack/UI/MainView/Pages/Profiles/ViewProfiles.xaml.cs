@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using BackOnTrack.Infrastructure.Exceptions;
 using FirstFloor.ModernUI.Presentation;
+using FirstFloor.ModernUI.Windows.Controls;
 
 namespace BackOnTrack.UI.MainView.Pages.Profiles
 {
@@ -75,38 +77,71 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void SaveProfilesOkClick(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                var newConfiguration = _runningApplication.UI.MainView.UserConfiguration;
-                string password = _runningApplication.UI.MainView.GetLoggedInPassword();
-                _runningApplication.Services.UserConfiguration.SaveConfiguration(newConfiguration, password);
+	        var conf = _runningApplication.Services.ProgramConfiguration.TempConfiguration;
 
-                _runningApplication.Services.UserConfiguration.ApplyUserConfigurationOnSystemLevel(newConfiguration);
-                _runningApplication.Services.UserConfiguration.ApplyUserConfigurationOnProxy(newConfiguration);
+			if (conf.ImageReminderEnabled)
+	        {
+		        var wnd = new ModernWindow
+		        {
+			        Style = (Style)App.Current.Resources["BlankWindow"],
+			        Title = $"Just a little reminder...",
+			        IsTitleVisible = true,
+			        Width = Int32.Parse(conf.ImageReminderImageWidth)<410 ? 410 : Int32.Parse(conf.ImageReminderImageWidth),
+			        Height = Int32.Parse(conf.ImageReminderImageHeight) < 400 ? 400 : Int32.Parse(conf.ImageReminderImageHeight),
+		        };
+		        wnd.Content = new ImageReminderView(wnd, this);
+		        wnd.ResizeMode = ResizeMode.CanResize;
+		        wnd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+		        wnd.Closing += OnImageReminderWindowClosing;
+		        wnd.Show();
 
-                UpdateList();
-                _runningApplication.UI.MainView.CreateAlertWindow("Saving complete",
-                    $"Profiles were successfully saved and loaded.{Environment.NewLine}{Environment.NewLine}For proxy blocking please make sure proxy is turned on in settings.");
-            }
-            catch (System.IO.IOException ex)
-            {
-                string alertTitle = "Error saving profiles.";
-                string alertContent =
-                    $"Could not save the profiles. Following error occured:{Environment.NewLine}{ex}";
-
-                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
-            }
-            catch (SystemLevelException ex)
-            {
-                string alertTitle = "Error with saving on SystemLevel";
-                string alertContent = ex.Message;
-
-                _runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
-            }
-
+		        _runningApplication.UI.MainView.IsInEntryEditingMode = true;
+		        _runningApplication.UI.MainView.Hide();
+			}
+	        else
+	        {
+		        SaveProfiles();
+	        }
         }
 
-        private void RevertChangesButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        public void SaveProfiles()
+        {
+			try
+			{
+				var newConfiguration = _runningApplication.UI.MainView.UserConfiguration;
+				string password = _runningApplication.UI.MainView.GetLoggedInPassword();
+				_runningApplication.Services.UserConfiguration.SaveConfiguration(newConfiguration, password);
+
+				_runningApplication.Services.UserConfiguration.ApplyUserConfigurationOnSystemLevel(newConfiguration);
+				_runningApplication.Services.UserConfiguration.ApplyUserConfigurationOnProxy(newConfiguration);
+
+				UpdateList();
+				_runningApplication.UI.MainView.CreateAlertWindow("Saving complete",
+					$"Profiles were successfully saved and loaded.{Environment.NewLine}{Environment.NewLine}For proxy blocking please make sure proxy is turned on in settings.");
+			}
+			catch (System.IO.IOException ex)
+			{
+				string alertTitle = "Error saving profiles.";
+				string alertContent =
+					$"Could not save the profiles. Following error occured:{Environment.NewLine}{ex}";
+
+				_runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
+			}
+			catch (SystemLevelException ex)
+			{
+				string alertTitle = "Error with saving on SystemLevel";
+				string alertContent = ex.Message;
+
+				_runningApplication.UI.MainView.CreateAlertWindow(alertTitle, alertContent);
+			}
+		}
+
+		public void OnImageReminderWindowClosing(object sender, CancelEventArgs e)
+        {
+	        _runningApplication.UI.MainView.Show();
+        }
+
+		private void RevertChangesButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             string alertTitle = "Revert changes";
             string alertContent =

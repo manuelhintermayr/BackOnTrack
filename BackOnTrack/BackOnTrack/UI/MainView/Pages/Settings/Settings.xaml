@@ -12,6 +12,7 @@
             <mui:ModernTab SelectedSource="/UI/MainView/Pages/Settings/SettingsGeneral.xaml" Layout="List">
                 <mui:ModernTab.Links>
                     <mui:Link DisplayName="General" Source="/UI/MainView/Pages/Settings/SettingsGeneral.xaml" />
+                    <mui:Link DisplayName="Image Reminder" Source="/UI/MainView/Pages/Settings/SettingsImageReminder.xaml" />
                     <mui:Link DisplayName="WebProxy" Source="/UI/MainView/Pages/Settings/SettingsWebProxy.xaml" />
                 </mui:ModernTab.Links>
             </mui:ModernTab>
