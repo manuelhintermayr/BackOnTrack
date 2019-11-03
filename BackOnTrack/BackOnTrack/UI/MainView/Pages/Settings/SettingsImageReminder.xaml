@@ -11,7 +11,7 @@
         <ScrollViewer>
             <StackPanel x:Name="Panel" MinWidth="150">
                 <TextBlock Text="IMAGE REMINDER" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
-                <mui:BBCodeBlock xml:space="preserve" BBCode="This feature forces the user to see a certain image before being able to save the current enabled/disabled pages. This image can be used as a motivation in the times of need (e.g. when the user should study but automatically tries to disable the configuration ==> he/she will be reminded of the goal). The user will have to wait 10 seconds before being able to confirm the new configuration, this way he/she will be forced to really take a look at the image.                                 " Margin="0,0,0,16"/>
+                <mui:BBCodeBlock xml:space="preserve" BBCode="This feature forces the user to see a certain image before being able to save the current enabled/disabled pages. This image can be used as a motivation in the times of need (e.g. when the user should study but automatically tries to disable the configuration ==> he/she will be reminded of the goal). The user will have to wait 10 seconds before being able to confirm the new configuration, this way he/she will be forced to really take a look at the image. (400x410 is min windows size)" Margin="0,0,0,16"/>
 
                 <Grid HorizontalAlignment="Left">
                     <CheckBox Content="Enabled" Margin="0,0,0,4" IsChecked="{Binding Path=ImageReminderEnabled}" />

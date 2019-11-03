@@ -77,15 +77,17 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
         private void SaveProfilesOkClick(object sender, RoutedEventArgs e)
         {
-	        if (_runningApplication.Services.ProgramConfiguration.TempConfiguration.ImageReminderEnabled)
+	        var conf = _runningApplication.Services.ProgramConfiguration.TempConfiguration;
+
+			if (conf.ImageReminderEnabled)
 	        {
 		        var wnd = new ModernWindow
 		        {
 			        Style = (Style)App.Current.Resources["BlankWindow"],
 			        Title = $"Just a little reminder...",
 			        IsTitleVisible = true,
-			        Width = 410,
-			        Height = 400
+			        Width = Int32.Parse(conf.ImageReminderImageWidth)<410 ? 410 : Int32.Parse(conf.ImageReminderImageWidth),
+			        Height = Int32.Parse(conf.ImageReminderImageHeight) < 400 ? 400 : Int32.Parse(conf.ImageReminderImageHeight),
 		        };
 		        wnd.Content = new ImageReminderView(wnd, this);
 		        wnd.ResizeMode = ResizeMode.CanResize;

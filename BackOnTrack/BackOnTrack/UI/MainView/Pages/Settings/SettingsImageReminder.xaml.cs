@@ -50,8 +50,6 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
 				try
 				{
 					System.Drawing.Image img = System.Drawing.Image.FromFile(_newImagePath);
-					_configuration.ImageReminderImageHeight = img.Height.ToString();
-					_configuration.ImageReminderImageWidth = img.Width.ToString();
 					DeleteOldPictures();
 					CopyNewPicture();
 					SetNewestImagePath();
@@ -101,17 +99,13 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
 		        {
 					//image is broken
 			        Image.Source = null;
-			        _configuration.ImageReminderImageHeight = "0";
-			        _configuration.ImageReminderImageWidth = "0";
 		        }
 	        }
 	        else
 	        {
 				//image is not in folder
 		        Image.Source = null;
-		        _configuration.ImageReminderImageHeight = "0";
-		        _configuration.ImageReminderImageWidth = "0";
-			}
+	        }
         }
 
         private void DeleteOldPictures()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,11 +28,13 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 		private ViewProfiles _baseView;
 		private RunningApplication _runningApplication;
 		private CurrentProgramConfiguration _configuration;
+		private bool _userCancelledAction;
 		private string _oldImagePath = $"{RunningApplication.ProgramSettingsPath()}\\.backOnTrack\\imageReminder";
 		public ImageReminderView(ModernWindow wnd, ViewProfiles viewProfiles)
 		{
 			_runningApplication = RunningApplication.Instance();
 			InitializeComponent();
+			_userCancelledAction = false;
 			_window = wnd;
 			_baseView = viewProfiles;
 			_configuration = _runningApplication.Services.ProgramConfiguration.TempConfiguration;
@@ -42,11 +45,68 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 		{
 			SaveButton1.IsEnabled = false;
 			SaveButton2.IsEnabled = false;
-			//SaveButton3.IsEnabled = false;
+			SaveButton3.IsEnabled = false;
 			SaveButton4.IsEnabled = false;
 			SaveButton5.IsEnabled = false;
 			SaveButton6.IsEnabled = false;
 			SetNewestImagePath();
+			StartCounter();
+		}
+
+		private void StartCounter()
+		{
+			Task.Factory.StartNew(() =>
+			{
+				for (int i = 10; i > 0; i--)
+				{
+					if (_userCancelledAction)
+					{
+						break;
+					}
+					InvokeUI(() => ActiveText.BBCode=$"You still have to wait for {i} seconds.");
+					Thread.Sleep(1000);
+				}
+
+				if (!_userCancelledAction)
+				{
+					InvokeUI(() => ActiveText.BBCode = "");
+					EnableRandomSaveButton();
+				}
+			}, TaskCreationOptions.LongRunning);
+		}
+
+		private void EnableRandomSaveButton()
+		{
+			Random r = new Random();
+			int rInt = r.Next(1, 6);
+
+			switch (rInt)
+			{
+				case 1: 
+					InvokeUI(() => SaveButton1.IsEnabled = true);
+					break;
+				case 2:
+					InvokeUI(() => SaveButton2.IsEnabled = true);
+					break;
+				case 3:
+					InvokeUI(() => SaveButton3.IsEnabled = true);
+					break;
+				case 4:
+					InvokeUI(() => SaveButton4.IsEnabled = true);
+					break;
+				case 5:
+					InvokeUI(() => SaveButton5.IsEnabled = true);
+					break;
+				case 6:
+				default:
+					InvokeUI(() => SaveButton6.IsEnabled = true);
+					break;
+			}
+		}
+
+		private void InvokeUI(Action action)
+		{
+			Dispatcher.Invoke(action);
 		}
 
 		private void SetNewestImagePath()
@@ -90,16 +150,12 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 				{
 					//image is broken
 					imageToRemind.Source = null;
-					_configuration.ImageReminderImageHeight = "0";
-					_configuration.ImageReminderImageWidth = "0";
 				}
 			}
 			else
 			{
 				//image is not in folder
 				imageToRemind.Source = null;
-				_configuration.ImageReminderImageHeight = "0";
-				_configuration.ImageReminderImageWidth = "0";
 			}
 		}
 
@@ -111,6 +167,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 
 		private void CancelButton_OnClick(object sender, RoutedEventArgs e)
 		{
+			_userCancelledAction = true;
 			_window.Close();
 		}
 	}
