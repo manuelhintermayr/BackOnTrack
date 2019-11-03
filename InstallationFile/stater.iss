@@ -7,13 +7,13 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{1C936F13-8A8D-4D98-A42F-99FB392BF58F}
 AppName=Back On Track
-AppVersion=1.0
+AppVersion=1.0.1
 AppPublisher=Manuelweb
 DefaultDirName={pf}\BackOnTrack 
 DisableDirPage=yes
 DefaultGroupName=Back On Track 
 AllowNoIcons=yes
-OutputBaseFilename=backOnTrack_v1.0_setup
+OutputBaseFilename=backOnTrack_v1.0.1_setup
 SetupIconFile=logo.ico
 Compression=lzma
 SolidCompression=yes
@@ -41,13 +41,14 @@ Name: "help"; Description: "Desktop.ini"; Types: full
 
 [Files]
 Source: "BackOnTrack.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "logo.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "BackOnTrack.exe.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "BackOnTrack.SharedResources.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "BackOnTrack.SystemLevelModification.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "BackOnTrack.WebProxy.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "BouncyCastle.Crypto.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "FirstFloor.ModernUI.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "FluentAssertions.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "logo.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Microsoft.VisualStudio.CodeCoverage.Shim.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll"; DestDir: "{app}"; Flags: ignoreversion
