@@ -51,7 +51,7 @@
 
                     <StackPanel>
                         <Label Content="Preview:"/>
-                        <Image x:Name="Image" Width="150"></Image>
+                        <Image x:Name="ImageDisplayed" Width="150"></Image>
                         
                     </StackPanel>
 

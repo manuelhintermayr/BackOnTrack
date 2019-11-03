@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ using System.Windows.Shapes;
 using BackOnTrack.Services.SystemLevelConfiguration;
 using BackOnTrack.SharedResources.Infrastructure.Helpers;
 using Microsoft.Win32;
+using Image = System.Drawing.Image;
 using Path = System.IO.Path;
 
 namespace BackOnTrack.UI.MainView.Pages.Settings
@@ -47,14 +49,16 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
 			if (open.ShowDialog() == true)
 			{
 				_newImagePath = open.FileName;
+
 				try
 				{
 					System.Drawing.Image img = System.Drawing.Image.FromFile(_newImagePath);
+					ImageDisplayed.Source = null;
 					DeleteOldPictures();
 					CopyNewPicture();
 					SetNewestImagePath();
 				}
-				catch (Exception)
+				catch (Exception err)
 				{
 					_runningApplication.UI.MainView.CreateAlertWindow("Error with image", $"There was a problem with the image file: " +
 					                                                                      $"{Environment.NewLine}{_newImagePath}");
@@ -62,7 +66,12 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
 			}
 		}
 
-        private void SetNewestImagePath()
+        private void InvokeUI(Action action)
+        {
+	        Dispatcher.Invoke(action);
+        }
+
+		private void SetNewestImagePath()
         {
 	        string imagePath = "";
 	        if (FileModification.FileExists($"{_oldImagePath}.jpg"))
@@ -86,29 +95,37 @@ namespace BackOnTrack.UI.MainView.Pages.Settings
 	        {
 		        try
 		        {
-			        System.Drawing.Image img = System.Drawing.Image.FromFile(imagePath);
-			        var bmp = new BitmapImage();
-			        bmp.BeginInit();
-			        bmp.UriSource = new Uri(imagePath);
-			        bmp.EndInit();
-
-			        Image.Source = bmp;
-
+			        ImageDisplayed.Source = GetImageByStream(imagePath);
 		        }
 		        catch (Exception)
 		        {
 					//image is broken
-			        Image.Source = null;
+					ImageDisplayed.Source = null;
 		        }
 	        }
 	        else
 	        {
 				//image is not in folder
-		        Image.Source = null;
+				ImageDisplayed.Source = null;
 	        }
         }
 
-        private void DeleteOldPictures()
+		private static BitmapImage GetImageByStream(string fileName)
+		{
+			//got part from https://stackoverflow.com/questions/18167280/image-file-copy-is-being-used-by-another-process
+			using (var stream = new FileStream(fileName, FileMode.Open))
+			{
+				var bitmapImage = new BitmapImage();
+				bitmapImage.BeginInit();
+				bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+				bitmapImage.StreamSource = stream;
+				bitmapImage.EndInit();
+				bitmapImage.Freeze();
+				return bitmapImage;
+			}
+		}
+
+		private void DeleteOldPictures()
         {
 	        FileModification.DelteFileIfExists($"{_oldImagePath}.jpg");
 			FileModification.DelteFileIfExists($"{_oldImagePath}.jpeg");
