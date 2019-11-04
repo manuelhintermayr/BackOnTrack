@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -128,14 +129,7 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 			{
 				try
 				{
-					System.Drawing.Image img = System.Drawing.Image.FromFile(imagePath);
-					var bmp = new BitmapImage();
-					bmp.BeginInit();
-					bmp.UriSource = new Uri(imagePath);
-					bmp.EndInit();
-
-					imageToRemind.Source = bmp;
-
+					imageToRemind.Source = GetImageByStream(imagePath);
 				}
 				catch (Exception)
 				{
@@ -147,6 +141,21 @@ namespace BackOnTrack.UI.MainView.Pages.Profiles
 			{
 				//image is not in folder
 				imageToRemind.Source = null;
+			}
+		}
+
+		private static BitmapImage GetImageByStream(string fileName)
+		{
+			//got part from https://stackoverflow.com/questions/18167280/image-file-copy-is-being-used-by-another-process
+			using (var stream = new FileStream(fileName, FileMode.Open))
+			{
+				var bitmapImage = new BitmapImage();
+				bitmapImage.BeginInit();
+				bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+				bitmapImage.StreamSource = stream;
+				bitmapImage.EndInit();
+				bitmapImage.Freeze();
+				return bitmapImage;
 			}
 		}
 
